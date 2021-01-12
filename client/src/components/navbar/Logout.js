@@ -1,7 +1,10 @@
 /** @jsx jsx */
-
-import {css, jsx} from "@emotion/core";
-import {logout} from "../../utils/authService";
+import React from 'react'
+import { css, jsx } from "@emotion/core";
+import { logout } from "../../utils/authService";
+import { Mobile, Desktop } from '../../utils/responsiveUI'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignOutAlt as signoutIcon } from '@fortawesome/free-solid-svg-icons'
 
 // logout button
 function Logout() {
@@ -28,9 +31,21 @@ function Logout() {
   }
 
   return (
-    <button className="logout-button" css={style} onClick={() => logoutUser()}>
-      Log Out
-    </button>
+
+    <React.Fragment>
+      <Desktop>
+        <button className="logout-button" css={style} onClick={() => logoutUser()}>
+          Log Out
+       </button>
+      </Desktop>
+      <Mobile>
+        <FontAwesomeIcon icon={signoutIcon} size='lg' />
+      </Mobile>
+    </React.Fragment>
+
+
+
+
   );
 
 }

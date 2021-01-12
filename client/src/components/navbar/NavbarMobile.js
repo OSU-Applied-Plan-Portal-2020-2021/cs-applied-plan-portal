@@ -8,14 +8,17 @@ import Notifications from "./Notifications";
 import History from "./History";
 import Logout from "./Logout";
 import { getProfile } from "../../utils/authService";
-import { useEffect, useState } from "react";
+import react, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 // application navigation bar
 function Navbar(props) {
 
   // role and function to set role, default to 0 (Student)
   const [role, setRole] = useState(0);
+  const [menuOpen, setmenuOpen] = useState(false)
 
   // retrieve the logged in user and set role accordingly
   // if user cannot be retrieved, default to the student role
@@ -92,28 +95,11 @@ function Navbar(props) {
   `;
 
   return (
-    <div id="navbar" className="navbar-parent" css={style}>
-      <Link to={"/"}>
-        <p className="osu-logo">OSU CS Applied Plan Portal</p>
-      </Link>
-      <div className="right-container">
-        {role ? <History currentPlan={props.currentPlan} /> : null}
-        <Notifications />
-        {role === 2 ? (
-          <Link to={"/manageRoles"}>
-            <button id="manage-roles-button">Manage Roles</button>
-          </Link>
-        ) : (
-            null
-          )}
-        {role === 2 ? (
-          <UpdateCourses />
-        ) : (
-            null
-          )}
-        <Logout />
-      </div>
+
+    <div id="navbar" className="navbar-parent">
+      <FontAwesomeIcon icon={faBars} size='2x' />
     </div>
+
   );
 
 }

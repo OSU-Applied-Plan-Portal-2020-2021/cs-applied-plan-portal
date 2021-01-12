@@ -1,10 +1,12 @@
 /** @jsx jsx */
 
-import {useState, useEffect} from "react";
-import {css, jsx} from "@emotion/core";
-import {Link} from "react-router-dom";
-import {withRouter} from "react-router-dom";
-
+import { useState, useEffect } from "react";
+import { css, jsx } from "@emotion/core";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { Mobile, Desktop } from '../../utils/responsiveUI'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBell as bellIcon } from '@fortawesome/free-solid-svg-icons'
 // dropdown menu that shows notifications
 function Notifications() {
 
@@ -173,9 +175,14 @@ function Notifications() {
   return (
     <div className="notification-dropdown" css={style}>
       <button className="drop-button-notification" data-count={notifications.length}>
-        Notifications
+        <Desktop>
+          Notifications
+        </Desktop>
+        <Mobile>
+          <FontAwesomeIcon icon={bellIcon} size='lg' />
+        </Mobile>
         <span className="badge" >
-          {notifications.length ? notifications.length : null }
+          {notifications.length ? notifications.length : null}
         </span>
         <i className="fa fa-caret-down" />
       </button>
@@ -188,10 +195,10 @@ function Notifications() {
             </Link>
           ))
         ) : (
-          <Link to={`.`} onClick={(event) => event.preventDefault()}>
-            <p>No new notifications</p>
-          </Link>
-        )}
+            <Link to={`.`} onClick={(event) => event.preventDefault()}>
+              <p>No new notifications</p>
+            </Link>
+          )}
       </div>
     </div>
   );

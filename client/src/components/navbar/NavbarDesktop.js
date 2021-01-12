@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // application navigation bar
-function Navbar(props) {
+function NavbarDesktop(props) {
 
   // role and function to set role, default to 0 (Student)
   const [role, setRole] = useState(0);
@@ -117,8 +117,8 @@ function Navbar(props) {
   );
 
 }
-export default withRouter(Navbar);
+export default withRouter(NavbarDesktop);
 
-Navbar.propTypes = {
+NavbarDesktop.propTypes = {
   currentPlan: PropTypes.number
 };

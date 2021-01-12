@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive'
 
 const SCREENWIDTH = {
   DESKTOP: {
-    MIN: '992'
+    MIN: 992
   },
   TABLET: {
     MIN: 768,
@@ -12,9 +12,7 @@ const SCREENWIDTH = {
   MOBILE: {
     MAX: 767
   },
-  NOTMOBILE: {
-    MIN: 768
-  }
+
 }
 
 
