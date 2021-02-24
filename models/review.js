@@ -23,6 +23,8 @@ async function createReview(planId, userId, status) {
     // send out notifications about the new status
     planNotification(planId, userId, 2);
 
+    // create and send email for status of plan
+
     const obj = {
       insertId: reviewId,
       time: time

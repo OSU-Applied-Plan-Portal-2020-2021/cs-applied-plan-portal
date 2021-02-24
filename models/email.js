@@ -38,7 +38,14 @@ async function createEmail(text, userId){
         to: `${user.email}`,
         subject: "New OSU Applied Plan Notification",
         text: `${text}`,
-        html: `<h1>${text}</h1>`
+        html: `<b>${text}</b>`+'<br>More details and what not!</br><br><img src="cid:uniq-beavsLogo.png" alt="beavsLogo"/></br>',
+        attachments: [
+            {
+                filename: 'beavsLogo.png',
+                path: 'client/public/beavsLogo.png',
+                cid: 'uniq-beavsLogo.png'
+            }
+        ]
     };
 
     transport.sendMail(formatMail, (err, info) => {
@@ -49,3 +56,31 @@ async function createEmail(text, userId){
     })
 }
 exports.createEmail = createEmail;
+
+async function reviewEmail(text, userId, status){
+
+    const user = await userModel.getUserById(userId);
+
+    var formatMail = {
+        from: 'escotom@oregonstate.edu',
+        to: `${user.email}`,
+        subject: "New OSU Applied Plan Notification",
+        text: `${text}`,
+        html: '<b></b>',
+        attachments: [
+            {
+                filename: 'beavsLogo.png',
+                path: './client/public/beavsL.png',
+                cid: 'uniq-beavsLogo.png'
+            }
+        ]
+    };
+
+    transport.sendMail(formatMail, (err, info) => {
+        if(err) {
+            return console.log(err);
+        }
+        console.log('message sent: %s', user.email);
+    })
+}
+exports.reviewEmail = reviewEmail;
