@@ -1,5 +1,6 @@
 // File: email.js
 // Description: data functions that handle email notifications
+const { formatStatus } = require("../services/format/format");
 const userModel = require("./user");
 var nodemailer = require('nodemailer');
 
@@ -57,7 +58,8 @@ async function createEmail(text, userId){
 }
 exports.createEmail = createEmail;
 
-async function reviewEmail(text, userId, status){
+/*
+async function reviewEmail(text, userId){
 
     const user = await userModel.getUserById(userId);
 
@@ -84,3 +86,4 @@ async function reviewEmail(text, userId, status){
     })
 }
 exports.reviewEmail = reviewEmail;
+*/

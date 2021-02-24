@@ -3,7 +3,7 @@
 
 const {pool} = require("../services/db/mysqlPool");
 const {formatStatus} = require("../services/format/format");
-
+const { createEmail } = require("./email");
 // get all notifications owned by a user
 async function getNotifications(userId) {
 
@@ -54,12 +54,12 @@ async function createNotification(planId, userId, type, status, planName, actorN
     if (type === 1) {
 
       text = `${actorName} has added a new comment to the plan "${planName}".`;
-
+      createEmail(text, userId);
     } else {
 
       const statusString = formatStatus(status);
       text = `The plan "${planName}" has been set to "${statusString}" by ${actorName}.`;
-
+      createEmail(text, userId);
     }
 
     // prevent duplicate notifications from being created by
