@@ -1,8 +1,11 @@
 // File: comment.js
 // Description: data functions that handle comments
 
-const {pool} = require("../services/db/mysqlPool");
-const {planNotification} = require("./notification");
+const { pool } = require("../services/db/mysqlPool");
+const { planNotification } = require("./notification");
+const { createEmail } = require("./email");
+
+const userModel = require("./user");
 
 // create a new comment
 async function createComment(planId, userId, text) {
@@ -14,6 +17,8 @@ async function createComment(planId, userId, text) {
     let results = await pool.query(sql, [planId, userId, text]);
     const commentId = results[0].insertId;
 
+
+
     // get the time that the comment was created
     sql = "SELECT time FROM Comment WHERE commentId=?;";
     results = await pool.query(sql, [commentId]);
@@ -21,6 +26,11 @@ async function createComment(planId, userId, text) {
 
     // send out notifications about the new comment
     planNotification(planId, userId, 1);
+
+    //const user = await userModel.getUserById(userId);
+
+    //console.log(`CHECKING: User Id: ${user.userId} User Email Address: (${user.email})`);
+    createEmail(text, userId);
 
     const obj = {
       insertId: commentId,
