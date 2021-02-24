@@ -27,9 +27,9 @@ async function createComment(planId, userId, text) {
     // send out notifications about the new comment
     planNotification(planId, userId, 1);
 
-    //const user = await userModel.getUserById(userId);
-
-    //console.log(`CHECKING: User Id: ${user.userId} User Email Address: (${user.email})`);
+    console.log(`CHECKING: User Id: ${user.userId} User Email Address: (${user.email})`);
+    
+    // create and send email based on text and userId that is passed to createComment
     createEmail(text, userId);
 
     const obj = {
