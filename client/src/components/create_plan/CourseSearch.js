@@ -34,7 +34,7 @@ function CourseContainer(props) {
     inset                : "103px 0px 0px 0px",
     border               : "1px solid transparent",
     background           :  "transparent",
-    margin               : "10px",
+    margin               : "0px",
     padding              : "0px",
     height               : "80vh",
     borderRadius         : "0px",
@@ -43,13 +43,14 @@ function CourseContainer(props) {
   button : {
     background            : "#e7501c",
     position              : "relative",
-    top                   : "-5%",
-    left                  : "84vw",
+    top                   : "-3vh",
     border                : "1px solid transparent",
     borderRadius          : "6px",
     color                 : "white",
-    fontSize              : "3.5vh",
-    padding               : "0px 10px"
+    fontSize              : "3rem",
+    padding               : "0px 10px",
+    margin                : "1% 4%",
+    float                 : "right"
   },
   fontOfButton : {
     position              : "relative",
@@ -59,7 +60,10 @@ function CourseContainer(props) {
     overflow              : "scroll",
     height                : "87%",
     position              : "relative",
-    top                   : "21px"
+    width                 : "93vw",
+    margin                : "0 3%"
+
+
 
   },
   errorMessage : {
@@ -89,6 +93,7 @@ function CourseContainer(props) {
         grid-gap: 5px;
         position: absolute;
         height: auto;
+        padding: 0px 5px 0px 5px;
       }
     }
     
