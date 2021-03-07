@@ -1,17 +1,20 @@
 /** @jsx jsx */
 
-import {css, jsx} from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
+import {
+  SCREENWIDTH,
+  MOBILE_WIDTH,
+  BOX_SHADOW_CARD,
+} from "../../utils/constants";
 
 // search form for plans
 function FindPlans(props) {
-
   const style = css`
-
     & {
       padding: 10px;
       border-radius: 0.5rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: ${BOX_SHADOW_CARD};
       background: white;
       margin: 25px auto;
       width: 50%;
@@ -53,26 +56,33 @@ function FindPlans(props) {
     }
 
     .advisor-plan-filter {
-      display:inline-block;
+      display: inline-block;
       width: 100%;
       border: 1px solid var(--color-lightgray-600);
       border-radius: 0.5rem;
       padding: 1rem 1rem;
       flex: 100%;
     }
-    
+
+    #select-status {
+      background-color: white;
+    }
+
+    @media screen and (max-width: ${SCREENWIDTH.MOBILE.MAX}px) {
+      & {
+        width: ${MOBILE_WIDTH};
+      }
+    }
   `;
 
   // performs a new plan search when the form is submitted
   function submitHandler(e) {
-
     // prevent the default behavior of the form button
     e.preventDefault();
-
     // perform a new search for plans
     const newCursor = {
       primary: "null",
-      secondary: "null"
+      secondary: "null",
     };
 
     props.onSearch(newCursor);
@@ -80,19 +90,23 @@ function FindPlans(props) {
 
   return (
     <div id="plan-search-container" css={style}>
-
       <h2>Search Plans</h2>
 
-      <form id="search-form" onSubmit={e => submitHandler(e)}>
-        <input type="text" id="input-search" />
-        <button id="search-plan-button">
-          Search
-        </button>
+      <form id="search-form" onSubmit={(e) => submitHandler(e)}>
+        <input
+          type="text"
+          id="input-search"
+          placeholder="search for plans..."
+        />
+        <button id="search-plan-button">Search</button>
       </form>
 
       <div id="filter-container">
-
-        <select id="select-status" className="advisor-plan-filter" defaultValue={"5"}>
+        <select
+          id="select-status"
+          className="advisor-plan-filter"
+          defaultValue={"5"}
+        >
           <option value="5">Any Status</option>
           <option value="2">Awaiting Review</option>
           <option value="3">Awaiting Final Review</option>
@@ -100,16 +114,13 @@ function FindPlans(props) {
           <option value="4">Accepted</option>
           <option value="0">Rejected</option>
         </select>
-
       </div>
-
     </div>
   );
-
 }
 export default FindPlans;
 
 FindPlans.propTypes = {
   history: PropTypes.object,
-  onSearch: PropTypes.func
+  onSearch: PropTypes.func,
 };

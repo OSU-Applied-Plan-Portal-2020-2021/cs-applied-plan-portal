@@ -2,10 +2,14 @@
 
 import PropTypes from "prop-types";
 import {css, jsx} from "@emotion/core";
+import { Mobile,Desktop } from "../../utils/responsiveUI";
+import {SCREENWIDTH} from "../../utils/constants";
+import ErrorMessage from "../general/ErrorMessage";
 
 // a single course description
 function Course(props) {
 
+  const width = SCREENWIDTH.MOBILE.MAX;
   const style = css`
 
     & {
@@ -14,6 +18,9 @@ function Course(props) {
       padding: 1rem;
       border-radius: 0.5rem;
       margin-right: 1rem;
+      @media(max-width: ${width}px){
+        margin-right: 0;
+      }
     }
 
     .add-button {
@@ -115,6 +122,7 @@ function Course(props) {
 
   return (
     <div className="course" css={style}>
+      
       <details>
         <summary>
           <div className="course-title">{props.courseName}
@@ -124,7 +132,15 @@ function Course(props) {
               </small>
             </div>
           </div>
-          <button className={`add-button ${props.restriction > 0 ? "disabled" : ""}`} onClick={addButton}>Add to plan</button>
+          <button className={`add-button ${props.restriction > 0 ? "disabled" : ""}`} onClick={addButton}>
+          <Desktop>
+            Add to plan
+          </Desktop>
+          <Mobile>
+            <i class="fas fa-plus"></i>
+          </Mobile>
+            
+          </button>
         </summary>
         <p>{props.credits} credit hour{props.credits !== 1 && "s"}{props.prerequisites === "" && ", no prerequisites"}</p>
         {props.description !== "" &&
@@ -156,5 +172,6 @@ Course.propTypes = {
   description: PropTypes.string,
   prerequisites: PropTypes.string,
   restriction: PropTypes.number,
-  onAddCourse: PropTypes.func
+  onAddCourse: PropTypes.func,
+  warning: PropTypes.string
 };
