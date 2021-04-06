@@ -159,7 +159,7 @@ function Navbar(props) {
           <img className="logo-img" src={logo} />
           <div className="logo-text">
             <p id="logo-title">OSU CS</p>
-            <p id="logo-title2">Applied Plan</p>
+            <p id="logo-title2">TESTING CI/CD</p>
           </div>
         </div>
       </Link>
