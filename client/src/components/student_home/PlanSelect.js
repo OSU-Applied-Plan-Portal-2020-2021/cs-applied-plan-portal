@@ -52,6 +52,7 @@ function PlanSelect(props) {
         @media screen and (max-width: 600px) {
             .option {
                 width: 70%;
+                line-height: 80%;
             }
 
             .header {
