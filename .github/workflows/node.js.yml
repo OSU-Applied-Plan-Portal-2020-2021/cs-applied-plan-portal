@@ -1,0 +1,32 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: OSU Applied Plan Portal CI/CD
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: AWS SSM Send-Command
+        uses: peterkimzz/aws-ssm-send-command@master
+        id: ssm
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          instance-ids: ${{ secrets.INSTANCE_ID }}
+        
+          working-directory: /home/ubuntu/dev/cs-applied-plan-portal
+          command: /bin/sh ./deploy.sh
+          comment: Deploying from master
+
+      # Catch SSM outputs
+      - name: Get the outputs
+        run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
