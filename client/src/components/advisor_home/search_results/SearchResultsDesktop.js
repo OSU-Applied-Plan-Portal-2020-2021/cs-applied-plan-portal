@@ -24,6 +24,8 @@ function SearchResultsDesktop({
   },
   goToPlan,
 }) {
+
+  const width = SCREENWIDTH.MOBILE.MAX;
   const desktopStyle = css`
 
     & {
@@ -83,6 +85,7 @@ function SearchResultsDesktop({
     table tbody tr td {
       vertical-align: middle;
       padding: 1rem 2rem;
+      
     }
 
     table tbody tr {

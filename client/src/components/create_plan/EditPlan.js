@@ -73,6 +73,7 @@ function EditPlan(props) {
         height: 98%;
         overflow: auto;
         grid-template-columns: auto;
+        grid-template-rows: auto 1fr auto;
         padding: 0px 5px 0px 5px;
       }
     }
@@ -91,9 +92,9 @@ function EditPlan(props) {
       border-radius: 0.5rem;
       border: 1.5px solid #dfdad8;
       @media(max-width: ${width}px){
-          width: 75vw;
-          height: 45px;
-          max-width: 72%;
+          width: 90%;
+          height: 34px;
+          font-size: 20px;
       }
     }
     
@@ -107,17 +108,26 @@ function EditPlan(props) {
       font-weight: bold;
       @media(max-width: ${width}px){
           margin: 0px 10px;
-          width: 32%;
+         
+          display:block;
+          height: fit-content;
       }
       
     }
     
     #credits-count {
       font-size: 18px;
+      @media(max-width: ${width}px){
+          font-size: 14px;
+      }
     }
     
     #credits-label {
       font-size: 14px;
+
+      @media(max-width: ${width}px){
+        font-size: 12px;
+      }
     }
     
     #submit {

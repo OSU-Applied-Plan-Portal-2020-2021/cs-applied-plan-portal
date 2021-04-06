@@ -14,8 +14,8 @@ function PlanCourse(props) {
 
     td.button{
       @media(max-width: ${width}px){
-        position: relative;
-        right: 10px;;
+        // position: relative;
+        // right: 10px;
       }
     }
 
