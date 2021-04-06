@@ -55,9 +55,11 @@ export default function StudentCreatePlan() {
               'navbar'
               'search'
               'plan ';
-          grid-template-rows: 81px 94px auto;
+          grid-template-rows: 81px 78px auto;
           grid-template-columns: auto;
           grid-row-gap: 0;
+          width: auto;
+          height: auto;
       }
     }
     

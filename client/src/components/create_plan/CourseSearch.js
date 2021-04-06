@@ -85,12 +85,12 @@ function CourseContainer(props) {
                           'results  results';
       @media(max-width: ${width}px){
         grid-template-columns: 96vw;
-        grid-template-rows: 40px 43px auto;
+        grid-template-rows: 35px 35px auto;
         grid-template-areas:
             'filter'
             'search'
             'results';
-        grid-gap: 5px;
+        grid-gap: 2px;
         position: absolute;
         height: auto;
         padding: 0px 5px 0px 5px;
@@ -120,6 +120,7 @@ function CourseContainer(props) {
       border: none;
       @media(max-width: ${width}px){
         padding: 0px 12px;
+        height: 34px;
       }
     }
     
@@ -149,7 +150,8 @@ function CourseContainer(props) {
       border: 1.5px solid #dfdad8;
       box-shadow: none;
       @media(max-width: ${width}px){
-          height: 45px;
+          // height: 45px;
+          padding: 0px 12px;
       }
     }
 
@@ -190,6 +192,9 @@ function CourseContainer(props) {
 
     .fas.fa-search{
       font-size: 2.5rem;
+      @media(max-width: ${width}px){
+        font-size: 2rem;
+      }
     }
 
 

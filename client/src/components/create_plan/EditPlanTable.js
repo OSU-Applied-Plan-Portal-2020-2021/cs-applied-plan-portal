@@ -55,6 +55,11 @@ function EditPlanTable(props) {
       background: var(--color-lightgray-50);
       background: white;
       position: relative;
+
+      @media(max-width: ${width}px){
+        overflow: auto;
+      }
+
     }
     
     table thead tr th {
@@ -73,6 +78,9 @@ function EditPlanTable(props) {
     table tbody tr td {
       vertical-align: middle;
       padding: 1rem 2rem;
+      @media(max-width: ${width}px){
+          padding: 1rem 1.5rem;
+      }
     }
     
     tbody tr td:nth-of-type(4), thead tr th:nth-of-type(4) { 
