@@ -53,7 +53,6 @@ function PlanSelect(props) {
             .option {
                 width: 70%;
                 line-height: 80%;
-
             }
 
             .header {

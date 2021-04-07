@@ -219,10 +219,7 @@ function EditPlan(props) {
         props.onLoading(false);
       }
     }else{
-      if(Mobile){
         openModal();
-      }
-      
     }
   }
 
@@ -253,6 +250,7 @@ function EditPlan(props) {
       } else {
         const obj = await results.json();
         setWarning(obj.error);
+        openModal();
       }
 
     } catch (err) {
