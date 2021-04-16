@@ -27,18 +27,23 @@ function Course(props) {
       @media (max-width: ${width}px) {
         margin-right: 0;
       }
+			
     }
 
     .add-button {
       display: inline-block;
       margin-left: auto;
-      margin-right: auto;
       padding: 1rem 1rem;
       background: var(--color-green-500);
       color: var(--color-green-50);
       border-radius: 0.5rem;
       border: none;
+			width: 96px!important;
     }
+
+		.btn-added {
+			opacity: 60%;
+		}
 
     details summary {
       cursor: pointer;
@@ -84,6 +89,7 @@ function Course(props) {
     .disabled {
       background: var(--color-lightgray-700);
       color: var(--color-gray-50);
+			/* pointer-events: none; */
       cursor: default;
     }
 
@@ -112,7 +118,8 @@ function Course(props) {
       margin-bottom: 10px;
     }
   `
-
+	let notEligible = false
+	if (props.restriction > 0) notEligible = true
 	const [added, setAdded] = useState(false)
 	useEffect(() => {
 		async function checkAdded() {
@@ -148,15 +155,23 @@ function Course(props) {
 							<small>{props.courseCode}</small>
 						</div>
 					</div>
-					<button
-						className={`add-button ${props.restriction > 0 ? "disabled" : ""}`}
-						onClick={handleAddCourse}
-					>
-						<Desktop>{added ? "Course Added" : "Add to plan"}</Desktop>
-						<Mobile>
-							<i class="fas fa-plus"></i>
-						</Mobile>
+					{notEligible
+						? <button className="add-button disabled" onClick={handleAddCourse}>
+							Not Eligible
 					</button>
+						: <button
+
+							className={`add-button ${notEligible ? "disabled" : ""} ${added && 'btn-added'}`}
+							onClick={handleAddCourse}
+						>
+							<Desktop>Add to plan</Desktop>
+							<Mobile>
+								<i class="fas fa-plus"></i>
+							</Mobile>
+						</button>
+					}
+
+
 				</summary>
 				<p>
 					{props.credits} credit hour{props.credits !== 1 && "s"}
