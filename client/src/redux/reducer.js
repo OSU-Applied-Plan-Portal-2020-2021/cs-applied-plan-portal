@@ -4,7 +4,6 @@ import { ADD_COURSE_TO_PLAN, REMOVE_COURSE_FROM_PLAN, POPULATE_PLAN } from "./ac
 const planCoursesReducer = (state = [], action) => {
 	switch (action.type) {
 		case ADD_COURSE_TO_PLAN:
-			// console.log('add to plan: ', action.payload)
 			const filteredState = state.filter(course => course.courseId !== action.payload.courseId)
 			state.forEach(course => {
 				if (course.courseId === action.payload.courseId) return state
@@ -25,6 +24,7 @@ const planCoursesReducer = (state = [], action) => {
 
 const rootReducer = combineReducers({
 	planCourses: planCoursesReducer,
+
 })
 
 export default rootReducer
