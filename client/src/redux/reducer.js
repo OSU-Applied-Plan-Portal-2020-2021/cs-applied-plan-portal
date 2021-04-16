@@ -5,7 +5,11 @@ const planCoursesReducer = (state = [], action) => {
 	switch (action.type) {
 		case ADD_COURSE_TO_PLAN:
 			// console.log('add to plan: ', action.payload)
-			return [...state, action.payload]
+			const filteredState = state.filter(course => course.courseId !== action.payload.courseId)
+			state.forEach(course => {
+				if (course.courseId === action.payload.courseId) return state
+			})
+			return [...filteredState, action.payload]
 
 		case REMOVE_COURSE_FROM_PLAN:
 			// payload is courseId

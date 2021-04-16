@@ -8,14 +8,14 @@ import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { addCourseToPlan } from '../../redux/actions'
 import { getCoursesFromPlan } from '../../redux/selectors'
-import { checkCourseIsAdded } from '../../utils/plan'
+import { useEffect } from 'react'
+import { checkCourseIsAddedAsync } from '../../utils/plan'
 
 // a single course description
 function Course(props) {
 	const dispatch = useDispatch()
 	const planCourses = useSelector(getCoursesFromPlan)
-	const courseIsAdded = checkCourseIsAdded(props.courseId, planCourses)
-	console.log(`course ${props.courseName} is added? ${courseIsAdded}`)
+
 	const width = SCREENWIDTH.MOBILE.MAX
 	const style = css`
     & {
@@ -114,6 +114,13 @@ function Course(props) {
   `
 
 	const [added, setAdded] = useState(false)
+	useEffect(() => {
+		async function checkAdded() {
+			const result = await checkCourseIsAddedAsync(props.courseId, planCourses)
+			setAdded(result)
+		}
+		checkAdded()
+	})
 
 	// add the course to the plan
 	function handleAddCourse() {

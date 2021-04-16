@@ -27,7 +27,6 @@ export default function StudentCreatePlan() {
 	const [edit, setEdit] = useState(0)
 	const { planId } = useParams()
 	const location = useLocation()
-	const [addedCourses, setAddedCourses] = useState([])
 	const dispatch = useDispatch()
 	const planCoursesFromStore = useSelector(getCoursesFromPlan)
 	const width = SCREENWIDTH.MOBILE.MAX
