@@ -4,12 +4,16 @@ import { css, jsx } from "@emotion/core"
 import { Mobile, Desktop } from "../../utils/responsiveUI"
 import { SCREENWIDTH } from "../../utils/constants"
 import ErrorMessage from "../general/ErrorMessage"
-import { useState } from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { addCourseToPlan } from '../../redux/actions'
 import { getCoursesFromPlan } from '../../redux/selectors'
 import { useEffect } from 'react'
 import { checkCourseIsAddedAsync } from '../../utils/plan'
+import { FaCheck, FaCheckCircle, FaPlus } from 'react-icons/fa'
+import { AiOutlineCheck } from 'react-icons/ai'
+import { GiCheckMark } from 'react-icons/gi'
+
 
 // a single course description
 function Course(props) {
@@ -84,6 +88,7 @@ function Course(props) {
       margin-right: 0;
       margin-left: auto;
       white-space: nowrap;
+			height: 40px;
     }
 
     .disabled {
@@ -117,6 +122,10 @@ function Course(props) {
       margin-top: 10px;
       margin-bottom: 10px;
     }
+
+		.added-checkmark {
+			font-size: 1.5rem;
+		}
   `
 	let notEligible = false
 	if (props.restriction > 0) notEligible = true
@@ -161,10 +170,13 @@ function Course(props) {
 					</button>
 						: <button
 
-							className={`add-button ${notEligible ? "disabled" : ""} ${added && 'btn-added'}`}
+							className={`add-button ${notEligible ? "disabled" : ""}`}
 							onClick={handleAddCourse}
 						>
-							<Desktop>Add to plan</Desktop>
+							<Desktop>
+								{added ? <><span className='added-checkmark'><FaCheck /></span></> : 'Add to plan'}
+
+							</Desktop>
 							<Mobile>
 								<i class="fas fa-plus"></i>
 							</Mobile>
@@ -195,6 +207,8 @@ function Course(props) {
 		</div>
 	)
 }
+
+
 export default Course
 
 Course.propTypes = {
