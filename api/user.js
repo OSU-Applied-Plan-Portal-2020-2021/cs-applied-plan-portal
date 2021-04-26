@@ -21,6 +21,7 @@ const {
   requireAuth,
   setAuthCookie
 } = require("../services/auth/auth");
+const { resolveSoa } = require("dns");
 
 const app = express();
 
@@ -170,18 +171,23 @@ app.get("/login", async (req, res) => {
     const casUser = await casValidateUser(casValidationUrl);
     const userAttributes = casUser["cas:attributes"][0];
 
+    console.log("======= This is the userAttributes in user.js line 173 ====== ", userAttributes);
+
     // make this nested try to catch potential error when parsing
     try {
-      // try fetching the User from the database by ID
-      const osuuid = validator.toInt(userAttributes["cas:osuuid"][0] + "");
-      const existingUser = await userModel.getUserById(osuuid);
+      // try fetching the User from the database by email
+      const osuemail = userAttributes["cas:osuprimarymail"][0];
+
+      // grabbing only ONID part of ONID email address
+      const osuUid = osuemail.substring(0, osuemail.length - 16);
+      const existingUser = await userModel.getUserById(osuemail);
 
       // if the User is not already in the database, create one for them
       if (!existingUser) {
         // construct a new User object and force student role on create
         // changes in roles must be approved by the administrator(s)
         const newUser = {
-          userId: osuuid,
+          userId: 10000000000,
           firstName: userAttributes["cas:givenName"][0],
           lastName: userAttributes["cas:lastname"][0],
           email: userAttributes["cas:osuprimarymail"][0],
@@ -194,16 +200,19 @@ app.get("/login", async (req, res) => {
       }
 
       // fetch this User from the database again to ensure getting correct info
-      const user = await userModel.getUserById(osuuid);  // guaranteed to have 1
-
+      const user = await userModel.getUserById(osuemail);  // guaranteed to have 1
+      //const userId = validator.toInt(userAttributes["cas:osuuid"][0] + "");
+      //const userId = 10000000000;
       // sign this User with a JWT
-      const token = generateAuthToken(user.userId);
+      const token = generateAuthToken(osuemail);
 
-      console.log(`200: User authenticated: ${user.userId} (${user.email})`);
+      console.log(`200: User authenticated: (${user.email})`);
       console.log(`Redirecting to ${targetUrl}\n`);
 
+ 
       // redirect to the target URL and set an auth cookie
-      setAuthCookie(res, token, user.userId, user.role);
+      setAuthCookie(res, token, osuUid, user.role);
+      //console.log("Is this printing out?? user.js line 214");
 
       res.status(200).redirect(targetUrl);
     } catch (err) {
@@ -219,26 +228,35 @@ app.get("/login", async (req, res) => {
 
 // Fetches a list of plans related to a specific User.
 app.get("/:userId/plans", requireAuth, async (req, res) => {
+
+  console.log("======Doest this function ever get called in user.js line 231======");
   try {
     // attempt to convert the target user's ID in route to an integer
     // return NaN if it's not an integer
-    const userId = validator.toInt(req.params.userId + "");
+    const osuemail = req.params.userId + "@oregonstate.edu";
+
+    console.log("============= results of osuemail in user.js line 234: ", osuemail);
 
     // ensure the provided target user's ID satisfies the schema
-    if (Number.isInteger(userId) &&
-      userSchema.userId.minValue <= userId &&
-      userId <= userSchema.userId.maxValue) {
+    if (true) {
       // fetch the authenticated user's info
-      const authenticatedUser = await userModel.getUserById(req.auth.userId);
+      const authenticatedUser = await userModel.getUserById(osuemail);
+      console.log("========== This is the auth user email pls work ==========",authenticatedUser.email);
+      console.log("========== this is the osuemail variable ===========", osuemail);
+
 
       // only allow the authenticated user with the same ID as the target user,
       // an Advisor, and a Head Advisor to perform this action
       if (authenticatedUser &&
-        (authenticatedUser.userId === userId ||
+        (authenticatedUser.email === osuemail ||
           authenticatedUser.role === Role.advisor ||
           authenticatedUser.role === Role.headAdvisor)) {
         // fetch the target user's plans
-        const results = await userModel.getUserPlans(userId);
+        const results = await userModel.getUserPlans(req.params.userId + "@oregonstate.edu");
+
+        console.log("====== userId =====", req.params.userId);
+        console.log("contents of results in user.js line 256", results);
+
 
         if (results.plans.length > 0) {
           console.log("200: Plans found\n");
@@ -248,7 +266,7 @@ app.get("/:userId/plans", requireAuth, async (req, res) => {
           res.status(404).send({ error: "No plans found" });
         }
       } else {
-        console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
+        console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
         res.status(403).send({
           error: "Only the target user, advisors, and head advisors can fetch the target user's plans"
         });

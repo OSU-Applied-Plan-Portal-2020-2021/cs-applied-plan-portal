@@ -5,7 +5,7 @@ import EditPlanTable from "./EditPlanTable";
 import ErrorMessage from "../general/ErrorMessage";
 import PropTypes from "prop-types";
 import {css, jsx} from "@emotion/core";
-import {login} from "../../utils/authService";
+import {getProfile, login} from "../../utils/authService";
 import { Desktop, Mobile } from "../../utils/responsiveUI";
 import {SCREENWIDTH} from "../../utils/constants";
 import Modal from 'react-modal';
@@ -181,10 +181,12 @@ function EditPlan(props) {
       } else {
 
         // set up data for new plan to send to backend
+        const profile = getProfile();
         const postURL = `/api/plan`;
         const postObj = {
           planName: planName,
-          courses: courses
+          courses: courses,
+          userId: profile.userId
         };
 
         try {

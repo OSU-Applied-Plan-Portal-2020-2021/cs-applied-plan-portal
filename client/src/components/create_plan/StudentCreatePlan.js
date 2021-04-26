@@ -125,6 +125,8 @@ export default function StudentCreatePlan() {
                 try {
                     const url = `/api/course/search/${appCourses[planId - 1][i]}/*`;
                     const results = await fetch(url);
+
+                    console.log("====== contents of results line 129 in studentcraeteplan.js ======", results);
                     
                     if (results.ok) {
                         let obj = await results.json();
@@ -143,6 +145,7 @@ export default function StudentCreatePlan() {
                     console.log("Failed to add required courses. Err: " + err);
                 }
             }
+            console.log("==== prefill classes contents line 146 in studentcreateplan.js =====", prefillClasses);
             setCourses(prefillClasses);
             setReqCourseOption(reqCourses[planId - 1]);
         }

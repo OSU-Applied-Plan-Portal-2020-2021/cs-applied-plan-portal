@@ -583,7 +583,7 @@ async function addRecentPlan(planId, userId) {
     const RECENT_MAX = 5;
 
     // only add recent plans for advisors
-    let sql = "SELECT role FROM User WHERE userId=?";
+    let sql = "SELECT role FROM User WHERE email=?";
     let results = await pool.query(sql, userId);
 
     if (!results[0][0].role) {

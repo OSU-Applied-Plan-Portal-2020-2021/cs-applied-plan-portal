@@ -7066,7 +7066,7 @@ CREATE TABLE `Plan` (
   `planId` int(11) UNSIGNED NOT NULL,
   `status` int(11) NOT NULL,
   `planName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `studentId` bigint(11) UNSIGNED NOT NULL,
+  `studentId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created` timestamp NOT NULL DEFAULT current_timestamp(),
   `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -7076,38 +7076,38 @@ CREATE TABLE `Plan` (
 --
 
 INSERT INTO `Plan` (`planId`, `status`, `planName`, `studentId`, `created`, `lastUpdated`) VALUES
-(1, 2, 'Forestry Focused Plan', 10157289101, '2020-03-20 08:33:50', '2020-03-20 16:11:59'),
-(2, 2, 'CS Plan', 80612566209, '2020-03-20 13:03:03', '2020-04-20 22:58:05'),
-(8, 0, 'Research Plan', 80612566209, '2020-03-20 15:16:32', '2020-04-20 22:58:05'),
-(9, 4, 'Music Plan', 12002489701, '2020-03-20 15:53:41', '2020-04-18 17:57:01'),
-(10, 3, 'Chemistry Plan', 12002489701, '2020-03-20 15:54:54', '2020-04-18 17:57:09'),
-(11, 3, 'Math Plan', 12002489701, '2020-03-20 15:56:45', '2020-04-08 01:09:15'),
-(12, 2, 'Art Plan', 12002489701, '2020-03-20 15:57:15', '2020-04-08 01:09:15'),
-(15, 3, 'Family Plan', 14278597767, '2020-03-20 16:03:31', '2020-04-12 19:49:07'),
-(16, 1, 'Bird Plan', 14278597767, '2020-03-20 16:04:36', '2020-03-20 16:58:20'),
-(17, 4, 'Language Plan', 86725657261, '2020-03-20 16:06:18', '2020-03-20 16:29:53'),
-(18, 2, 'Farm Plan', 12002489701, '2020-03-20 16:07:20', '2020-03-26 05:24:44'),
-(19, 4, 'Robotics Plan', 12002489701, '2020-03-20 16:08:35', '2020-05-05 01:31:05'),
-(20, 2, 'Economics Plan', 96734244380, '2020-03-20 16:13:39', '2020-03-20 16:13:55'),
-(21, 2, 'Law Plan', 19654375695, '2020-03-20 16:15:25', '2020-03-26 05:18:39'),
-(22, 2, 'Map Plan', 50734529811, '2020-03-20 16:17:13', '2020-04-23 01:20:55'),
-(23, 2, 'Astronomy Plan', 74237743225, '2020-03-20 16:18:06', '2020-03-20 16:18:23'),
-(24, 2, 'Agriculture Plan', 73611589202, '2020-03-20 16:20:14', '2020-04-12 23:42:28'),
-(25, 2, 'Geology Plan', 73611589202, '2020-03-20 16:26:47', '2020-03-20 16:27:44'),
-(26, 4, 'Geology Focused Plan', 86725657261, '2020-03-20 16:27:15', '2020-03-20 16:33:50'),
-(27, 0, 'Computer and Math Plan', 80612566209, '2020-03-20 16:46:09', '2020-04-20 22:58:05'),
-(28, 1, 'Environmental Plan', 80612566209, '2020-03-20 16:47:36', '2020-04-20 22:58:05'),
-(29, 4, 'Earth Plan', 80612566209, '2020-03-21 03:35:55', '2020-04-20 22:58:05'),
-(30, 2, 'Computer Plan', 50734529811, '2020-03-21 20:01:46', '2020-04-23 01:20:55'),
-(31, 2, 'Space & Earth Plan', 96734244380, '2020-03-27 03:02:57', '2020-03-27 03:23:17'),
-(32, 2, 'Bio-Health Plan', 74237743225, '2020-03-27 03:23:23', '2020-03-27 03:36:39'),
-(33, 2, 'Civil Engineering Plan', 74237743225, '2020-03-27 03:36:02', '2020-03-27 03:36:39'),
-(41, 2, 'Geology Plan', 80612566209, '2020-04-16 18:51:49', '2020-04-20 22:58:05'),
-(42, 4, 'Fish Plan', 84979840992, '2020-04-18 19:03:06', '2020-05-01 17:18:16'),
-(46, 2, '310 Plan', 82757579527, '2020-04-22 01:14:36', '2020-04-24 04:49:47'),
-(47, 4, 'Fire Plan', 82757579527, '2020-04-24 04:51:43', '2020-04-24 05:03:05'),
-(48, 2, 'Neato Plan', 82757579527, '2020-04-24 05:00:51', '2020-04-24 05:00:51'),
-(51, 2, '🐉Mythology Plan', 82757579527, '2020-05-06 06:21:25', '2020-05-06 06:21:25');
+(1, 2, 'Forestry Focused Plan', 'sell-toys@yahoo.com', '2020-03-20 08:33:50', '2020-03-20 16:11:59'),
+(2, 2, 'CS Plan', 'order66@gmail.com', '2020-03-20 13:03:03', '2020-04-20 22:58:05'),
+(8, 0, 'Research Plan', 'order66@gmail.com', '2020-03-20 15:16:32', '2020-04-20 22:58:05'),
+(9, 4, 'Music Plan', 'usetheforce@gmail.com', '2020-03-20 15:53:41', '2020-04-18 17:57:01'),
+(10, 3, 'Chemistry Plan', 'usetheforce@gmail.com', '2020-03-20 15:54:54', '2020-04-18 17:57:09'),
+(11, 3, 'Math Plan', 'usetheforce@gmail.com', '2020-03-20 15:56:45', '2020-04-08 01:09:15'),
+(12, 2, 'Art Plan', 'usetheforce@gmail.com', '2020-03-20 15:57:15', '2020-04-08 01:09:15'),
+(15, 3, 'Family Plan', 'vibrant@birbspotters.nl', '2020-03-20 16:03:31', '2020-04-12 19:49:07'),
+(16, 1, 'Bird Plan', 'vibrant@birbspotters.nl', '2020-03-20 16:04:36', '2020-03-20 16:58:20'),
+(17, 4, 'Language Plan', 'human_cyborg_relations@aol.com', '2020-03-20 16:06:18', '2020-03-20 16:29:53'),
+(18, 2, 'Farm Plan', 'usetheforce@gmail.com', '2020-03-20 16:07:20', '2020-03-26 05:24:44'),
+(19, 4, 'Robotics Plan', 'usetheforce@gmail.com', '2020-03-20 16:08:35', '2020-05-05 01:31:05'),
+(20, 2, 'Economics Plan', 'cloud_city@hotmail.com', '2020-03-20 16:13:39', '2020-03-20 16:13:55'),
+(21, 2, 'Law Plan', 'bounty-hunter@yahoo.com', '2020-03-20 16:15:25', '2020-03-26 05:18:39'),
+(22, 2, 'Map Plan', 'artoo@gmail.com', '2020-03-20 16:17:13', '2020-04-23 01:20:55'),
+(23, 2, 'Astronomy Plan', 'x-wing@aol.com', '2020-03-20 16:18:06', '2020-03-20 16:18:23'),
+(24, 2, 'Agriculture Plan', 'powerConverters@msn.com', '2020-03-20 16:20:14', '2020-04-12 23:42:28'),
+(25, 2, 'Geology Plan', 'powerConverters@msn.com', '2020-03-20 16:26:47', '2020-03-20 16:27:44'),
+(26, 4, 'Geology Focused Plan', 'human_cyborg_relations@aol.com', '2020-03-20 16:27:15', '2020-03-20 16:33:50'),
+(27, 0, 'Computer and Math Plan', 'order66@gmail.com', '2020-03-20 16:46:09', '2020-04-20 22:58:05'),
+(28, 1, 'Environmental Plan', 'order66@gmail.com', '2020-03-20 16:47:36', '2020-04-20 22:58:05'),
+(29, 4, 'Earth Plan', 'order66@gmail.com', '2020-03-21 03:35:55', '2020-04-20 22:58:05'),
+(30, 2, 'Computer Plan', 'artoo@gmail.com', '2020-03-21 20:01:46', '2020-04-23 01:20:55'),
+(31, 2, 'Space & Earth Plan', 'cloud_city@hotmail.com', '2020-03-27 03:02:57', '2020-03-27 03:23:17'),
+(32, 2, 'Bio-Health Plan', 'x-wing@aol.com', '2020-03-27 03:23:23', '2020-03-27 03:36:39'),
+(33, 2, 'Civil Engineering Plan', 'x-wing@aol.com', '2020-03-27 03:36:02', '2020-03-27 03:36:39'),
+(41, 2, 'Geology Plan', 'order66@gmail.com', '2020-04-16 18:51:49', '2020-04-20 22:58:05'),
+(42, 4, 'Fish Plan', 'golletzj@oregonstate.edu', '2020-04-18 19:03:06', '2020-05-01 17:18:16'),
+(46, 2, '310 Plan', 'thomasza@oregonstate.edu', '2020-04-22 01:14:36', '2020-04-24 04:49:47'),
+(47, 4, 'Fire Plan', 'thomasza@oregonstate.edu', '2020-04-24 04:51:43', '2020-04-24 05:03:05'),
+(48, 2, 'Neato Plan', 'thomasza@oregonstate.edu', '2020-04-24 05:00:51', '2020-04-24 05:00:51'),
+(51, 2, '🐉Mythology Plan', 'thomasza@oregonstate.edu', '2020-05-06 06:21:25', '2020-05-06 06:21:25');
 
 -- --------------------------------------------------------
 
@@ -7160,7 +7160,7 @@ INSERT INTO `PlanReview` (`reviewId`, `planId`, `userId`, `status`, `time`) VALU
 CREATE TABLE `RecentPlan` (
   `recentId` int(11) UNSIGNED NOT NULL,
   `planId` int(11) UNSIGNED NOT NULL,
-  `userId` bigint(11) UNSIGNED NOT NULL,
+  `userId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -7169,15 +7169,15 @@ CREATE TABLE `RecentPlan` (
 --
 
 INSERT INTO `RecentPlan` (`recentId`, `planId`, `userId`, `time`) VALUES
-(159, 20, 60535363653, '2020-04-02 00:29:03'),
-(173, 1, 60535363653, '2020-04-07 00:30:37'),
-(249, 9, 84979840992, '2020-04-13 22:34:21'),
-(291, 2, 60535363653, '2020-04-20 01:25:09'),
-(350, 27, 82757579527, '2020-05-06 06:25:28'),
-(351, 8, 82757579527, '2020-05-06 06:25:38'),
-(352, 42, 82757579527, '2020-05-06 06:25:55'),
-(353, 19, 82757579527, '2020-05-06 06:25:58'),
-(354, 51, 82757579527, '2020-05-06 06:26:10');
+(159, 20, 'luuph@oregonstate.edu', '2020-04-02 00:29:03'),
+(173, 1, 'luuph@oregonstate.edu', '2020-04-07 00:30:37'),
+(249, 9, 'golletzj@oregonstate.edu', '2020-04-13 22:34:21'),
+(291, 2, 'luuph@oregonstate.edu', '2020-04-20 01:25:09'),
+(350, 27, 'thomasza@oregonstate.edu', '2020-05-06 06:25:28'),
+(351, 8, 'thomasza@oregonstate.edu', '2020-05-06 06:25:38'),
+(352, 42, 'thomasza@oregonstate.edu', '2020-05-06 06:25:55'),
+(353, 19, 'thomasza@oregonstate.edu', '2020-05-06 06:25:58'),
+(354, 51, 'thomasza@oregonstate.edu', '2020-05-06 06:26:10');
 
 -- --------------------------------------------------------
 
@@ -7623,8 +7623,8 @@ ALTER TABLE `SelectedCourse`
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
-  ADD PRIMARY KEY (`userId`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`email`),
+  ADD KEY `userId` (`userId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -7687,7 +7687,7 @@ ALTER TABLE `Notification`
 -- Constraints for table `Plan`
 --
 ALTER TABLE `Plan`
-  ADD CONSTRAINT `fk_userId_plan` FOREIGN KEY (`studentId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_userId_plan` FOREIGN KEY (`studentId`) REFERENCES `User` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `PlanReview`
@@ -7701,7 +7701,7 @@ ALTER TABLE `PlanReview`
 --
 ALTER TABLE `RecentPlan`
   ADD CONSTRAINT `fk_planIdRecent` FOREIGN KEY (`planId`) REFERENCES `Plan` (`planId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_userIdRecent` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_userIdRecent` FOREIGN KEY (`userId`) REFERENCES `User` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `SelectedCourse`

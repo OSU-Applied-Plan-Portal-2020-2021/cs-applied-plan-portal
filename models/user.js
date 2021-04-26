@@ -150,10 +150,12 @@ exports.searchUsers = searchUsers;
 //
 // On success, returns the User object if any, or `null` if no such User.
 // On failure, logs the error and bubbles it up.
-async function getUserById(userId) {
+async function getUserById(email) {
   try {
-    const sql = "SELECT * FROM User WHERE userId = ?";
-    const results = await pool.query(sql, [userId]);
+    const sql = "SELECT * FROM User WHERE email = ?";
+    const results = await pool.query(sql, [email]);
+
+    console.log("this is the results in user.js line 158: ", results[0]);
 
     // ensure there's exactly 1 User carrying with this ID or no User at all
     assert(results[0].length === 1 || results[0].length === 0);
