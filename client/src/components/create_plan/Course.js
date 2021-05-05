@@ -29,6 +29,7 @@ function Course(props) {
       margin-right: 1rem;
       @media (max-width: ${width}px) {
         margin-right: 0;
+        box-sizing: border-box;
       }
     }
 
@@ -70,17 +71,18 @@ function Course(props) {
     .add-button {
       /* display: inline-block; */
       /* margin-left: auto; */
-      padding: 1rem 1rem;
+      padding: 10px;
       background: var(--color-green-500);
       color: var(--color-green-50);
-      border-radius: 0.5rem;
+      border-radius: 5px;
       border: none;
       width: 96px !important;
-      margin-left: 1rem;
+      margin-left: 10px;
+      line-height: 20px;
     }
 
     .added-checkmark {
-      font-size: 1.7rem;
+      font-size: 17px;
     }
 
     .added-button {
