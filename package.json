@@ -36,7 +36,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=PRODUCTION pm2 start server.js",
     "stop": "pm2 stop server.js",
-    "dev": "cross-env NODE_ENV=DEVELOPMENT concurrently \"CI=false npm run serverDev\" \"CI=false npm run client\"",
+    "dev": "cross-env NODE_ENV=DEVELOPMENT concurrently \"npm run serverDev\" \"npm run client\"",
     "testAPI": "ENV=TESTING jest --watchAll=false --detectOpenHandles --forceExit --maxWorkers=10",
     "testReact": "cd client && npm test a",
     "serverDev": "nodemon server.js --ignore client/*",
