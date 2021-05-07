@@ -6,7 +6,7 @@ import { SCREENWIDTH } from "../../utils/constants";
 import ErrorMessage from "../general/ErrorMessage";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCourseToPlan } from "../../redux/actions";
+import { addCourseToPlan, removeCourseFromPlan } from "../../redux/actions";
 import { getCoursesFromPlan } from "../../redux/selectors";
 import { useEffect } from "react";
 import { checkCourseIsAddedAsync } from "../../utils/plan";
@@ -142,6 +142,7 @@ function Course(props) {
       prerequisites: props.prerequisites,
       restriction: props.restriction,
     };
+
     props.onAddCourse(courseObject);
     setAdded(true);
     dispatch(addCourseToPlan(courseObject));
@@ -180,7 +181,15 @@ function Course(props) {
                 )}
               </Desktop>
               <Mobile>
-                <i class="fas fa-plus"></i>
+                {added ? (
+                  <>
+                    <span className="added-checkmark">
+                      <FaCheck />
+                    </span>
+                  </>
+                ) : (
+                  <i class="fas fa-plus"></i>
+                )}
               </Mobile>
             </button>
           )}
