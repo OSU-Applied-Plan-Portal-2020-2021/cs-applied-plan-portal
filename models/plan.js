@@ -360,7 +360,7 @@ async function getPlan(planId, userId) {
 
     let sql = "SELECT Plan.*, User.firstName, User.lastName, User.email " +
       "FROM Plan " +
-      "LEFT JOIN User ON User.userId=Plan.studentId " +
+      "LEFT JOIN User ON User.email=Plan.studentId " +
       "WHERE planId=?;";
 
     const result1 = await pool.query(sql, planId);
@@ -405,12 +405,12 @@ async function getPlanActivity(planId, cursor) {
     // construct the sql query
     const sqlComments = "SELECT CONCAT(commentId, 'c') AS id, planId, Comment.userId, text, " +
       "-1 AS status, time, UNIX_TIMESTAMP(time) AS timeUnix, firstName, lastName FROM Comment " +
-      "INNER JOIN User ON User.userId=Comment.userId WHERE planId=?";
+      "INNER JOIN User ON User.email=Comment.userId WHERE planId=?";
     sqlArray.push(planId);
 
     const sqlReviews = "SELECT CONCAT(reviewId, 'r') AS id, planId, PlanReview.userId, " +
       "'' AS text, status, time, UNIX_TIMESTAMP(time) AS timeUnix, firstName, lastName FROM PlanReview " +
-      "INNER JOIN User ON User.userId=PlanReview.userId WHERE planId=? ORDER BY timeUnix DESC, id ASC";
+      "INNER JOIN User ON User.email=PlanReview.userId WHERE planId=? ORDER BY timeUnix DESC, id ASC";
     sqlArray.push(planId);
 
     let sql = "SELECT * FROM (" + sqlComments + " UNION " + sqlReviews + ") AS U ";

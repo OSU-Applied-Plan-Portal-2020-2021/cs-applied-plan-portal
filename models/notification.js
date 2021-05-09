@@ -110,7 +110,7 @@ async function planNotification(planId, userId, type) {
 
     // get the actor name (user who performed the action)
     sql = "SELECT CONCAT(firstName, ' ', lastName) AS actorName " +
-      "FROM User WHERE userId = ?";
+      "FROM User WHERE email = ?";
     results = await pool.query(sql, userId);
     const actorName = results[0][0].actorName;
 

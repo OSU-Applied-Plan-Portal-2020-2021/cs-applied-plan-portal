@@ -289,22 +289,28 @@ app.get("/:userId", requireAuth, async (req, res) => {
   try {
     // attempt to convert the target user's ID in route to an integer
     // return NaN if it's not an integer
-    const userId = validator.toInt(req.params.userId + "");
-
+    const userId = req.params.userId + "@oregonstate.edu";
+    //console.log("===== something random in user.js on line 293 ======");
     // ensure the provided target user's ID satisfies the schema
-    if (Number.isInteger(userId) &&
-      userSchema.userId.minValue <= userId &&
-      userId <= userSchema.userId.maxValue) {
+    if (validator.isEmail(userId)) {
       // fetch the authenticated user's info
       const authenticatedUser = await userModel.getUserById(req.auth.userId);
+      //console.log("================ contents of req.auth.userId in user.js on line 298 ==============", req.auth.userId);
+      console.log("================ contents of authenticatedUser const in user.js on line 299 ==============", authenticatedUser);
 
+      console.log("===== value of comparison for authUser and user Id in user.js on line 301 ======", authenticatedUser.email.localeCompare(userId));
+      
       // only allow the authenticated user with the same ID as the target user,
       // an Advisor, and a Head Advisor to perform this action
+      console.log("================ contents of userId in user.js on line 303 ==============", userId);
       if (authenticatedUser &&
-        (authenticatedUser.userId === userId ||
+        (authenticatedUser.email === userId ||
           authenticatedUser.role === Role.advisor ||
           authenticatedUser.role === Role.headAdvisor)) {
+
+            //console.log("================ something random in user.js on line 308 =================")
         // fetch the target user's info
+
         const user = await userModel.getUserById(userId);
 
         if (user) {
@@ -315,6 +321,8 @@ app.get("/:userId", requireAuth, async (req, res) => {
           res.status(404).send({ error: "No User found" });
         }
       } else {
+
+        console.log("================ something random in user.js on line 321 =================")
         console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
         res.status(403).send({
           error: "Only the target user, advisors, and head advisors can fetch the target user's info"

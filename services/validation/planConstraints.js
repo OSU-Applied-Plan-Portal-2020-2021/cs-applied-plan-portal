@@ -461,6 +461,8 @@ async function ownerConstraint(planId, userId) {
       sql = "SELECT * FROM Plan WHERE planId=?;";
       results = await pool.query(sql, planId);
 
+      console.log("==== contents of results.studentId var in planContraints.js line 464: ====", results[0][0].studentId);
+      console.log("==== contents of userId in planContraints.js line 465: ====", userId);
       if (results[0][0].studentId === userId) {
         return;
       } else {
@@ -487,7 +489,9 @@ async function deleteConstraint(planId, userId) {
 
   try {
 
-    let sql = "SELECT * FROM User WHERE userId=?;";
+    console.log("=== userId in planConstraints line 490:  ===", userId);
+    
+    let sql = "SELECT * FROM User WHERE email=?;";
     let results = await pool.query(sql, userId);
 
     // first ensure that the user exists

@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `Comment` (
   `commentId` int(11) UNSIGNED NOT NULL,
   `planId` int(11) UNSIGNED NOT NULL,
-  `userId` bigint(11) UNSIGNED NOT NULL,
+  `userId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `time` timestamp NOT NULL DEFAULT current_timestamp(),
   `text` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -41,49 +41,49 @@ CREATE TABLE `Comment` (
 --
 
 INSERT INTO `Comment` (`commentId`, `planId`, `userId`, `time`, `text`) VALUES
-(1, 1, 82757579527, '2020-03-20 08:34:54', 'This is my forestry plan.'),
-(2, 2, 82757579527, '2020-03-20 13:03:52', 'I am focusing on selected topics.'),
-(3, 17, 82757579527, '2020-03-20 16:29:20', 'Nice idea for a plan. I will go ahead and pass it on to the head advisor.'),
-(4, 17, 80612566209, '2020-03-20 16:29:50', 'I will approve this plan.'),
-(5, 8, 77768733898, '2020-03-20 16:31:47', 'This is too broad of a plan. Try to focus on a couple similar subjects.'),
-(6, 26, 15999951730, '2020-03-20 16:33:41', 'Good plan!'),
-(7, 11, 77768733898, '2020-03-20 16:35:26', 'Good plan. I will pass this along to the head advisor.'),
-(9, 9, 82757579527, '2020-03-20 16:38:50', 'Nice plan!'),
-(10, 9, 80612566209, '2020-03-20 16:39:07', 'Good plan. Approved.'),
-(11, 10, 15999951730, '2020-03-20 16:41:18', 'Good plan.'),
-(12, 27, 61846240923, '2020-03-20 16:46:38', 'This plan has too many 100 level courses.'),
-(13, 28, 97689531333, '2020-03-20 16:48:06', 'Hello there!\nThis plan has too many credits focused on research, add something else instead.'),
-(14, 16, 97689531333, '2020-03-20 16:58:18', 'Hello there!\nI don\'t think focusing on birds is really a valid strategy for a plan. Possibly rework this plan a bit to focus on general nature studies?'),
-(15, 29, 82757579527, '2020-03-21 03:36:13', 'I really like minerals.'),
-(16, 21, 82757579527, '2020-03-25 19:22:40', 'Comment #1'),
-(17, 21, 82757579527, '2020-03-25 19:22:43', 'Comment #2'),
-(18, 21, 82757579527, '2020-03-25 19:22:47', 'Comment #3'),
-(19, 21, 82757579527, '2020-03-25 19:22:51', 'Comment #4'),
-(20, 21, 82757579527, '2020-03-25 19:22:54', 'Comment #5'),
-(21, 21, 82757579527, '2020-03-25 19:22:59', 'Comment #6'),
-(22, 21, 82757579527, '2020-03-25 19:23:02', 'Comment #7'),
-(23, 21, 82757579527, '2020-03-25 19:23:08', 'Comment #8'),
-(24, 21, 82757579527, '2020-03-25 19:23:13', 'Comment #9'),
-(25, 21, 82757579527, '2020-03-25 19:23:18', 'Comment #10'),
-(26, 21, 82757579527, '2020-03-25 19:23:24', 'Comment #11'),
-(27, 21, 82757579527, '2020-03-25 19:23:40', 'Comment #12'),
-(28, 21, 82757579527, '2020-03-25 19:23:46', 'Comment #13'),
-(29, 21, 82757579527, '2020-03-25 19:23:52', 'Comment #14'),
-(30, 21, 82757579527, '2020-03-25 19:23:56', 'Comment #15'),
-(31, 29, 77768733898, '2020-03-31 22:20:48', 'This plan looks good. I will go ahead and give it to the head advisor.'),
-(32, 29, 80612566209, '2020-03-31 22:32:35', 'Looks good.'),
-(34, 19, 82757579527, '2020-04-10 06:48:35', 'This plan looks good. I will have the head advisor review it.'),
-(35, 15, 82757579527, '2020-04-12 19:41:09', 'Interesting area of focus'),
-(36, 41, 77768733898, '2020-04-16 19:48:51', 'I think you should include GEO 101 on this plan.'),
-(37, 41, 82757579527, '2020-04-16 19:49:18', 'I updated the plan to include GEO 101'),
-(39, 42, 82757579527, '2020-04-20 22:12:23', '🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟'),
-(40, 46, 82757579527, '2020-04-22 01:16:22', '3️⃣1️⃣0️⃣'),
-(41, 47, 82757579527, '2020-04-24 04:52:23', 'Made this plan on Firefox.'),
-(42, 48, 82757579527, '2020-04-24 05:01:39', 'This is my new plan. 🤖'),
-(43, 42, 84979840992, '2020-04-24 05:15:54', 'Glub glub.'),
-(44, 42, 82757579527, '2020-05-01 17:18:12', '💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥'),
-(48, 19, 82757579527, '2020-05-05 01:30:57', 'Hello'),
-(49, 51, 82757579527, '2020-05-06 06:21:50', '🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲');
+(1, 1, 'thomasza@oregonstate.edu', '2020-03-20 08:34:54', 'This is my forestry plan.'),
+(2, 2, 'thomasza@oregonstate.edu', '2020-03-20 13:03:52', 'I am focusing on selected topics.'),
+(3, 17, 'thomasza@oregonstate.edu', '2020-03-20 16:29:20', 'Nice idea for a plan. I will go ahead and pass it on to the head advisor.'),
+(4, 17, 'order66@gmail.com', '2020-03-20 16:29:50', 'I will approve this plan.'),
+(5, 8, 'CinnamonBuns@msn.com', '2020-03-20 16:31:47', 'This is too broad of a plan. Try to focus on a couple similar subjects.'),
+(6, 26, 'darth-vader@gmail.com', '2020-03-20 16:33:41', 'Good plan!'),
+(7, 11, 'CinnamonBuns@msn.com', '2020-03-20 16:35:26', 'Good plan. I will pass this along to the head advisor.'),
+(9, 9, 'thomasza@oregonstate.edu', '2020-03-20 16:38:50', 'Nice plan!'),
+(10, 9, 'order66@gmail.com', '2020-03-20 16:39:07', 'Good plan. Approved.'),
+(11, 10, 'darth-vader@gmail.com', '2020-03-20 16:41:18', 'Good plan.'),
+(12, 27, 'grandmoff@yahoo.com', '2020-03-20 16:46:38', 'This plan has too many 100 level courses.'),
+(13, 28, 'hello-there@hotmail.com', '2020-03-20 16:48:06', 'Hello there!\nThis plan has too many credits focused on research, add something else instead.'),
+(14, 16, 'hello-there@hotmail.com', '2020-03-20 16:58:18', 'Hello there!\nI don\'t think focusing on birds is really a valid strategy for a plan. Possibly rework this plan a bit to focus on general nature studies?'),
+(15, 29, 'thomasza@oregonstate.edu', '2020-03-21 03:36:13', 'I really like minerals.'),
+(16, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:22:40', 'Comment #1'),
+(17, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:22:43', 'Comment #2'),
+(18, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:22:47', 'Comment #3'),
+(19, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:22:51', 'Comment #4'),
+(20, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:22:54', 'Comment #5'),
+(21, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:22:59', 'Comment #6'),
+(22, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:02', 'Comment #7'),
+(23, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:08', 'Comment #8'),
+(24, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:13', 'Comment #9'),
+(25, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:18', 'Comment #10'),
+(26, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:24', 'Comment #11'),
+(27, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:40', 'Comment #12'),
+(28, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:46', 'Comment #13'),
+(29, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:52', 'Comment #14'),
+(30, 21, 'thomasza@oregonstate.edu', '2020-03-25 19:23:56', 'Comment #15'),
+(31, 29, 'CinnamonBuns@msn.com', '2020-03-31 22:20:48', 'This plan looks good. I will go ahead and give it to the head advisor.'),
+(32, 29, 'order66@gmail.com', '2020-03-31 22:32:35', 'Looks good.'),
+(34, 19, 'thomasza@oregonstate.edu', '2020-04-10 06:48:35', 'This plan looks good. I will have the head advisor review it.'),
+(35, 15, 'thomasza@oregonstate.edu', '2020-04-12 19:41:09', 'Interesting area of focus'),
+(36, 41, 'CinnamonBuns@msn.com', '2020-04-16 19:48:51', 'I think you should include GEO 101 on this plan.'),
+(37, 41, 'thomasza@oregonstate.edu', '2020-04-16 19:49:18', 'I updated the plan to include GEO 101'),
+(39, 42, 'thomasza@oregonstate.edu', '2020-04-20 22:12:23', '🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟'),
+(40, 46, 'thomasza@oregonstate.edu', '2020-04-22 01:16:22', '3️⃣1️⃣0️⃣'),
+(41, 47, 'thomasza@oregonstate.edu', '2020-04-24 04:52:23', 'Made this plan on Firefox.'),
+(42, 48, 'thomasza@oregonstate.edu', '2020-04-24 05:01:39', 'This is my new plan. 🤖'),
+(43, 42, 'golletzj@oregonstate.edu', '2020-04-24 05:15:54', 'Glub glub.'),
+(44, 42, 'thomasza@oregonstate.edu', '2020-05-01 17:18:12', '💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥💯🔥'),
+(48, 19, 'thomasza@oregonstate.edu', '2020-05-05 01:30:57', 'Hello'),
+(49, 51, 'thomasza@oregonstate.edu', '2020-05-06 06:21:50', '🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲🐲');
 
 -- --------------------------------------------------------
 
@@ -7023,7 +7023,7 @@ INSERT INTO `Course` (`courseId`, `credits`, `courseName`, `courseCode`, `restri
 CREATE TABLE `Notification` (
   `notificationId` int(11) UNSIGNED NOT NULL,
   `planId` int(11) UNSIGNED NOT NULL,
-  `userId` bigint(11) UNSIGNED NOT NULL,
+  `userId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `text` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -7033,28 +7033,28 @@ CREATE TABLE `Notification` (
 --
 
 INSERT INTO `Notification` (`notificationId`, `planId`, `userId`, `text`, `type`) VALUES
-(1, 17, 86725657261, 'Zachary Thomas has added a new comment to the plan \"Language Plan\".', 1),
-(2, 17, 86725657261, 'The plan \"Language Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
-(3, 17, 86725657261, 'The plan \"Language Plan\" has been set to \"Accepted\" by Zachary Thomas.', 2),
-(4, 26, 86725657261, 'Zachary Thomas has added a new comment to the plan \"Geology Focused Plan\".', 1),
-(5, 26, 86725657261, 'The plan \"Geology Focused Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
-(6, 26, 86725657261, 'The plan \"Geology Focused Plan\" has been set to \"Accepted\" by Zachary Thomas.', 2),
-(7, 11, 19424289189, 'Leia Organa has added a new comment to the plan \"Math Plan\".', 1),
-(8, 11, 19424289189, 'The plan \"Math Plan\" has been set to \"Awaiting final review\" by Leia Organa.', 2),
-(11, 9, 84979840992, 'Zachary Thomas has added a new comment to the plan \"Music Plan\".', 1),
-(12, 9, 84979840992, 'The plan \"Music Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
-(13, 9, 84979840992, 'The plan \"Music Plan\" has been set to \"Accepted\" by Sheev Palpatine.', 2),
-(14, 10, 84979840992, 'Anakin Skywalker has added a new comment to the plan \"Chemistry Plan\".', 1),
-(15, 10, 84979840992, 'The plan \"Chemistry Plan\" has been set to \"Awaiting final review\" by Anakin Skywalker.', 2),
-(16, 16, 14278597767, 'Zachary Thomas has added a new comment to the plan \"Bird Plan\".', 1),
-(17, 16, 14278597767, 'The plan \"Bird Plan\" has been set to \"Awaiting student changes\" by Zachary Thomas.', 2),
-(33, 19, 12002489701, 'Zachary Thomas has added a new comment to the plan \"Robotics Plan\".', 1),
-(34, 19, 12002489701, 'The plan \"Robotics Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
-(35, 15, 14278597767, 'Zachary Thomas has added a new comment to the plan \"Family Plan\".', 1),
-(36, 15, 14278597767, 'The plan \"Family Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
-(43, 42, 84979840992, 'Zachary Thomas has added a new comment to the plan \"Fish Plan\".', 1),
-(44, 42, 84979840992, 'The plan \"Fish Plan\" has been set to \"Accepted\" by Zachary Thomas.', 2),
-(48, 19, 12002489701, 'The plan \"Robotics Plan\" has been set to \"Accepted\" by Zachary Thomas.', 2);
+(1, 17, 'human_cyborg_relations@aol.com', 'Zachary Thomas has added a new comment to the plan \"Language Plan\".', 1),
+(2, 17, 'human_cyborg_relations@aol.com', 'The plan \"Language Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
+(3, 17, 'human_cyborg_relations@aol.com', 'The plan \"Language Plan\" has been set to \"Accepted\" by Zachary Thomas.', 2),
+(4, 26, 'human_cyborg_relations@aol.com', 'Zachary Thomas has added a new comment to the plan \"Geology Focused Plan\".', 1),
+(5, 26, 'human_cyborg_relations@aol.com', 'The plan \"Geology Focused Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
+(6, 26, 'human_cyborg_relations@aol.com', 'The plan \"Geology Focused Plan\" has been set to \"Accepted\" by Zachary Thomas.', 2),
+(7, 11, 'cahillc@oregonstate.edu', 'Leia Organa has added a new comment to the plan \"Math Plan\".', 1),
+(8, 11, 'cahillc@oregonstate.edu', 'The plan \"Math Plan\" has been set to \"Awaiting final review\" by Leia Organa.', 2),
+(11, 9, 'golletzj@oregonstate.edu', 'Zachary Thomas has added a new comment to the plan \"Music Plan\".', 1),
+(12, 9, 'golletzj@oregonstate.edu', 'The plan \"Music Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
+(13, 9, 'golletzj@oregonstate.edu', 'The plan \"Music Plan\" has been set to \"Accepted\" by Sheev Palpatine.', 2),
+(14, 10, 'golletzj@oregonstate.edu', 'Anakin Skywalker has added a new comment to the plan \"Chemistry Plan\".', 1),
+(15, 10, 'golletzj@oregonstate.edu', 'The plan \"Chemistry Plan\" has been set to \"Awaiting final review\" by Anakin Skywalker.', 2),
+(16, 16, 'vibrant@birbspotters.nl', 'Zachary Thomas has added a new comment to the plan \"Bird Plan\".', 1),
+(17, 16, 'vibrant@birbspotters.nl', 'The plan \"Bird Plan\" has been set to \"Awaiting student changes\" by Zachary Thomas.', 2),
+(33, 19, 'usetheforce@gmail.com', 'Zachary Thomas has added a new comment to the plan \"Robotics Plan\".', 1),
+(34, 19, 'usetheforce@gmail.com', 'The plan \"Robotics Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
+(35, 15, 'vibrant@birbspotters.nl', 'Zachary Thomas has added a new comment to the plan \"Family Plan\".', 1),
+(36, 15, 'vibrant@birbspotters.nl', 'The plan \"Family Plan\" has been set to \"Awaiting final review\" by Zachary Thomas.', 2),
+(43, 42, 'golletzj@oregonstate.edu', 'Zachary Thomas has added a new comment to the plan \"Fish Plan\".', 1),
+(44, 42, 'golletzj@oregonstate.edu', 'The plan \"Fish Plan\" has been set to \"Accepted\" by Zachary Thomas.', 2),
+(48, 19, 'usetheforce@gmail.com', 'The plan \"Robotics Plan\" has been set to \"Accepted\" by Zachary Thomas.', 2);
 
 -- --------------------------------------------------------
 
@@ -7118,7 +7118,7 @@ INSERT INTO `Plan` (`planId`, `status`, `planName`, `studentId`, `created`, `las
 CREATE TABLE `PlanReview` (
   `reviewId` int(11) UNSIGNED NOT NULL,
   `planId` int(11) UNSIGNED NOT NULL,
-  `userId` bigint(11) UNSIGNED NOT NULL,
+  `userId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL,
   `time` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -7128,28 +7128,28 @@ CREATE TABLE `PlanReview` (
 --
 
 INSERT INTO `PlanReview` (`reviewId`, `planId`, `userId`, `status`, `time`) VALUES
-(1, 17, 82757579527, 3, '2020-03-20 16:29:33'),
-(2, 17, 80612566209, 4, '2020-03-20 16:29:53'),
-(3, 8, 77768733898, 0, '2020-03-20 16:31:51'),
-(4, 26, 82757579527, 3, '2020-03-20 16:33:45'),
-(5, 26, 80612566209, 4, '2020-03-20 16:33:50'),
-(6, 11, 77768733898, 3, '2020-03-20 16:35:38'),
-(8, 9, 82757579527, 3, '2020-03-20 16:38:54'),
-(9, 9, 80612566209, 4, '2020-03-20 16:39:11'),
-(10, 10, 15999951730, 3, '2020-03-20 16:41:22'),
-(11, 28, 97689531333, 1, '2020-03-20 16:48:57'),
-(12, 27, 61846240923, 0, '2020-03-20 16:54:48'),
-(13, 16, 97689531333, 1, '2020-03-20 16:58:20'),
-(14, 29, 77768733898, 3, '2020-03-31 22:20:56'),
-(15, 29, 80612566209, 4, '2020-03-31 22:32:38'),
-(16, 19, 82757579527, 3, '2020-04-10 06:48:44'),
-(17, 15, 82757579527, 3, '2020-04-12 19:49:07'),
-(18, 41, 77768733898, 1, '2020-04-16 19:48:55'),
-(19, 41, 82757579527, 2, '2020-04-16 19:49:09'),
-(20, 47, 77768733898, 3, '2020-04-24 04:54:16'),
-(21, 47, 80612566209, 4, '2020-04-24 05:03:05'),
-(22, 42, 82757579527, 4, '2020-05-01 17:18:16'),
-(27, 19, 82757579527, 4, '2020-05-05 01:31:05');
+(1, 17, 'thomasza@oregonstate.edu', 3, '2020-03-20 16:29:33'),
+(2, 17, 'order66@gmail.com', 4, '2020-03-20 16:29:53'),
+(3, 8, 'CinnamonBuns@msn.com', 0, '2020-03-20 16:31:51'),
+(4, 26, 'thomasza@oregonstate.edu', 3, '2020-03-20 16:33:45'),
+(5, 26, 'order66@gmail.com', 4, '2020-03-20 16:33:50'),
+(6, 11, 'CinnamonBuns@msn.com', 3, '2020-03-20 16:35:38'),
+(8, 9, 'thomasza@oregonstate.edu', 3, '2020-03-20 16:38:54'),
+(9, 9, 'order66@gmail.com', 4, '2020-03-20 16:39:11'),
+(10, 10, 'darth-vader@gmail.com', 3, '2020-03-20 16:41:22'),
+(11, 28, 'hello-there@hotmail.com', 1, '2020-03-20 16:48:57'),
+(12, 27, 'grandmoff@yahoo.com', 0, '2020-03-20 16:54:48'),
+(13, 16, 'hello-there@hotmail.com', 1, '2020-03-20 16:58:20'),
+(14, 29, 'CinnamonBuns@msn.com', 3, '2020-03-31 22:20:56'),
+(15, 29, 'order66@gmail.com', 4, '2020-03-31 22:32:38'),
+(16, 19, 'thomasza@oregonstate.edu', 3, '2020-04-10 06:48:44'),
+(17, 15, 'thomasza@oregonstate.edu', 3, '2020-04-12 19:49:07'),
+(18, 41, 'CinnamonBuns@msn.com', 1, '2020-04-16 19:48:55'),
+(19, 41, 'thomasza@oregonstate.edu', 2, '2020-04-16 19:49:09'),
+(20, 47, 'CinnamonBuns@msn.com', 3, '2020-04-24 04:54:16'),
+(21, 47, 'order66@gmail.com', 4, '2020-04-24 05:03:05'),
+(22, 42, 'thomasza@oregonstate.edu', 4, '2020-05-01 17:18:16'),
+(27, 19, 'thomasza@oregonstate.edu', 4, '2020-05-05 01:31:05');
 
 -- --------------------------------------------------------
 
@@ -7675,13 +7675,13 @@ ALTER TABLE `RecentPlan`
 --
 ALTER TABLE `Comment`
   ADD CONSTRAINT `fk_planIdComment` FOREIGN KEY (`planId`) REFERENCES `Plan` (`planId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_userId_comment` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_userId_comment` FOREIGN KEY (`userId`) REFERENCES `User` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Notification`
 --
 ALTER TABLE `Notification`
-  ADD CONSTRAINT `fk_userIdNotification` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_userIdNotification` FOREIGN KEY (`userId`) REFERENCES `User` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Plan`
@@ -7694,7 +7694,7 @@ ALTER TABLE `Plan`
 --
 ALTER TABLE `PlanReview`
   ADD CONSTRAINT `fk_planId` FOREIGN KEY (`planId`) REFERENCES `Plan` (`planId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_userId_review` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_userId_review` FOREIGN KEY (`userId`) REFERENCES `User` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `RecentPlan`

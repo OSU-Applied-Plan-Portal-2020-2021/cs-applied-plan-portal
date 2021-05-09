@@ -247,7 +247,7 @@ export default withRouter(PlanMetadata);
 
 PlanMetadata.propTypes = {
   studentName: PropTypes.string,
-  userId: PropTypes.number,
+  userId: PropTypes.string,
   email: PropTypes.string,
   planName: PropTypes.string,
   status: PropTypes.number,

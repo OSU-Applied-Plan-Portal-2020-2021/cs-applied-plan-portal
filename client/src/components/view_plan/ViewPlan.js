@@ -63,6 +63,8 @@ function ViewPlan(props) {
         setUserLoading(true);
         const profile = getProfile();
         const url = `/api/user/${profile.userId}`;
+
+        console.log("=== contents of url in viewPlan.js on line 67 ===", url);
         const response = await fetch(url);
 
         // before checking the results, ensure the request was not canceled
@@ -70,6 +72,7 @@ function ViewPlan(props) {
           if (response.ok) {
             // get data from the response
             const obj = await response.json();
+            console.log("=== contents of obj in viewPlan.js on line 73 ====", obj);
             setCurrentUser({
               id: obj.userId,
               role: obj.role,
@@ -78,6 +81,7 @@ function ViewPlan(props) {
             });
           }
 
+          console.log("=== contents of response in viewPlan.js on line 82 ====", response);
           setUserLoading(false);
         }
       } catch (err) {

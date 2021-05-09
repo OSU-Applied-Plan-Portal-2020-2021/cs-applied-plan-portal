@@ -54,7 +54,7 @@ export default Comment;
 Comment.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
-  userId: PropTypes.number,
+  userId: PropTypes.string,
   time: PropTypes.string,
   text: PropTypes.string
 };

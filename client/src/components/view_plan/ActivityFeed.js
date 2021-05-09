@@ -29,6 +29,7 @@ function ActivityFeed(props) {
 
   `;
 
+  console.log("=== contents of props.activity on line 32 in ActivityFeed.js", props.activity);
   return (
     <div id="plan-activity" css={style}>
       <h2>Activity Feed</h2>
