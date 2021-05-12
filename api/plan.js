@@ -58,8 +58,6 @@ app.post("/", requireAuth, async (req, res) => {
       const planName = sanitizedBody.planName;
       const courses = formatCourseArray(sanitizedBody.courses);
 
-      console.log("==== userId contents in plan.js line 56 ====", userId);
-
       // only create a plan if it does not violate any constraints
       const validation = await createPlanValidation(userId, planName, courses);
       if (validation === "valid") {
@@ -203,7 +201,6 @@ app.get("/:planId", requireAuth, async (req, res) => {
   try {
 
     const userId = req.auth.userId;
-    console.log("====== req.auth contents line 206 in plan.js =====", req.auth);
     const planId = req.params.planId;
     console.log("View plan", planId);
 
@@ -213,7 +210,6 @@ app.get("/:planId", requireAuth, async (req, res) => {
     
     if (validation === "valid") {
 
-      console.log("===== random message in plan.js line 216 ========");
       const results = await getPlan(planId, userId);
       if (results.planId === 0) {
         console.error("404: No plan found\n");
@@ -225,7 +221,6 @@ app.get("/:planId", requireAuth, async (req, res) => {
 
     } else {
 
-      console.log("===== another random message in plan.js line 228 ========");
       // send an error that explains the violated constraint
       console.error(`${validation.status}:`, validation.message, "\n");
       res.status(validation.status).send({error: validation.message});

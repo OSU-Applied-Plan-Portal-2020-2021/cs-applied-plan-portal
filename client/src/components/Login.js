@@ -32,7 +32,6 @@ function Login() {
         // attempt to login
         const results = await fetch(`/api/user/authenticated/`);
 
-        console.log("===== results variable in Login.js line 35 =====", results);
 
         // before checking the results, ensure the request was not canceled
         if (!ignore) {

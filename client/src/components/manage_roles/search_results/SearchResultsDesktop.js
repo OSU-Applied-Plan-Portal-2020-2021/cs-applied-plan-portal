@@ -88,27 +88,24 @@ function SearchResults({ props }) {
           <thead>
             <tr>
               <th className="user-data">User Name</th>
-              <th className="user-data">User ID</th>
               <th className="user-data">Email</th>
               <th className="user-data">Role</th>
             </tr>
           </thead>
           <tbody>
             {props.users.map((user, index) => (
-              <tr key={user.userId}>
-                <td className="user-data" key={user.userId + "a"}>
+              <tr key={user.email}>
+                <td className="user-data" key={user.email + "a"}>
                   {user.firstName + " " + user.lastName}
                 </td>
-                <td className="user-data" key={user.userId + "b"}>
-                  {user.userId}
-                </td>
-                <td className="user-data" key={user.userId + "c"}>
+                <td className="user-data" key={user.email + "c"}>
                   {user.email}
                 </td>
-                <td className="user-data" key={user.userId + "d"}>
+                <td className="user-data" key={user.email + "d"}>
                   <SelectRole
                     role={user.role}
                     userId={user.userId}
+                    email={user.email}
                     index={index}
                     userName={user.firstName + " " + user.lastName}
                     onLoading={(load) => props.onLoading(load)}

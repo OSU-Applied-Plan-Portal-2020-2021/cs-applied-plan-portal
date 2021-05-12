@@ -7529,7 +7529,6 @@ INSERT INTO `SelectedCourse` (`planId`, `courseId`, `credits`) VALUES
 --
 
 CREATE TABLE `User` (
-  `userId` bigint(11) UNSIGNED NOT NULL,
   `firstName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -7540,27 +7539,27 @@ CREATE TABLE `User` (
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`userId`, `firstName`, `lastName`, `email`, `role`) VALUES
-(10157289101, 'Wicket', 'Warrick', 'sell-toys@yahoo.com', 0),
-(12002489701, 'Luke', 'Skywalker', 'usetheforce@gmail.com', 0),
-(14278597767, 'San', 'Holo', 'vibrant@birbspotters.nl', 0),
-(15999951730, 'Anakin', 'Skywalker', 'darth-vader@gmail.com', 1),
-(19424289189, 'Claire', 'Cahill', 'cahillc@oregonstate.edu', 0),
-(19654375695, 'Boba', 'Fett', 'bounty-hunter@yahoo.com', 0),
-(50734529811, 'R2', 'D2', 'artoo@gmail.com', 0),
-(60535363653, 'Phi', 'Luu', 'luuph@oregonstate.edu', 2),
-(61846240923, 'Wilhuff', 'Tarkin', 'grandmoff@yahoo.com', 1),
-(64391826876, 'Gial', 'Ackbar', 'its-a-trap@yahoo.com', 1),
-(73611589202, 'Owen', 'Lars', 'powerConverters@msn.com', 0),
-(74237743225, 'Wedge', 'Antilles', 'x-wing@aol.com', 0),
-(76090936725, 'Emily', 'Disbury', 'disburye@oregonstate.edu', 2),
-(77768733898, 'Leia', 'Organa', 'CinnamonBuns@msn.com', 1),
-(80612566209, 'Sheev', 'Palpatine', 'order66@gmail.com', 2),
-(82757579527, 'Zachary', 'Thomas', 'thomasza@oregonstate.edu', 2),
-(84979840992, 'Jackson', 'Golletz', 'golletzj@oregonstate.edu', 0),
-(86725657261, 'C', '3PO', 'human_cyborg_relations@aol.com', 0),
-(96734244380, 'Lando', 'Calrissian', 'cloud_city@hotmail.com', 0),
-(97689531333, 'Ben', 'Kenobi', 'hello-there@hotmail.com', 1);
+INSERT INTO `User` (`firstName`, `lastName`, `email`, `role`) VALUES
+('Wicket', 'Warrick', 'sell-toys@yahoo.com', 0),
+('Luke', 'Skywalker', 'usetheforce@gmail.com', 0),
+('San', 'Holo', 'vibrant@birbspotters.nl', 0),
+('Anakin', 'Skywalker', 'darth-vader@gmail.com', 1),
+('Claire', 'Cahill', 'cahillc@oregonstate.edu', 0),
+('Boba', 'Fett', 'bounty-hunter@yahoo.com', 0),
+('R2', 'D2', 'artoo@gmail.com', 0),
+('Phi', 'Luu', 'luuph@oregonstate.edu', 2),
+('Wilhuff', 'Tarkin', 'grandmoff@yahoo.com', 1),
+('Gial', 'Ackbar', 'its-a-trap@yahoo.com', 1),
+('Owen', 'Lars', 'powerConverters@msn.com', 0),
+('Wedge', 'Antilles', 'x-wing@aol.com', 0),
+('Emily', 'Disbury', 'disburye@oregonstate.edu', 2),
+('Leia', 'Organa', 'CinnamonBuns@msn.com', 1),
+('Sheev', 'Palpatine', 'order66@gmail.com', 2),
+('Zachary', 'Thomas', 'thomasza@oregonstate.edu', 2),
+('Jackson', 'Golletz', 'golletzj@oregonstate.edu', 0),
+('C', '3PO', 'human_cyborg_relations@aol.com', 0),
+('Lando', 'Calrissian', 'cloud_city@hotmail.com', 0),
+('Ben', 'Kenobi', 'hello-there@hotmail.com', 1);
 
 --
 -- Indexes for dumped tables
@@ -7623,9 +7622,8 @@ ALTER TABLE `SelectedCourse`
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
-  ADD PRIMARY KEY (`email`),
-  ADD KEY `userId` (`userId`);
-
+  ADD PRIMARY KEY (`email`);
+  
 --
 -- AUTO_INCREMENT for dumped tables
 --

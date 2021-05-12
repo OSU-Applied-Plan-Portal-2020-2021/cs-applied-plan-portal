@@ -77,7 +77,6 @@ function requireAuth(req, res, next) {
 
       // ensure the retrieved `sub` (i.e. User's ID) satisfies the schema or
       // throw a schema validation error otherwise
-      console.log("=== contents of payload.sub in auth.js line 80 ====", payload.sub);
       assert(
         validator.isEmail(payload.sub),
         userSchema.email.getErrorMessage()

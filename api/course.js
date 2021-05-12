@@ -32,7 +32,7 @@ app.get("/updateDatabase", requireAuth, async (req, res) => {
       console.log("200: Courses update started\n");
       res.status(200).send({note: "Courses update started."});
     } else {
-      console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
+      console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
       res.status(403).send({
         error: "Only head advisors can update the courses in the database."
       });

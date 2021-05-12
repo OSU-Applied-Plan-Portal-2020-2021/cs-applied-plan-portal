@@ -136,10 +136,11 @@ exports.planNotification = planNotification;
 async function courseUpdateNotification(userId, state) {
 
   try {
-
-    // get the current time
-    const time = new Date().toLocaleTimeString("en-US", {dateStyle: "medium", timeStyle: "short"});
-
+    const time = new Intl.DateTimeFormat("en-US", { dateStyle: "medium", timeStyle: "short" }).format( new Date() );
+    
+    // old version of time variable for use with older versions of Node 
+    //const time = new Date().toLocaleDateString("en-US", {dateStyle: "medium", timeStyle: "short"});
+    
     // create a different message based on if the course update process
     // is just starting, finishing, or has an error
     let notificationText;
@@ -150,7 +151,7 @@ async function courseUpdateNotification(userId, state) {
     } else {
       notificationText = `Error completing course update at ${time}`;
     }
-
+  
     const sql = "INSERT INTO Notification (planId, userId, text, type) " +
       "VALUES (0, ?, ?, 3)";
     const results = await pool.query(sql, [userId, notificationText]);

@@ -171,8 +171,6 @@ app.get("/login", async (req, res) => {
     const casUser = await casValidateUser(casValidationUrl);
     const userAttributes = casUser["cas:attributes"][0];
 
-    console.log("======= This is the userAttributes in user.js line 173 ====== ", userAttributes);
-
     // make this nested try to catch potential error when parsing
     try {
       // try fetching the User from the database by email
@@ -187,7 +185,6 @@ app.get("/login", async (req, res) => {
         // construct a new User object and force student role on create
         // changes in roles must be approved by the administrator(s)
         const newUser = {
-          userId: 10000000000,
           firstName: userAttributes["cas:givenName"][0],
           lastName: userAttributes["cas:lastname"][0],
           email: userAttributes["cas:osuprimarymail"][0],
@@ -196,7 +193,7 @@ app.get("/login", async (req, res) => {
 
         // insert the new User to the database
         await userModel.createUser(newUser);
-        console.log(`201: User created: ${newUser.userId} (${newUser.email})\n`);
+        console.log(`201: User created: (${newUser.email})\n`);
       }
 
       // fetch this User from the database again to ensure getting correct info
@@ -229,21 +226,16 @@ app.get("/login", async (req, res) => {
 // Fetches a list of plans related to a specific User.
 app.get("/:userId/plans", requireAuth, async (req, res) => {
 
-  console.log("======Doest this function ever get called in user.js line 231======");
   try {
     // attempt to convert the target user's ID in route to an integer
     // return NaN if it's not an integer
     const osuemail = req.params.userId + "@oregonstate.edu";
 
-    console.log("============= results of osuemail in user.js line 234: ", osuemail);
 
     // ensure the provided target user's ID satisfies the schema
-    if (true) {
+    if (validator.isEmail(osuemail)) {
       // fetch the authenticated user's info
       const authenticatedUser = await userModel.getUserById(osuemail);
-      console.log("========== This is the auth user email pls work ==========",authenticatedUser.email);
-      console.log("========== this is the osuemail variable ===========", osuemail);
-
 
       // only allow the authenticated user with the same ID as the target user,
       // an Advisor, and a Head Advisor to perform this action
@@ -253,10 +245,6 @@ app.get("/:userId/plans", requireAuth, async (req, res) => {
           authenticatedUser.role === Role.headAdvisor)) {
         // fetch the target user's plans
         const results = await userModel.getUserPlans(req.params.userId + "@oregonstate.edu");
-
-        console.log("====== userId =====", req.params.userId);
-        console.log("contents of results in user.js line 256", results);
-
 
         if (results.plans.length > 0) {
           console.log("200: Plans found\n");
@@ -272,8 +260,8 @@ app.get("/:userId/plans", requireAuth, async (req, res) => {
         });
       }
     } else {
-      console.error(`400: ${userSchema.userId.getErrorMessage()}\n`);
-      res.status(400).send({ error: userSchema.userId.getErrorMessage() });
+      console.error(`400: ${userSchema.email.getErrorMessage()}\n`);
+      res.status(400).send({ error: userSchema.email.getErrorMessage() });
     }
   } catch (err) {
     console.error("500: An internal server error occurred\n Error:", err);
@@ -290,25 +278,19 @@ app.get("/:userId", requireAuth, async (req, res) => {
     // attempt to convert the target user's ID in route to an integer
     // return NaN if it's not an integer
     const userId = req.params.userId + "@oregonstate.edu";
-    //console.log("===== something random in user.js on line 293 ======");
+    
     // ensure the provided target user's ID satisfies the schema
     if (validator.isEmail(userId)) {
       // fetch the authenticated user's info
       const authenticatedUser = await userModel.getUserById(req.auth.userId);
-      //console.log("================ contents of req.auth.userId in user.js on line 298 ==============", req.auth.userId);
-      console.log("================ contents of authenticatedUser const in user.js on line 299 ==============", authenticatedUser);
-
-      console.log("===== value of comparison for authUser and user Id in user.js on line 301 ======", authenticatedUser.email.localeCompare(userId));
       
       // only allow the authenticated user with the same ID as the target user,
       // an Advisor, and a Head Advisor to perform this action
-      console.log("================ contents of userId in user.js on line 303 ==============", userId);
       if (authenticatedUser &&
         (authenticatedUser.email === userId ||
           authenticatedUser.role === Role.advisor ||
           authenticatedUser.role === Role.headAdvisor)) {
 
-            //console.log("================ something random in user.js on line 308 =================")
         // fetch the target user's info
 
         const user = await userModel.getUserById(userId);
@@ -322,15 +304,14 @@ app.get("/:userId", requireAuth, async (req, res) => {
         }
       } else {
 
-        console.log("================ something random in user.js on line 321 =================")
-        console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
+        console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
         res.status(403).send({
           error: "Only the target user, advisors, and head advisors can fetch the target user's info"
         });
       }
     } else {
-      console.error(`400: ${userSchema.userId.getErrorMessage()}\n`);
-      res.status(400).send({ error: userSchema.userId.getErrorMessage() });
+      console.error(`400: ${userSchema.email.getErrorMessage()}\n`);
+      res.status(400).send({ error: userSchema.email.getErrorMessage() });
     }
   } catch (err) {
     console.error("500: An internal server error occurred\n Error:", err);
@@ -346,12 +327,10 @@ app.patch("/:userId", requireAuth, async (req, res) => {
   try {
     // attempt to convert the target user's ID in route to an integer
     // return NaN if it's not an integer
-    const userId = validator.toInt(req.params.userId + "");
+    const userId = req.params.userId;
 
     // ensure the provided target user's ID satisfies the schema
-    if (Number.isInteger(userId) &&
-      userSchema.userId.minValue <= userId &&
-      userId <= userSchema.userId.maxValue) {
+    if (validator.isEmail(userId)) {
       // fetch the authenticated user's info
       const authenticatedUser = await userModel.getUserById(req.auth.userId);
 
@@ -372,14 +351,14 @@ app.patch("/:userId", requireAuth, async (req, res) => {
           res.status(400).send({ error: schemaViolations });
         }
       } else {
-        console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
+        console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
         res.status(403).send({
           error: "Only head advisors can update a user's information"
         });
       }
     } else {
-      console.error(`400: ${userSchema.userId.getErrorMessage()}\n`);
-      res.status(400).send({ error: userSchema.userId.getErrorMessage() });
+      console.error(`400: ${userSchema.email.getErrorMessage()}\n`);
+      res.status(400).send({ error: userSchema.email.getErrorMessage() });
     }
   } catch (err) {
     console.error("500: An internal server error occurred\n Error:", err);

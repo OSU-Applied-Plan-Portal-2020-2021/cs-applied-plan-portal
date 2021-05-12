@@ -109,10 +109,6 @@ async function userConstraint(email) {
     const sql = "SELECT * FROM User WHERE email=?;";
     const results = await pool.query(sql, email);
 
-    console.log("===== results of email =====", email);
-
-    console.log("==== contents of results in planConstraints.js line 112", results);
-
     if (results[0].length === 0) {
       throw ConstraintViolation(violation, 400);
     } else {
@@ -160,7 +156,7 @@ async function advisorConstraint(userId) {
 
   try {
 
-    const sql = "SELECT * FROM User WHERE userId=? AND role>0;";
+    const sql = "SELECT * FROM User WHERE email=? AND role>0;";
     const results = await pool.query(sql, userId);
 
     if (results[0].length === 0) {
@@ -461,8 +457,6 @@ async function ownerConstraint(planId, userId) {
       sql = "SELECT * FROM Plan WHERE planId=?;";
       results = await pool.query(sql, planId);
 
-      console.log("==== contents of results.studentId var in planContraints.js line 464: ====", results[0][0].studentId);
-      console.log("==== contents of userId in planContraints.js line 465: ====", userId);
       if (results[0][0].studentId === userId) {
         return;
       } else {
@@ -488,8 +482,6 @@ async function deleteConstraint(planId, userId) {
   const violation = "Invalid user ID:\nThis user is not allowed to delete this plan.";
 
   try {
-
-    console.log("=== userId in planConstraints line 490:  ===", userId);
     
     let sql = "SELECT * FROM User WHERE email=?;";
     let results = await pool.query(sql, userId);

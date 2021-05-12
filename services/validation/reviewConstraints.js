@@ -11,7 +11,7 @@ async function userConstraint(userId) {
 
   try {
 
-    const sql = "SELECT * FROM User WHERE userId=?;";
+    const sql = "SELECT * FROM User WHERE email=?;";
     const results = await pool.query(sql, userId);
 
     if (results[0].length === 0) {

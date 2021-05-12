@@ -14,7 +14,6 @@ export function getProfile() {
     // cookie.parse() throws on non-string arguments
     const cookieObj = cookie.parse(`${document.cookie}`);
 
-    console.log("===== contents of cookieOBJ in authService.js line 17 =====", cookieObj);
 
     // ensure the parsed cookies are a JS object (it should always be)
     if (cookieObj !== Object(cookieObj)) {
