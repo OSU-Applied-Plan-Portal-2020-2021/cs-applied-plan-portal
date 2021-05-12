@@ -1,16 +1,17 @@
 /** @jsx jsx */
 
-import PropTypes from "prop-types";
-import {css, jsx} from "@emotion/core";
-import { Mobile,Desktop } from "../../utils/responsiveUI";
-import {SCREENWIDTH} from "../../utils/constants";
-
+import PropTypes from "prop-types"
+import { css, jsx } from "@emotion/core"
+import { Mobile, Desktop } from "../../utils/responsiveUI"
+import { SCREENWIDTH } from "../../utils/constants"
+import { useDispatch } from 'react-redux'
+import { removeCourseFromPlan } from '../../redux/actions'
 
 // a single selected course
 function PlanCourse(props) {
-  const width = SCREENWIDTH.MOBILE.MAX;
-  
-  const style = css`
+	const width = SCREENWIDTH.MOBILE.MAX
+	const dispatch = useDispatch()
+	const style = css`
 
     td.button{
       @media(max-width: ${width}px){
@@ -44,46 +45,49 @@ function PlanCourse(props) {
       color: var(--color-gray-400);
     }
 
-  `;
+  `
 
-  // remove the current course from the plan
-  function removeButton() {
-    props.onRemoveCourse({
-      courseId: props.courseId
-    });
-  }
+	// remove the current course from the plan
+	function removeButton() {
+		props.onRemoveCourse({
+			courseId: props.courseId
+		})
 
-  return (
-    <tr css={style}>
-      <td>
-        <div className="table-item-title">{props.courseName}</div>
-        <div className="table-item-subtitle"><small>{props.courseCode.replace(/([A-z])(\d)/, "$1 $2")}</small></div>
-      </td>
-      <td className="planCredit">{props.credits}</td>
-      <Desktop>
-        <td></td>
-      </Desktop>
-      
-      <td className="button">
-        <button className="remove-button" onClick={removeButton}>
-          <Desktop>
-            Remove
+		// remove course from redux store
+		dispatch(removeCourseFromPlan({ courseId: props.courseId }))
+	}
+
+	return (
+		<tr css={style}>
+			<td>
+				<div className="table-item-title">{props.courseName}</div>
+				<div className="table-item-subtitle"><small>{props.courseCode.replace(/([A-z])(\d)/, "$1 $2")}</small></div>
+			</td>
+			<td className="planCredit">{props.credits}</td>
+			<Desktop>
+				<td></td>
+			</Desktop>
+
+			<td className="button">
+				<button className="remove-button" onClick={removeButton}>
+					<Desktop>
+						Remove
           </Desktop>
-          <Mobile>
-            <i class="fas fa-trash-alt"></i>
-          </Mobile>
-        </button>
-      </td>
-    </tr>
-  );
+					<Mobile>
+						<i class="fas fa-trash-alt"></i>
+					</Mobile>
+				</button>
+			</td>
+		</tr>
+	)
 
 }
-export default PlanCourse;
+export default PlanCourse
 
 PlanCourse.propTypes = {
-  courseId: PropTypes.number,
-  courseCode: PropTypes.string,
-  courseName: PropTypes.string,
-  credits: PropTypes.any,
-  onRemoveCourse: PropTypes.func
-};;
+	courseId: PropTypes.number,
+	courseCode: PropTypes.string,
+	courseName: PropTypes.string,
+	credits: PropTypes.any,
+	onRemoveCourse: PropTypes.func
+}

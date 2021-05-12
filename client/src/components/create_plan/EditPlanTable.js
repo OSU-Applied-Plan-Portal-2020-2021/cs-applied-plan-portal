@@ -1,16 +1,16 @@
 /** @jsx jsx */
 
-import PropTypes from "prop-types";
-import PlanCourse from "./PlanCourse";
-import {css, jsx} from "@emotion/core";
-import { Desktop, Mobile } from "../../utils/responsiveUI";
-import {SCREENWIDTH} from "../../utils/constants";
+import PropTypes from "prop-types"
+import PlanCourse from "./PlanCourse"
+import { css, jsx } from "@emotion/core"
+import { Desktop, Mobile } from "../../utils/responsiveUI"
+import { SCREENWIDTH } from "../../utils/constants"
 
 // table showing all of the currently selected courses
 function EditPlanTable(props) {
 
-  const width = SCREENWIDTH.MOBILE.MAX;
-  const style = css`
+	const width = SCREENWIDTH.MOBILE.MAX
+	const style = css`
 
     & {
       display: flex;
@@ -97,46 +97,46 @@ function EditPlanTable(props) {
         text-align: center;
       }
     }
-  `;
+  `
 
-  return (
-    <div id="edit-plan-container" css={style}>
-      <table className="edit-plan-table">
-        <thead>
-          <tr>
-            <th>Course</th>
-            <th id="credit">Credits</th>
-            <Desktop>
-              <th></th>
-            </Desktop>
-            <th>
-              <Desktop>
-                Remove
+	return (
+		<div id="edit-plan-container" css={style}>
+			<table className="edit-plan-table">
+				<thead>
+					<tr>
+						<th>Course</th>
+						<th id="credit">Credits</th>
+						<Desktop>
+							<th></th>
+						</Desktop>
+						<th>
+							<Desktop>
+								Remove
               </Desktop>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.courses.map(c =>
-            <PlanCourse
-              key={c.courseId}
-              courseId={c.courseId}
-              courseCode={c.courseCode}
-              courseName={c.courseName}
-              credits={c.credits}
-              onRemoveCourse={e => props.onRemoveCourse(e)}
-            />
-          )}
-        </tbody>
-      </table>
-    </div>
-  );
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{props.courses.map(c =>
+						<PlanCourse
+							key={c.courseId}
+							courseId={c.courseId}
+							courseCode={c.courseCode}
+							courseName={c.courseName}
+							credits={c.credits}
+							onRemoveCourse={e => props.onRemoveCourse(e)}
+						/>
+					)}
+				</tbody>
+			</table>
+		</div>
+	)
 
 }
-export default EditPlanTable;
+export default EditPlanTable
 
 EditPlanTable.propTypes = {
-  onRemoveCourse: PropTypes.func,
-  courseId: PropTypes.number,
-  courses: PropTypes.array
-};
+	onRemoveCourse: PropTypes.func,
+	courseId: PropTypes.number,
+	courses: PropTypes.array
+}

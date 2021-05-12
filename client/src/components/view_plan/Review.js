@@ -1,13 +1,12 @@
 /** @jsx jsx */
 
-import {css, jsx} from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
-import {statusText} from "../../utils/renderStatus";
-import {formatTime} from "../../utils/formatTime";
+import { statusText } from "../../utils/renderStatus";
+import { formatTime } from "../../utils/formatTime";
 
 // a single review on a plan
 function Reviews(props) {
-
   const style = css`
     text-align: center;
     margin: 25px auto;
@@ -17,7 +16,8 @@ function Reviews(props) {
     justify-content: center;
     width: 33%;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
     background: white;
 
     .review-text-container {
@@ -41,10 +41,12 @@ function Reviews(props) {
     }
 
     @media screen and (max-width: 800px) {
-        width: 45%;
+      width: 45%;
     }
     @media screen and (max-width: 600px) {
-        width: 95%
+      width: 95%;
+      margin-top: 1rem;
+      margin-bottom: 0;
     }
   `;
 
@@ -52,21 +54,23 @@ function Reviews(props) {
     return (
       <div className="review-container" css={style}>
         <div className="review-text-container">
-          <p><span className="review-user">{props.userName}</span><span className="review-time">{formatTime(props.time)}</span></p>
+          <p>
+            <span className="review-user">{props.userName}</span>
+            <span className="review-time">{formatTime(props.time)}</span>
+          </p>
           {props.status > 4 ? (
             <p className="review-status">Created a new plan</p>
           ) : (
-            <p className="review-status">Updated status to {statusText(props.status)}</p>
+            <p className="review-status">
+              Updated status to {statusText(props.status)}
+            </p>
           )}
         </div>
       </div>
     );
   } else {
-    return (
-      <div></div>
-    );
+    return <div></div>;
   }
-
 }
 export default Reviews;
 
@@ -75,5 +79,5 @@ Reviews.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   status: PropTypes.number,
-  time: PropTypes.string
+  time: PropTypes.string,
 };
