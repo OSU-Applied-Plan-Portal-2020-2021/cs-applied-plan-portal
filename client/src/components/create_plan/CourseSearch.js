@@ -1,134 +1,129 @@
 /** @jsx jsx */
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Course from "./Course";
 import FilterBar from "./FilterBar";
 import ErrorMessage from "../general/ErrorMessage";
 import PropTypes, { func } from "prop-types";
-import {css, jsx} from "@emotion/core";
-import { Mobile,Desktop } from "../../utils/responsiveUI";
-import {SCREENWIDTH} from "../../utils/constants";
-import Modal from 'react-modal';
+import { css, jsx } from "@emotion/core";
+import { Mobile, Desktop } from "../../utils/responsiveUI";
+import { SCREENWIDTH } from "../../utils/constants";
+import Modal from "react-modal";
 
-
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
 
 // search form for courses
 function CourseContainer(props) {
-
   const [mounted, setMounted] = useState(false);
   const [courses, setCourses] = useState([]);
   const [filter, setFilter] = useState("*");
   const [request, setRequest] = useState("*");
 
   const [modalIsOpen, setIsOpen] = useState(false);
-  const width = SCREENWIDTH.MOBILE.MAX; 
+  const width = SCREENWIDTH.MOBILE.MAX;
 
   // modal css styles
   const ModalStyles = {
-  overlay:{
-    background          :  "rgba(0, 0, 0, 0.5)"
-  },
-  content : {
-    position             : "relative",
-    inset                : "103px 0px 0px 0px",
-    border               : "1px solid transparent",
-    background           :  "transparent",
-    margin               : "0px",
-    padding              : "0px",
-    height               : "80vh",
-    borderRadius         : "0px",
-    overflow             : "visible"
-  },
-  button : {
-    background            : "#e7501c",
-    position              : "relative",
-    top                   : "-3vh",
-    border                : "1px solid transparent",
-    borderRadius          : "6px",
-    color                 : "white",
-    fontSize              : "3rem",
-    padding               : "0px 10px",
-    margin                : "1% 4%",
-    float                 : "right"
-  },
-  fontOfButton : {
-    position              : "relative",
-    top                   : "-14%"
-  },
-  resultTable : {
-    overflow              : "scroll",
-    height                : "87%",
-    position              : "relative",
-    width                 : "93vw",
-    margin                : "0 3%"
-
-
-
-  },
-  errorMessage : {
-    position : "relative",
-    top : "-4%"
-  }
-};
+    overlay: {
+      background: "rgba(0, 0, 0, 0.5)",
+    },
+    content: {
+      position: "relative",
+      inset: "103px 0px 0px 0px",
+      border: "1px solid transparent",
+      background: "transparent",
+      margin: "0px",
+      padding: "0px",
+      height: "80vh",
+      borderRadius: "0px",
+      overflow: "visible",
+    },
+    button: {
+      background: "#e7501c",
+      position: "relative",
+      top: "-3vh",
+      border: "1px solid transparent",
+      borderRadius: "6px",
+      color: "white",
+      fontSize: "3rem",
+      padding: "0px 10px",
+      margin: "1% 4%",
+      float: "right",
+    },
+    fontOfButton: {
+      position: "relative",
+      top: "-14%",
+    },
+    resultTable: {
+      overflow: "scroll",
+      height: "87%",
+      position: "relative",
+      width: "93vw",
+      margin: "0 3%",
+    },
+    errorMessage: {
+      position: "relative",
+      top: "-4%",
+    },
+  };
 
   const style = css`
-
     & {
       display: grid;
       grid-gap: 1rem;
       grid-template-columns: auto auto;
       grid-template-rows: 50px auto auto 1fr;
-      grid-template-areas: 'title    category'
-                          'search   search'
-                          'warn     warn'
-                          'results  results';
-      @media(max-width: ${width}px){
+      grid-template-areas:
+        "title    category"
+        "search   search"
+        "warn     warn"
+        "results  results";
+      @media (max-width: ${width}px) {
         grid-template-columns: 96vw;
         grid-template-rows: 35px 35px auto;
         grid-template-areas:
-            'filter'
-            'search'
-            'results';
+          "filter"
+          "search"
+          "results";
         grid-gap: 2px;
         position: absolute;
         height: auto;
         padding: 0px 5px 0px 5px;
       }
     }
-    
+
     .search-title {
       font-weight: 600;
       font-size: 23px;
       grid-area: title;
       display: flex;
       align-items: center;
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         display: none;
       }
     }
-    
+
     .search-category {
       grid-area: category;
     }
-    
+
     .search-button {
       background: var(--color-orange-500);
       color: var(--color-orange-50);
       padding: 1rem 1rem;
       border-radius: 0.5rem;
       border: none;
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         padding: 0px 12px;
         height: 34px;
       }
     }
-    
+
     .search-results {
       grid-area: results;
       overflow-x: hidden;
       overflow-y: auto;
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         overflow-y: scroll;
         // max-height: 76vh;
       }
@@ -140,18 +135,18 @@ function CourseContainer(props) {
       grid-gap: 1rem;
       grid-template-rows: auto;
       grid-area: search;
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         grid-template-columns: 4fr auto;
       }
     }
-    
+
     #search-container {
       padding: 2rem 1rem;
       border: 1.5px solid #dfdad8;
       box-shadow: none;
-      @media(max-width: ${width}px){
-          // height: 45px;
-          padding: 0px 12px;
+      @media (max-width: ${width}px) {
+        // height: 45px;
+        padding: 0px 12px;
       }
     }
 
@@ -161,7 +156,7 @@ function CourseContainer(props) {
       justify-content: flex-end;
       margin-bottom: 0;
     }
-    
+
     .course-filter select {
       text-align-last: right;
       background: none;
@@ -171,38 +166,34 @@ function CourseContainer(props) {
     }
 
     .course-filter select:focus {
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         // position: relative;
         // top: 155px;
         // background:white;
         // border-radius: 6px;
-
       }
     }
 
-    #errorMessage{
-       @media(max-width: ${width}px){
-         color:red;
-       }
+    #errorMessage {
+      @media (max-width: ${width}px) {
+        color: red;
+      }
     }
 
     .form {
       display: inline;
     }
 
-    .fas.fa-search{
+    .fas.fa-search {
       font-size: 2.5rem;
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         font-size: 2rem;
       }
     }
-
-
   `;
 
   // listen for new search requests and perform a new search when one arrives
   useEffect(() => {
-
     // set ignore and controller to prevent a memory leak
     // in the case where we need to abort early
     let ignore = false;
@@ -224,7 +215,6 @@ function CourseContainer(props) {
 
         // before checking the results, ensure the request was not canceled
         if (!ignore) {
-
           if (results.ok) {
             obj = await results.json();
             setCourses(obj.courses);
@@ -234,15 +224,15 @@ function CourseContainer(props) {
             changeWarning(obj.error);
             setCourses([]);
           }
-
         }
-
       } catch (err) {
         if (err instanceof DOMException) {
           // if we canceled the fetch request then don't show an error message
           console.log("HTTP request aborted");
         } else {
-          changeWarning("An internal server error occurred. Please try again later.");
+          changeWarning(
+            "An internal server error occurred. Please try again later."
+          );
         }
       }
     }
@@ -267,7 +257,7 @@ function CourseContainer(props) {
   function callSearch() {
     setRequest({
       courses: courses,
-      filter: filter
+      filter: filter,
     });
     openModal();
   }
@@ -297,29 +287,31 @@ function CourseContainer(props) {
   }
 
   // show modal
-  function openModal(){
+  function openModal() {
     setIsOpen(true);
   }
 
   // close modal
-  function closeModal(){
+  function closeModal() {
     setIsOpen(false);
   }
-
-
 
   return (
     <div id="search" css={style}>
       <div className="search-title">Search</div>
       <div className="search-container">
         <form className="form my-2 my-lg-0" onSubmit={submitHandler}>
-          <input id="search-container" className="form-control mr-sm-2" type="text" placeholder="Search for courses..." name="search"/>
+          <input
+            id="search-container"
+            className="form-control mr-sm-2"
+            type="text"
+            placeholder="Search for courses..."
+            name="search"
+          />
         </form>
 
         <button className="search-button" type="submit" onClick={callSearch}>
-          <Desktop>
-            Search
-          </Desktop>
+          <Desktop>Search</Desktop>
           <Mobile>
             <i class="fas fa-search"></i>
           </Mobile>
@@ -328,12 +320,12 @@ function CourseContainer(props) {
 
       <Desktop>
         <form className="course-filter form-group">
-          <FilterBar value={filter} onValueChange={handleFilterChange}/>
+          <FilterBar value={filter} onValueChange={handleFilterChange} />
         </form>
       </Desktop>
       <Mobile>
         <form className="course-filter form-group">
-          <FilterBar value={filter} onValueChange={handleFilterChangeMobile}/>
+          <FilterBar value={filter} onValueChange={handleFilterChangeMobile} />
         </form>
       </Mobile>
 
@@ -344,53 +336,73 @@ function CourseContainer(props) {
       {/* Mobile version for pop up modal for table containing search course result */}
       <Mobile>
         <div className="search-results">
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          style={ModalStyles}
-        >
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={ModalStyles}
+          >
             {/* <div style={ModalStyles.errorMessage}> */}
-              
-              <button id="closeButton" onClick={closeModal} style={ModalStyles.button}>
-                {/* <i class="far fa-times-circle" style={ModalStyles.fontOfButton}></i> */}
-                <i class="fas fa-times" style={ModalStyles.fontOfButton}></i>
-              </button>
-              <ErrorMessage text={props.warning} />
-            {/* </div> */}
-             
 
+            <button
+              id="closeButton"
+              onClick={closeModal}
+              style={ModalStyles.button}
+            >
+              {/* <i class="far fa-times-circle" style={ModalStyles.fontOfButton}></i> */}
+              <i class="fas fa-times" style={ModalStyles.fontOfButton}></i>
+            </button>
+            <ErrorMessage text={props.warning} />
+            {/* </div> */}
 
             <div style={ModalStyles.resultTable}>
-             
-              {courses.length > 0 ? courses.map(c =>
-              <Course key={c.courseId} courseId={c.courseId} courseCode={c.courseCode} courseName={c.courseName} credits={c.credits}
-                description={c.description} prerequisites={c.prerequisites} restriction={c.restriction} onAddCourse={e => props.onAddCourse(e)}/>
-            ) 
-            : (
-            <Desktop>
-              <div>Search for courses...</div>
-            </Desktop>
-            )}
+              {courses.length > 0 ? (
+                courses.map((c) => (
+                  <Course
+                    key={c.courseId}
+                    courseId={c.courseId}
+                    courseCode={c.courseCode}
+                    courseName={c.courseName}
+                    credits={c.credits}
+                    description={c.description}
+                    prerequisites={c.prerequisites}
+                    restriction={c.restriction}
+                    onAddCourse={(e) => props.onAddCourse(e)}
+                  />
+                ))
+              ) : (
+                <Desktop>
+                  <div>Search for courses...</div>
+                </Desktop>
+              )}
             </div>
-        </Modal>
-      </div>
+          </Modal>
+        </div>
       </Mobile>
 
       {/* Desktop version for pop up modal for table containing search course result */}
       <Desktop>
         <div className="search-results">
-          {courses.length > 0 ? courses.map(c =>
-            <Course key={c.courseId} courseId={c.courseId} courseCode={c.courseCode} courseName={c.courseName} credits={c.credits}
-              description={c.description} prerequisites={c.prerequisites} restriction={c.restriction} onAddCourse={e => props.onAddCourse(e)}/>
+          {courses.length > 0 ? (
+            courses.map((c) => (
+              <Course
+                key={c.courseId}
+                courseId={c.courseId}
+                courseCode={c.courseCode}
+                courseName={c.courseName}
+                credits={c.credits}
+                description={c.description}
+                prerequisites={c.prerequisites}
+                restriction={c.restriction}
+                onAddCourse={(e) => props.onAddCourse(e)}
+              />
+            ))
           ) : (
-              <div>Search for courses...</div>
+            <div>Search for courses...</div>
           )}
         </div>
       </Desktop>
-
     </div>
   );
-
 }
 export default CourseContainer;
 
@@ -398,5 +410,5 @@ CourseContainer.propTypes = {
   updateCourses: PropTypes.func,
   onAddCourse: PropTypes.func,
   onNewWarning: PropTypes.func,
-  warning: PropTypes.string
+  warning: PropTypes.string,
 };
