@@ -19,14 +19,19 @@ function PlanSelect(props) {
         align-items: center;
 
         .option {
-            width: 40%;
-            height: 5%;
-            max-height: 40px;
+            width: 30%;
+						flex: 1;
+						margin-bottom: 2rem;
+            /* height: 5%;
+            max-height: 40px; */
             border-radius: 10px;
             background-color: white;
             border-style: hidden;
             font-size: 16px;
             font-style: normal;
+						&:hover {
+							background-color: #eee;
+						}
         }
 
         .close {
@@ -42,6 +47,7 @@ function PlanSelect(props) {
             color: white;
             width: 40%;
             text-align: center;
+						margin: 1rem 0;
         }
 
         .header > span {
