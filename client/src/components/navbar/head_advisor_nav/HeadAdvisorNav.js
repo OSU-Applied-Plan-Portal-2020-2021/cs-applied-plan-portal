@@ -9,10 +9,10 @@ function HeadAdvisorNav(props) {
   return (
     <>
       <Mobile>
-        <HeadAdvisorNavMobile currentPlan={props.currentPlan} />
+        <HeadAdvisorNavMobile currentPlan={props.currentPlan} role={props.role} />
       </Mobile>
       <Desktop>
-        <HeadAdvisorNavDesktop currentPlan={props.currentPlan} />
+        <HeadAdvisorNavDesktop currentPlan={props.currentPlan} role={props.role}/>
       </Desktop>
     </>
   );
