@@ -8,7 +8,7 @@ function PlanSelect(props) {
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.95);
     width: 100%;
     height: 100%;
     z-index: 10;
@@ -24,9 +24,7 @@ function PlanSelect(props) {
     .option {
       width: 30%;
       height: 40px;
-      margin-bottom: 2rem;
-      /* height: 5%;
-            max-height: 40px; */
+      margin-bottom: 1.5rem;
       border-radius: 10px;
       background-color: white;
       border-style: hidden;
