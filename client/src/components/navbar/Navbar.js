@@ -45,7 +45,7 @@ function Navbar(props) {
       right: 0;
       z-index: 9;
       @media (${responSize}) {
-        height: 75px;
+        height: 65px;
       }
     }
 
@@ -55,6 +55,7 @@ function Navbar(props) {
 
     & a:first-of-type {
       text-decoration-color: transparent !important;
+      height: 100%;
     }
 
     .osu-logo {
@@ -64,23 +65,23 @@ function Navbar(props) {
       margin: 0;
       margin-right: 1rem;
       color: white;
-      width: 119px;
-      height: 66px;
+      height: 100%;
+      display: flex;
+      align-items: center;
       @media (${responSize}) {
-        width: 119px;
-        height: 75px;
+
       }
     }
 
     .logo-img {
-      display: block;
-      width: 33%;
-      position: relative;
-      left: 16px;
-      top: 9px;
+
+      margin-left: 16px;
+      height: 90%;
+
       @media (${responSize}) {
-        width: 40%;
+
       }
+      object-fit: contain;
     }
 
     .logo-text {
@@ -89,8 +90,8 @@ function Navbar(props) {
       position: absolute;
       text-align: center;
       top: 12px;
-      left: 41%;
-      /* width: 40%; */
+      left: 80px;
+
 
       @media (${responSize}) {
         display: block;
@@ -100,7 +101,6 @@ function Navbar(props) {
         left: 29%;
         width: 40%;
         height: 75px;
-        padding: 10px;
       }
     }
 

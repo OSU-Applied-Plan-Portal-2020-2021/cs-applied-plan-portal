@@ -8,7 +8,8 @@ import PageNotFound from "./general/PageNotFound";
 import Home from "./Home";
 import Login from "./Login";
 import ManageRoles from "./manage_roles/ManageRoles";
-
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 const globalStyles = css`
   @import url("https://fonts.googleapis.com/css?family=Muli");
@@ -113,33 +114,35 @@ const globalStyles = css`
 function App() {
   return (
     <div className="App">
-      <Global styles={globalStyles} />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/createPlan/:planId">
-          <StudentCreatePlan />
-        </Route>
-        <Route path="/viewPlan/:planId">
-          <ViewPlan />
-        </Route>
-        <Route path="/editPlan/:planId">
-          <StudentCreatePlan />
-        </Route>
-        <Route path="/manageRoles">
-          <ManageRoles />
-        </Route>
-        <Route path="/500">
-          <PageInternalError />
-        </Route>
-        <Route path="*">
-          <PageNotFound />
-        </Route>
-      </Switch>
+      <Provider store={store}>
+        <Global styles={globalStyles} />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/createPlan/:planId">
+            <StudentCreatePlan />
+          </Route>
+          <Route path="/viewPlan/:planId">
+            <ViewPlan />
+          </Route>
+          <Route path="/editPlan/:planId">
+            <StudentCreatePlan />
+          </Route>
+          <Route path="/manageRoles">
+            <ManageRoles />
+          </Route>
+          <Route path="/500">
+            <PageInternalError />
+          </Route>
+          <Route path="*">
+            <PageNotFound />
+          </Route>
+        </Switch>
+      </Provider>
     </div>
   );
 }

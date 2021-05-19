@@ -1,12 +1,11 @@
 /** @jsx jsx */
 
-import {css, jsx} from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
-import {formatTime} from "../../utils/formatTime";
+import { formatTime } from "../../utils/formatTime";
 
 // a single comment on a plan
 function Comment(props) {
-
   const style = css`
     text-align: center;
     margin: 25px auto;
@@ -15,7 +14,8 @@ function Comment(props) {
     word-wrap: break-word;
     overflow-wrap: break-word;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
     background: white;
 
     .comment-user {
@@ -34,20 +34,26 @@ function Comment(props) {
     }
 
     @media screen and (max-width: 800px) {
-        width: 45%;
+      width: 45%;
     }
     @media screen and (max-width: 600px) {
-        width: 95%
+      width: 95%;
+      margin-top: 1rem;
+      margin-bottom: 0;
     }
   `;
 
   return (
     <div className="comment-container" css={style}>
-      <p><span className="comment-user">{props.firstName + " " + props.lastName}</span><span className="comment-time">{formatTime(props.time)}</span></p>
+      <p>
+        <span className="comment-user">
+          {props.firstName + " " + props.lastName}
+        </span>
+        <span className="comment-time">{formatTime(props.time)}</span>
+      </p>
       <p className="comment-text">{props.text}</p>
     </div>
   );
-
 }
 export default Comment;
 
@@ -56,5 +62,5 @@ Comment.propTypes = {
   lastName: PropTypes.string,
   userId: PropTypes.string,
   time: PropTypes.string,
-  text: PropTypes.string
+  text: PropTypes.string,
 };
