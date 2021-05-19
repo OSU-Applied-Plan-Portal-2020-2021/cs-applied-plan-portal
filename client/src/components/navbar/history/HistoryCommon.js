@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import {css, jsx} from "@emotion/react";
+import { css, jsx } from "@emotion/react";
 import PropTypes from "prop-types";
-import {Desktop, Mobile} from "../../../utils/responsiveUI";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCaretDown, faHistory} from "@fortawesome/free-solid-svg-icons";
-import {Link} from "react-router-dom";
+import { Desktop, Mobile } from "../../../utils/responsiveUI";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown, faHistory } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-function HistoryCommon({recentPlans}) {
+function HistoryCommon({ recentPlans }) {
   const style = css`
     & {
       display: inline-block;
@@ -56,13 +56,21 @@ function HistoryCommon({recentPlans}) {
       background-color: red;
       color: white;
     }
+
+		.dropdown-plan-name {
+			font-weight: 600;
+			color: #333;
+		}
+		.dropdown-student-name {
+			margin-left: 1.5rem;
+		}
   `;
   return (
     <div className="history-dropdown" css={style}>
       <button className="drop-button">
         <Desktop>
           History
-          <FontAwesomeIcon icon={faCaretDown} style={{margin: "0 5px"}}/>
+          <FontAwesomeIcon icon={faCaretDown} style={{ margin: "0 5px" }} />
         </Desktop>
         <Mobile>
           <FontAwesomeIcon icon={faHistory} size="xs" />
@@ -73,8 +81,12 @@ function HistoryCommon({recentPlans}) {
         {recentPlans.length ? (
           recentPlans.map((item) => (
             <Link key={item.planId} to={`/viewPlan/${item.planId}`}>
-              {item.planName} <br />
+              <div className="dropdown-plan-name">
+                {item.planName}
+              </div>
+							<div className="dropdown-student-name">
               {item.firstName + " " + item.lastName}
+							</div>
             </Link>
           ))
         ) : (

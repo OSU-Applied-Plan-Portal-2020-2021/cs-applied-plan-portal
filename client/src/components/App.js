@@ -10,6 +10,8 @@ import Login from "./Login";
 import ManageRoles from "./manage_roles/ManageRoles";
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import RestrictedRoute from '../utils/RestrictedRoute'
+
 
 const globalStyles = css`
   @import url("https://fonts.googleapis.com/css?family=Muli");
@@ -112,6 +114,7 @@ const globalStyles = css`
 
 // handle all application URL page routing
 function App() {
+
   return (
     <div className="App">
       <Provider store={store}>
@@ -132,9 +135,9 @@ function App() {
           <Route path="/editPlan/:planId">
             <StudentCreatePlan />
           </Route>
-          <Route path="/manageRoles">
+          <RestrictedRoute exact path="/manageRoles">
             <ManageRoles />
-          </Route>
+          </RestrictedRoute>
           <Route path="/500">
             <PageInternalError />
           </Route>
