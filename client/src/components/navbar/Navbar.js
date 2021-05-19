@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import HeadAdvisorNav from "./head_advisor_nav/HeadAdvisorNav";
 import logo from "./../../images/logo.png";
+import { ROLE } from '../../utils/constants'
 
 // application navigation bar
 function Navbar(props) {
@@ -164,12 +165,11 @@ function Navbar(props) {
         </div>
       </Link>
       <div className="right-container">
-        {/* If head advisor, show HeadAdvisorNav */}
-        {role === 2 ? (
-          <HeadAdvisorNav currentPlan={props.currentPlan} />
+        {role === ROLE.ADVISOR || role === ROLE.HEAD_ADVISOR ? (
+          <HeadAdvisorNav currentPlan={props.currentPlan} role={role}/>
         ) : (
           <div>
-            {role ? <History currentPlan={props.currentPlan} /> : null}
+            {/* {role ? <History currentPlan={props.currentPlan} /> : null} */}
             <Notifications />
             <Logout />
           </div>
