@@ -2,6 +2,8 @@
 // Description: creates a mysql pool
 
 const mysql = require("mysql2/promise");
+require("dotenv").config();
+
 
 // set the server information using enviorment variables
 const mysqlPort = process.env.SQL_PORT || 3306;
@@ -19,6 +21,6 @@ const pool = mysql.createPool({
   password: mysqlPassword,
   database: mysqlDatabase,
   connectionLimit: MAX_CONNECTIONS,
-  multipleStatements: true
+  multipleStatements: true,
 });
 exports.pool = pool;

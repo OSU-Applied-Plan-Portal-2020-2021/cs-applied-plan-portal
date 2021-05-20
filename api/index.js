@@ -5,7 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const express = require("express");
 const cors = require("cors");
-const { ENV } = require("../entities/environment");
+const {ENV} = require("../entities/environment");
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   bodyParser.json()(req, res, err => {
     if (err) {
       console.error("400: Invalid JSON request body");
-      res.status(400).send({ error: "400: Invalid JSON request body" });
+      res.status(400).send({error: "400: Invalid JSON request body"});
     } else {
       next();
     }
@@ -41,7 +41,7 @@ app.use("/api/user", require("./user"));
 
 // statically serve files from the React app if in production mode
 if (process.env.NODE_ENV === ENV.PRODUCTION) {
-  console.log('serving production')
+  console.log("serving production");
   app.use(express.static(path.join(__dirname, "../client/build")));
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
@@ -50,7 +50,7 @@ if (process.env.NODE_ENV === ENV.PRODUCTION) {
   // if on other environments, everything else gets a 404 error
   app.get("/api/*", (req, res) => {
     console.error("404: File not found\n");
-    res.status(404).send({ error: "Not Found" });
+    res.status(404).send({error: "Not Found"});
   });
 }
 

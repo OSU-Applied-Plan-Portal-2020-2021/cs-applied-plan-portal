@@ -24,8 +24,6 @@ function SearchResultsDesktop({
   },
   goToPlan,
 }) {
-
-  const width = SCREENWIDTH.MOBILE.MAX;
   const desktopStyle = css`
 
     & {
@@ -100,8 +98,7 @@ function SearchResultsDesktop({
       .prompt-container {
         width: ${MOBILE_WIDTH};
       }
-
-  `;
+		`;
 
   // updates the sorting order of the search results
   function changeSort(sortValue, alternateOrder) {

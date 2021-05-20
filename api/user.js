@@ -6,8 +6,8 @@ const express = require("express");
 const url = require("url");
 const validator = require("validator");
 
-const { ENV } = require("../entities/environment");
-const { Role } = require("../entities/role");
+const {ENV} = require("../entities/environment");
+const {Role} = require("../entities/role");
 const userModel = require("../models/user");
 const {
   userSchema,
@@ -58,7 +58,7 @@ app.get("/search/:text/:role/:cursorPrimary/:cursorSecondary", requireAuth, asyn
           res.status(200).send(matchingUsers);
         } else {
           console.error("404: No matching Users found\n");
-          res.status(404).send({ error: "No matching users found." });
+          res.status(404).send({error: "No matching users found."});
         }
       } else {
         console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
@@ -70,7 +70,7 @@ app.get("/search/:text/:role/:cursorPrimary/:cursorSecondary", requireAuth, asyn
     } else {
       // send an error explaining the schema violation
       console.error("400:", errorMessage, "\n");
-      res.status(400).send({ error: errorMessage });
+      res.status(400).send({error: errorMessage});
       return;
     }
 
@@ -100,10 +100,10 @@ app.post("/", requireAuth, async (req, res) => {
         const result = await userModel.createUser(newUser);
 
         console.log("201: User created\n");
-        res.status(201).send({ userId: result.insertId });
+        res.status(201).send({userId: result.insertId});
       } else {
         console.error(schemaViolations);
-        res.status(400).send({ error: schemaViolations });
+        res.status(400).send({error: schemaViolations});
       }
     } else {
       console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
@@ -152,7 +152,7 @@ app.get("/login", async (req, res) => {
   // send the ticket to this URL to validate it against CAS
   const hostname = (process.env.NODE_ENV === ENV.PRODUCTION)
     ? "login.oregonstate.edu"
-    : "login-int.iam.oregonstate.edu"
+    : "login-int.iam.oregonstate.edu";
   const casValidationUrl = url.format({
     protocol: "https",
     hostname: hostname,
@@ -214,11 +214,11 @@ app.get("/login", async (req, res) => {
       res.status(200).redirect(targetUrl);
     } catch (err) {
       console.error("Error fetching or inserting User:", err);
-      res.status(500).send({ error: err });
+      res.status(500).send({error: err});
     }
   } catch (err) {
     console.error(`${err.code}:`, err.error);
-    res.status(err.code).send({ error: err.error });
+    res.status(err.code).send({error: err.error});
   }
 });
 
@@ -251,7 +251,7 @@ app.get("/:userId/plans", requireAuth, async (req, res) => {
           res.status(200).send(results);
         } else {
           console.error("404: No plans found\n");
-          res.status(404).send({ error: "No plans found" });
+          res.status(404).send({error: "No plans found"});
         }
       } else {
         console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
@@ -300,7 +300,7 @@ app.get("/:userId", requireAuth, async (req, res) => {
           res.status(200).send(user);
         } else {
           console.error("404: No User found\n");
-          res.status(404).send({ error: "No User found" });
+          res.status(404).send({error: "No User found"});
         }
       } else {
 
@@ -345,10 +345,10 @@ app.patch("/:userId", requireAuth, async (req, res) => {
           const result = await userModel.updateUserPartial(userId, updatedUser);
 
           console.log("200: User partial update succeeded\n");
-          res.status(200).send({ changedRows: result.changedRows });
+          res.status(200).send({changedRows: result.changedRows});
         } else {
           console.error(schemaViolations);
-          res.status(400).send({ error: schemaViolations });
+          res.status(400).send({error: schemaViolations});
         }
       } else {
         console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);

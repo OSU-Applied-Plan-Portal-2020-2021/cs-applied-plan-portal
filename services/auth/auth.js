@@ -9,8 +9,8 @@ const validator = require("validator");
 const xml2js = require("xml2js");
 const CryptoJS = require("crypto-js");
 
-const { userSchema } = require("../validation/schemaValidation");
-const { ENV } = require("../../entities/environment");
+const {userSchema} = require("../validation/schemaValidation");
+const {ENV} = require("../../entities/environment");
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const CSRF_SECRET_KEY = process.env.CSRF_SECRET_KEY;
@@ -23,7 +23,7 @@ function generateAuthToken(userId) {
   const payload = {
     sub: userId
   };
-  const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: "24h" });
+  const token = jwt.sign(payload, JWT_SECRET_KEY, {expiresIn: "24h"});
   return token;
 }
 exports.generateAuthToken = generateAuthToken;
