@@ -2,20 +2,21 @@
 
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
+import { BOX_SHADOW_CARD } from '../../utils/constants'
 import { formatTime } from "../../utils/formatTime";
 
 // a single comment on a plan
 function Comment(props) {
   const style = css`
     text-align: center;
-    margin: 25px auto;
-    padding: 25px;
+    /* margin: 20px 0 auto; */
+		margin-top: 20px;
+    padding: 20px;
     width: 33%;
     word-wrap: break-word;
     overflow-wrap: break-word;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: ${BOX_SHADOW_CARD};
     background: white;
 
     .comment-user {
