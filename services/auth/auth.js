@@ -78,11 +78,8 @@ function requireAuth(req, res, next) {
       // ensure the retrieved `sub` (i.e. User's ID) satisfies the schema or
       // throw a schema validation error otherwise
       assert(
-        validator.isInt(payload.sub + "", {
-          min: userSchema.userId.minValue,
-          max: userSchema.userId.maxValue
-        }),
-        userSchema.userId.getErrorMessage()
+        validator.isEmail(payload.sub),
+        userSchema.email.getErrorMessage()
       );
 
       // if verified, add an extra property to the request object

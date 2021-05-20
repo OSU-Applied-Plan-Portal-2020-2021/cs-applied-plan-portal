@@ -45,11 +45,16 @@ app.post("/", requireAuth, async (req, res) => {
 
     if (!errorMessage) {
 
-      const sanitizedBody = sanitizeUsingSchema(req.body, postPlanSchema);
+      const planDataObj = {
+        courses: req.body.courses,
+        planName: req.body.planName
+      };
+
+      const sanitizedBody = sanitizeUsingSchema(planDataObj, postPlanSchema);
 
       // get request body
       console.log("Submit a plan");
-      const userId = req.auth.userId;
+      const userId = req.body.userId + "@oregonstate.edu";
       const planName = sanitizedBody.planName;
       const courses = formatCourseArray(sanitizedBody.courses);
 
@@ -201,6 +206,8 @@ app.get("/:planId", requireAuth, async (req, res) => {
 
     // only view a plan if it does not violate any constraints
     const validation = await viewPlanValidation(planId, userId);
+
+    
     if (validation === "valid") {
 
       const results = await getPlan(planId, userId);

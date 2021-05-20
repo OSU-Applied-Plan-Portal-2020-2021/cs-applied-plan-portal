@@ -10,7 +10,7 @@ async function userConstraint(userId) {
 
   try {
 
-    const sql = "SELECT * FROM User WHERE userId=?;";
+    const sql = "SELECT * FROM User WHERE email=?;";
     const results = await pool.query(sql, userId);
 
     if (results[0].length === 0) {
@@ -60,7 +60,7 @@ async function ownerConstraint(planId, userId) {
 
   try {
 
-    let sql = "SELECT * FROM User WHERE userId=?;";
+    let sql = "SELECT * FROM User WHERE email=?;";
     let results = await pool.query(sql, userId);
 
     // if the user is a student they must be the plan owner

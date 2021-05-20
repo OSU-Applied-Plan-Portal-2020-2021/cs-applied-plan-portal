@@ -100,14 +100,14 @@ exports.lockedConstraint = lockedConstraint;
 
 
 // checks that the user exists
-async function userConstraint(userId) {
+async function userConstraint(email) {
 
   const violation = "Invalid user ID:\nUser does not exist, unable to submit plan.";
 
   try {
 
-    const sql = "SELECT * FROM User WHERE userId=?;";
-    const results = await pool.query(sql, userId);
+    const sql = "SELECT * FROM User WHERE email=?;";
+    const results = await pool.query(sql, email);
 
     if (results[0].length === 0) {
       throw ConstraintViolation(violation, 400);
@@ -131,7 +131,7 @@ async function studentConstraint(userId) {
 
   try {
 
-    const sql = "SELECT * FROM User WHERE userId=? AND role=0;";
+    const sql = "SELECT * FROM User WHERE email=? AND role=0;";
     const results = await pool.query(sql, userId);
 
     if (results[0].length === 0) {
@@ -156,7 +156,7 @@ async function advisorConstraint(userId) {
 
   try {
 
-    const sql = "SELECT * FROM User WHERE userId=? AND role>0;";
+    const sql = "SELECT * FROM User WHERE email=? AND role>0;";
     const results = await pool.query(sql, userId);
 
     if (results[0].length === 0) {
@@ -443,7 +443,7 @@ async function ownerConstraint(planId, userId) {
 
   try {
 
-    let sql = "SELECT * FROM User WHERE userId=?;";
+    let sql = "SELECT * FROM User WHERE email=?;";
     let results = await pool.query(sql, userId);
 
     // first ensure that the user exists
@@ -482,8 +482,8 @@ async function deleteConstraint(planId, userId) {
   const violation = "Invalid user ID:\nThis user is not allowed to delete this plan.";
 
   try {
-
-    let sql = "SELECT * FROM User WHERE userId=?;";
+    
+    let sql = "SELECT * FROM User WHERE email=?;";
     let results = await pool.query(sql, userId);
 
     // first ensure that the user exists

@@ -32,6 +32,7 @@ function Login() {
         // attempt to login
         const results = await fetch(`/api/user/authenticated/`);
 
+
         // before checking the results, ensure the request was not canceled
         if (!ignore) {
 

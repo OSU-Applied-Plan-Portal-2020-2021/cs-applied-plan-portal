@@ -123,16 +123,6 @@ exports.searchPlanSchema = searchPlanSchema;
 
 // Schema of a user.
 const userSchema = {
-  userId: {
-    required: true,
-    type: Type.integer,
-    minValue: 10000000000,
-    maxValue: 99999999999,
-    getErrorMessage: function() {
-      return "Invalid user's ID:\n" +
-        "The user's ID must be a positive 11-digit integer.";
-    }
-  },
   firstName: {
     required: true,
     type: Type.string,

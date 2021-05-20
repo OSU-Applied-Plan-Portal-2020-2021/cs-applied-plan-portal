@@ -181,9 +181,9 @@ async function searchPlans(text, status, sort, order, cursor) {
       secondary: "null"
     };
 
-    let sql = "SELECT planId, status, planName, userId, firstName, lastName, created, lastUpdated, " +
+    let sql = "SELECT planId, status, planName, email, firstName, lastName, created, lastUpdated, " +
       "UNIX_TIMESTAMP(created) AS createdUnix, UNIX_TIMESTAMP(lastUpdated) AS updatedUnix " +
-      "FROM Plan INNER JOIN User ON Plan.studentId = User.userId ";
+      "FROM Plan INNER JOIN User ON Plan.studentId = User.email ";
 
     // only use the cursor if it isn't the initial search request
     if (cursor.primary === "null") {
@@ -206,10 +206,6 @@ async function searchPlans(text, status, sort, order, cursor) {
         case 0:
           sql += `WHERE (CONCAT(firstName , ' ' , lastName) ${orderChar}= ? AND ` +
             `(CONCAT(firstName , ' ' , lastName) ${orderChar} ? OR planId >= ? )) `;
-          break;
-        case 1:
-          sql += `WHERE (userId ${orderChar}= ? AND ` +
-            `(userId ${orderChar} ? OR planId >= ? )) `;
           break;
         case 2:
           sql += `WHERE (planName ${orderChar}= ? AND ` +
@@ -240,7 +236,7 @@ async function searchPlans(text, status, sort, order, cursor) {
     // get the text we are searching for
     if (text !== "*") {
       sql += "AND (CONCAT(firstName , ' ' , lastName) LIKE CONCAT('%', ?, '%') " +
-        "OR userId LIKE CONCAT('%', ?, '%') " +
+        "OR email LIKE CONCAT('%', ?, '%') " +
         "OR planName LIKE CONCAT('%', ?, '%')) ";
       sqlArray.push(text);
       sqlArray.push(text);
@@ -257,9 +253,6 @@ async function searchPlans(text, status, sort, order, cursor) {
     switch (sort) {
       case 0:
         sql += "ORDER BY CONCAT(firstName , ' ' , lastName) ";
-        break;
-      case 1:
-        sql += "ORDER BY userId ";
         break;
       case 2:
         sql += "ORDER BY planName ";
@@ -312,9 +305,6 @@ async function searchPlans(text, status, sort, order, cursor) {
         case 0:
           nextCursor.primary = String(nextPlan.firstName + " " + nextPlan.lastName);
           break;
-        case 1:
-          nextCursor.primary = String(nextPlan.userId);
-          break;
         case 2:
           nextCursor.primary = String(nextPlan.planName);
           break;
@@ -360,7 +350,7 @@ async function getPlan(planId, userId) {
 
     let sql = "SELECT Plan.*, User.firstName, User.lastName, User.email " +
       "FROM Plan " +
-      "LEFT JOIN User ON User.userId=Plan.studentId " +
+      "LEFT JOIN User ON User.email=Plan.studentId " +
       "WHERE planId=?;";
 
     const result1 = await pool.query(sql, planId);
@@ -405,12 +395,12 @@ async function getPlanActivity(planId, cursor) {
     // construct the sql query
     const sqlComments = "SELECT CONCAT(commentId, 'c') AS id, planId, Comment.userId, text, " +
       "-1 AS status, time, UNIX_TIMESTAMP(time) AS timeUnix, firstName, lastName FROM Comment " +
-      "INNER JOIN User ON User.userId=Comment.userId WHERE planId=?";
+      "INNER JOIN User ON User.email=Comment.userId WHERE planId=?";
     sqlArray.push(planId);
 
     const sqlReviews = "SELECT CONCAT(reviewId, 'r') AS id, planId, PlanReview.userId, " +
       "'' AS text, status, time, UNIX_TIMESTAMP(time) AS timeUnix, firstName, lastName FROM PlanReview " +
-      "INNER JOIN User ON User.userId=PlanReview.userId WHERE planId=? ORDER BY timeUnix DESC, id ASC";
+      "INNER JOIN User ON User.email=PlanReview.userId WHERE planId=? ORDER BY timeUnix DESC, id ASC";
     sqlArray.push(planId);
 
     let sql = "SELECT * FROM (" + sqlComments + " UNION " + sqlReviews + ") AS U ";
@@ -491,7 +481,7 @@ async function getRecentPlans(userId) {
     const sql = "SELECT R.planId, planName, firstName, lastName, status, created, lastUpdated, studentId AS userId " +
       "FROM RecentPlan AS R LEFT JOIN Plan AS P " +
       "ON R.planId = P.planId LEFT JOIN User AS U " +
-      "ON P.studentId = U.userId WHERE R.userId=? ORDER BY R.time DESC;";
+      "ON P.studentId = U.email WHERE R.userId=? ORDER BY R.time DESC;";
     const results = await pool.query(sql, userId);
 
     return {
@@ -583,7 +573,7 @@ async function addRecentPlan(planId, userId) {
     const RECENT_MAX = 5;
 
     // only add recent plans for advisors
-    let sql = "SELECT role FROM User WHERE userId=?";
+    let sql = "SELECT role FROM User WHERE email=?";
     let results = await pool.query(sql, userId);
 
     if (!results[0][0].role) {
