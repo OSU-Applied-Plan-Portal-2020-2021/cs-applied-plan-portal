@@ -1,20 +1,18 @@
 /** @jsx jsx */
 
-import {useState} from "react";
-import {css, jsx} from "@emotion/core";
-import {useParams} from "react-router-dom";
+import { useState } from "react";
+import { css, jsx } from "@emotion/core";
+import { useParams } from "react-router-dom";
 import ErrorMessage from "../general/ErrorMessage";
-import {login} from "../../utils/authService";
+import { login } from "../../utils/authService";
 
 // comment creation text field
 function CreateComment(props) {
-
   const [newComment, setNewComment] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const {planId} = useParams();
+  const { planId } = useParams();
 
   const style = css`
-
     & {
       display: inline-flex;
       flex-direction: column;
@@ -26,10 +24,11 @@ function CreateComment(props) {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      aligh-items: center;
+      align-items: center;
       padding: 15px;
       border-radius: 0.5rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
       background: white;
       max-width: 100%;
     }
@@ -42,19 +41,16 @@ function CreateComment(props) {
       border: 1px solid var(--color-lightgray-600);
       max-width: 100%;
     }
-    
+
     .toggle-creation-button {
-      /*background: none;*/
-      /*border: 1px solid black;*/
-      padding: 0.5rem 1rem;
+      padding: 1rem;
       border-radius: 0.5rem;
       background: var(--color-green-500);
       color: var(--color-green-50);
-      /*padding: 1rem 1rem;*/
       border-radius: 0.5rem;
       border: none;
     }
-    
+
     #submit-comment-button {
       display: block;
       margin: 0px 5px;
@@ -64,11 +60,11 @@ function CreateComment(props) {
       border-radius: 0.5rem;
       border: none;
     }
-    
+
     #comment-btn-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
     }
 
     .toggle-state-red {
@@ -81,7 +77,6 @@ function CreateComment(props) {
         display: none;
       }
     }
-
   `;
 
   function toggle() {
@@ -90,9 +85,7 @@ function CreateComment(props) {
   }
 
   async function submit(planId) {
-
     try {
-
       const text = document.getElementById("comment-text-input").value;
 
       const url = `/api/comment`;
@@ -100,14 +93,14 @@ function CreateComment(props) {
 
       const postObj = {
         planId: planId,
-        text: text
+        text: text,
       };
 
       // post new comment
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(postObj),
       });
@@ -123,7 +116,7 @@ function CreateComment(props) {
           time: obj.time,
           planId: planId,
           userId: props.currentUser.id,
-          text: text
+          text: text,
         });
       } else if (response.status === 403) {
         // if the user is not allowed to create a comment on this plan,
@@ -134,12 +127,12 @@ function CreateComment(props) {
         obj = await response.json();
         setErrorMessage(obj.error);
       }
-
     } catch (err) {
       // this is a server error
-      setErrorMessage("An internal server error occurred. Please try again later.");
+      setErrorMessage(
+        "An internal server error occurred. Please try again later."
+      );
     }
-
   }
 
   if (props.status !== 0 && props.status !== 4) {
@@ -156,14 +149,17 @@ function CreateComment(props) {
         <div id="create-comment-container" css={style}>
           <ErrorMessage text={errorMessage} />
           <div id="comment-input-container">
-            <textarea id="comment-text-input" rows="5" cols="50"/>
+            <textarea id="comment-text-input" rows="5" cols="50" />
             <div id="comment-btn-container">
-                <button id="submit-comment-button" onClick={() => submit(planId)}>
-                    Submit
-                </button>
-                <button className="toggle-creation-button toggle-state-red" onClick={() => toggle()}>
-                    Discard
-                </button>
+              <button id="submit-comment-button" onClick={() => submit(planId)}>
+                Submit
+              </button>
+              <button
+                className="toggle-creation-button toggle-state-red"
+                onClick={() => toggle()}
+              >
+                Discard
+              </button>
             </div>
           </div>
         </div>
@@ -172,6 +168,5 @@ function CreateComment(props) {
   } else {
     return null;
   }
-
 }
 export default CreateComment;
