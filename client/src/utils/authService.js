@@ -15,6 +15,7 @@ export function getProfile() {
     // cookie.parse() throws on non-string arguments
     const cookieObj = cookie.parse(`${document.cookie}`);
 
+
     // ensure the parsed cookies are a JS object (it should always be)
     if (cookieObj !== Object(cookieObj)) {
       throw new Error("Cookies are not a valid JS object");
@@ -26,14 +27,15 @@ export function getProfile() {
     }
 
     // ensure userId and role are non-negative integers
-    if (!validator.isInt(cookieObj.userId + "") ||
+    /*if (!validator.isInt(cookieObj.userId + "") ||
       !validator.isInt(cookieObj.role + "")) {
       throw new Error("Negative user ID or role");
-    }
+    }*/
 
     // success case; return an object containing userId and role in integers
     return {
-      userId: validator.toInt(cookieObj.userId),
+      //userId: validator.toInt(cookieObj.userId),
+      userId: cookieObj.userId,
       role: validator.toInt(cookieObj.role)
     };
 

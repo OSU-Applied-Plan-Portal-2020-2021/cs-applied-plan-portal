@@ -176,6 +176,8 @@ function StudentHome() {
   // on page load, show all of the current students plans
   useEffect(() => {
 
+    console.log("It it every getting here at some point? StudentHome.js line 179");
+    
     // set ignore and controller to prevent a memory leak
     // in the case where we need to abort early
     let ignore = false;
@@ -189,6 +191,7 @@ function StudentHome() {
       // retrieve the logged in user and set user ID accordingly
       // if user cannot be retrieved, we will get an invalid user ID (0)
       const profile = getProfile();
+      console.log("this is the results of profile in StudentHome.js line 192:", profile);
       const userId = profile.userId;
 
       const getUrl = `/api/user/${userId}/plans`;

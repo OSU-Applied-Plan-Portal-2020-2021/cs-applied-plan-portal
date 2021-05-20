@@ -36,7 +36,7 @@ function SelectRole(props) {
 
       // the user confirmed that they wanted to change the role
       // so we will send a request to the API server
-      const patchURL = `/api/user/${props.userId}`;
+      const patchURL = `/api/user/${props.email}`;
       const patchObj = {
         role: select.value
       };
@@ -96,7 +96,8 @@ export default SelectRole;
 
 SelectRole.propTypes = {
   role: PropTypes.number,
-  userId: PropTypes.number,
+  email: PropTypes.string,
+  userId: PropTypes.string,
   userName: PropTypes.string,
   index: PropTypes.number,
   onLoading: PropTypes.func,

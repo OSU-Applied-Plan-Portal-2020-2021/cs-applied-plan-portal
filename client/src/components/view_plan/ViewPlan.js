@@ -63,6 +63,7 @@ function ViewPlan(props) {
         setUserLoading(true);
         const profile = getProfile();
         const url = `/api/user/${profile.userId}`;
+
         const response = await fetch(url);
 
         // before checking the results, ensure the request was not canceled

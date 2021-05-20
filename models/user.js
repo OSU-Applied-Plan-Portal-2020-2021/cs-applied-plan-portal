@@ -31,7 +31,7 @@ exports.createUser = createUser;
 // On failure, logs the error and bubbles it up.
 async function updateUserPartial(userId, updatedUser) {
   try {
-    const sql = "UPDATE User SET ? WHERE userId = ?";
+    const sql = "UPDATE User SET ? WHERE email = ?";
     const results = await pool.query(sql, [updatedUser, userId]);
 
     // ensure there's exactly 1 row affected and at most 1 row changed
@@ -77,19 +77,16 @@ async function searchUsers(text, role, cursor) {
       // are handled by also sorting by user ID.
 
       sql += "WHERE (CONCAT(firstName , ' ' , lastName) >= ? AND " +
-        "(CONCAT(firstName , ' ' , lastName) > ? OR userId >= ? )) ";
+        "(CONCAT(firstName , ' ' , lastName) > ? )) ";
       sqlArray.push(cursor.primary);
       sqlArray.push(cursor.primary);
-      sqlArray.push(cursor.secondary);
 
     }
 
     // get the text we are searching for
     if (text !== "*") {
       sql += "AND (CONCAT(firstName , ' ' , lastName) LIKE CONCAT('%', ?, '%') " +
-      "OR email LIKE CONCAT('%', ?, '%') " +
-      "OR userId LIKE CONCAT('%', ?, '%')) ";
-      sqlArray.push(text);
+      "OR email LIKE CONCAT('%', ?, '%') ) ";
       sqlArray.push(text);
       sqlArray.push(text);
     }
@@ -102,7 +99,7 @@ async function searchUsers(text, role, cursor) {
 
     // sort search results by user name
     sql += "ORDER BY CONCAT(firstName , ' ' , lastName) ASC, " +
-      "userId ASC LIMIT ?;";
+      "email ASC LIMIT ?;";
 
     // get the number of results per page (plus the next cursor)
     sqlArray.push(RESULTS_PER_PAGE + 1);
@@ -130,7 +127,7 @@ async function searchUsers(text, role, cursor) {
 
       // set the primary and secondary strings
       nextCursor.primary = String(nextPlan.firstName + " " + nextPlan.lastName);
-      nextCursor.secondary = String(nextPlan.userId);
+      nextCursor.secondary = String(nextPlan.email);
 
     }
 
@@ -150,10 +147,10 @@ exports.searchUsers = searchUsers;
 //
 // On success, returns the User object if any, or `null` if no such User.
 // On failure, logs the error and bubbles it up.
-async function getUserById(userId) {
+async function getUserById(email) {
   try {
-    const sql = "SELECT * FROM User WHERE userId = ?";
-    const results = await pool.query(sql, [userId]);
+    const sql = "SELECT * FROM User WHERE email = ?";
+    const results = await pool.query(sql, [email]);
 
     // ensure there's exactly 1 User carrying with this ID or no User at all
     assert(results[0].length === 1 || results[0].length === 0);
@@ -182,7 +179,7 @@ async function getUserPlans(userId) {
       "( SELECT * FROM PlanReview AS R WHERE userId != ? ) R " +
       "ON P.planId = R.planId " +
       "LEFT JOIN User AS U " +
-      "ON R.userId = U.userId " +
+      "ON R.userId = U.email " +
       "WHERE studentId = ? " +
       "GROUP BY P.planId " +
       "ORDER BY lastUpdated DESC;";
