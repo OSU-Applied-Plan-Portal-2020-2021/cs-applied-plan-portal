@@ -1,43 +1,45 @@
-import React from 'react'
-import styled from '@emotion/styled';
-import { Desktop, Mobile } from '../../../utils/responsiveUI';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import styled from "@emotion/styled";
+import { Desktop, Mobile } from "../../../utils/responsiveUI";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   margin-left: 10px;
-`
+`;
 const StyledButton = styled.button`
   padding: 10px;
-`
+  background-color: var(--color-red-500) !important;
+  color: white !important;
+  border: none !important;
+`;
 
 function DeletePlanBtn({ status, onDelete }) {
   return (
     <>
-
       {status === 1 || status === 2 ? (
         <>
           <Container>
             <Desktop>
               <StyledButton onClick={() => onDelete()}>
                 Delete Plan
-          </StyledButton>
+              </StyledButton>
             </Desktop>
             <Mobile>
               <FontAwesomeIcon
                 icon={faTrashAlt}
                 style={{
                   color: `var(--color-delete)`,
-                  fontSize: '2.5rem'
+                  fontSize: "2.5rem",
                 }}
-                onClick={() => onDelete()} />
+                onClick={() => onDelete()}
+              />
             </Mobile>
           </Container>
         </>
-      ) : (null)}
-
+      ) : null}
     </>
-  )
+  );
 }
 
-export default DeletePlanBtn
+export default DeletePlanBtn;

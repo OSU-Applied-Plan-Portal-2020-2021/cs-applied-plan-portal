@@ -57,7 +57,7 @@ function PlanTable(props) {
     }
 
     table tbody tr td {
-      vertical-align: middle;
+      vertical-align: top;
       padding: 1rem 2rem;
     }
 

@@ -9,12 +9,10 @@ import { login } from "../../utils/authService";
 
 // plan review creation menu
 function CreateReview(props) {
-
   const [errorMessage, setErrorMessage] = useState("");
   const { planId } = useParams();
 
   const style = css`
-
     & {
       display: flex;
       flex-direction: column;
@@ -51,31 +49,32 @@ function CreateReview(props) {
         display: none;
       }
     }
-
   `;
 
   async function submit(planId) {
-
     const selectStatus = document.getElementById("review-select");
     const statusValue = selectStatus.options[selectStatus.selectedIndex].value;
     const statusMessage = statusText(statusValue);
 
-    if (window.confirm(`Are you sure that you want to set this plans status to "${statusMessage}"?`)) {
+    if (
+      window.confirm(
+        `Are you sure that you want to set this plans status to "${statusMessage}"?`
+      )
+    ) {
       try {
-
         const url = `/api/review`;
         let obj = [];
 
         const postObj = {
           planId: planId,
-          status: statusValue
+          status: statusValue,
         };
 
         // post new review
         const response = await fetch(url, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(postObj),
         });
@@ -90,7 +89,7 @@ function CreateReview(props) {
             time: obj.time,
             planId: planId,
             userId: props.currentUser.id,
-            status: parseInt(statusValue)
+            status: parseInt(statusValue),
           });
         } else if (response.status === 403) {
           // if the user is not allowed to create a review on this plan,
@@ -101,13 +100,13 @@ function CreateReview(props) {
           obj = await response.json();
           setErrorMessage(obj.error);
         }
-
       } catch (err) {
         // this is a server error
-        console.log("An internal server error occurred. Please try again later.");
+        console.log(
+          "An internal server error occurred. Please try again later."
+        );
       }
     }
-
   }
 
   function statusText(status) {
@@ -127,7 +126,10 @@ function CreateReview(props) {
     }
   }
 
-  if (props.currentUser.role && (props.currentUser.role !== 1 || (props.status !== 0 && props.status !== 4))) {
+  if (
+    props.currentUser.role &&
+    (props.currentUser.role !== 1 || (props.status !== 0 && props.status !== 4))
+  ) {
     return (
       <div id="create-review-container" css={style}>
         <h2>Set Plan Status</h2>
@@ -137,32 +139,47 @@ function CreateReview(props) {
         <div id="review-input-container">
           <select id="review-select" defaultValue={"2"}>
             {props.status === 0 ? (
-              <option value="0" disabled={true}>Rejected</option>
+              <option value="0" disabled={true}>
+                Rejected
+              </option>
             ) : (
-                <option value="0">Rejected</option>
-              )}
+              <option value="0">Rejected</option>
+            )}
             {props.status === 1 ? (
-              <option value="1" disabled={true}>Awaiting student changes</option>
+              <option value="1" disabled={true}>
+                Awaiting student changes
+              </option>
             ) : (
-                <option value="1">Awaiting student changes</option>
-              )}
+              <option value="1">Awaiting student changes</option>
+            )}
             {props.status === 2 ? (
-              <option value="2" disabled={true}>Awaiting review</option>
+              <option value="2" disabled={true}>
+                Awaiting review
+              </option>
             ) : (
-                <option value="2">Awaiting review</option>
-              )}
+              <option value="2">Awaiting review</option>
+            )}
             {props.status === 3 ? (
-              <option value="3" disabled={true}>Awaiting final review</option>
+              <option value="3" disabled={true}>
+                Awaiting final review
+              </option>
             ) : (
-                <option value="3">Awaiting final review</option>
-              )}
+              <option value="3">Awaiting final review</option>
+            )}
             {props.status === 4 || props.currentUser.role === 1 ? (
-              <option value="4" disabled={true}>Accepted</option>
+              <option value="4" disabled={true}>
+                Accepted
+              </option>
             ) : (
-                <option value="4">Accepted</option>
-              )}
+              <option value="4">Accepted</option>
+            )}
           </select>
-          <button id="submit-review-button" onClick={() => { submit(planId); }}>
+          <button
+            id="submit-review-button"
+            onClick={() => {
+              submit(planId);
+            }}
+          >
             Change Status
           </button>
         </div>
@@ -171,12 +188,11 @@ function CreateReview(props) {
   } else {
     return null;
   }
-
 }
 export default CreateReview;
 
 CreateReview.propTypes = {
   status: PropTypes.number,
   currentUser: PropTypes.object,
-  onNewStatus: PropTypes.func
+  onNewStatus: PropTypes.func,
 };

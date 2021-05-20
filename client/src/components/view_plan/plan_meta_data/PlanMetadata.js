@@ -23,12 +23,7 @@ function PlanMetadata(props) {
       display: flex;
       justify-content: center;
       flex-direction: column;
-      /* position: fixed; */
-      /* top: 50px; */
-      /* left: 0; */
-      /* right: 0; */
-      background: white;
-      /* box-shadow: ${BOX_SHADOW_CARD}; */
+      background: #fbfaf9;
       padding-bottom: 0.5rem;
     }
 

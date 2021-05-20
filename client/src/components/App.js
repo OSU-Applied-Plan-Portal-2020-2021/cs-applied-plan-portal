@@ -10,8 +10,7 @@ import Login from "./Login";
 import ManageRoles from "./manage_roles/ManageRoles";
 import { Provider } from "react-redux";
 import store from "../redux/store";
-import RestrictedRoute from '../utils/RestrictedRoute'
-
+import RestrictedRoute from "../utils/RestrictedRoute";
 
 const globalStyles = css`
   @import url("https://fonts.googleapis.com/css?family=Muli");
@@ -27,6 +26,12 @@ const globalStyles = css`
 
   select {
     background-color: white;
+  }
+
+  button {
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
 
   :root {
@@ -114,7 +119,6 @@ const globalStyles = css`
 
 // handle all application URL page routing
 function App() {
-
   return (
     <div className="App">
       <Provider store={store}>

@@ -4,20 +4,23 @@ import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { statusText } from "../../utils/renderStatus";
 import { formatTime } from "../../utils/formatTime";
+import { BOX_SHADOW_CARD } from "../../utils/constants";
 
 // a single review on a plan
 function Reviews(props) {
   const style = css`
     text-align: center;
-    margin: 25px auto;
-    padding: 25px;
+    /* margin: 25px auto; */
+    margin-top: 20px;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 33%;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), */
+    /* 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
+		box-shadow: ${BOX_SHADOW_CARD};
     background: white;
 
     .review-text-container {
