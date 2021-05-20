@@ -71,10 +71,7 @@ function History(props) {
   }, [props.currentPlan]);
 
   return (
-    <React.Fragment>
-      {role === "1" && <HistoryCommon recentPlans={recentPlans} />}
-      {role === "2" && <HistoryHeadAdv recentPlans={recentPlans} />}
-    </React.Fragment>
+       <HistoryHeadAdv recentPlans={recentPlans} />
   );
 }
 export default withRouter(History);

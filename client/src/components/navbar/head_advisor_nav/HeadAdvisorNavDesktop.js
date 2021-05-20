@@ -1,20 +1,25 @@
 import React from "react";
 import History from "../history/History";
 import Notifications from "../notifications/Notifications";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import UpdateCourses from "../UpdateCourses";
 import Logout from "../Logout";
-import {PropTypes} from "prop-types";
+import { PropTypes } from "prop-types";
+import { ROLE } from "../../../utils/constants";
 
-function HeadAdvisorNavDesktop({currentPlan}) {
+function HeadAdvisorNavDesktop({ currentPlan, role }) {
   return (
     <div>
       <History currentPlan={currentPlan} />
       <Notifications />
-      <Link to={"/manageRoles"}>
-        <button id="manage-roles-button">Manage Roles</button>
-      </Link>
-      <UpdateCourses />
+      {role === ROLE.HEAD_ADVISOR && (
+        <>
+          <Link to={"/manageRoles"}>
+            <button id="manage-roles-button">Manage Roles</button>
+          </Link>
+          <UpdateCourses />
+        </>
+      )}
       <Logout />
     </div>
   );
@@ -23,5 +28,5 @@ function HeadAdvisorNavDesktop({currentPlan}) {
 export default HeadAdvisorNavDesktop;
 
 HeadAdvisorNavDesktop.propTypes = {
-  currentPlan: PropTypes.number
+  currentPlan: PropTypes.number,
 };

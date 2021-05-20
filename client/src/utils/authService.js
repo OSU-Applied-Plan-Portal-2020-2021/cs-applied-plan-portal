@@ -1,6 +1,7 @@
 import cookie from "cookie";
 import url from "url";
 import validator from "validator";
+import { ROLE } from './constants'
 import { ENV } from "./environment";
 
 // Parses cookies and checks whether the user is logged in.
@@ -58,6 +59,11 @@ export function loggedIn() {
 
   return !!userId;
 
+}
+
+export function isHeadAdvisor() {
+	const {role} = getProfile()
+	return (role === ROLE.HEAD_ADVISOR)
 }
 
 // clear user cookies then redirect the user to the OSU logout page

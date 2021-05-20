@@ -1,14 +1,15 @@
 /** @jsx jsx */
 
-import {css, jsx} from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
-import {slide as Menu} from "react-burger-menu";
-import {logout} from "../../../utils/authService";
+import { slide as Menu } from "react-burger-menu";
+import { logout } from "../../../utils/authService";
+import { ROLE } from "../../../utils/constants";
 import ManageRoles from "../../manage_roles/ManageRoles";
 import History from "../history/History";
 import Notifications from "../notifications/Notifications";
 
-function HeadAdvisorNavMobile({currentPlan}) {
+function HeadAdvisorNavMobile({ currentPlan, role }) {
   const styleMain = css`
     /* Position and sizing of burger button */
     .bm-burger-button {
@@ -65,9 +66,7 @@ function HeadAdvisorNavMobile({currentPlan}) {
       display: block;
       margin-bottom: 0.5rem;
     }
-
   `;
-
 
   const LogoutBtn = () => {
     return (
@@ -105,8 +104,8 @@ function HeadAdvisorNavMobile({currentPlan}) {
     <div css={styleMain}>
       <Menu right>
         <HomeBtn />
-        <ManageRoleBtn />
-        <Notifications className="menu-item"/>
+        {role === ROLE.HEAD_ADVISOR && <ManageRoleBtn />}
+        <Notifications className="menu-item" />
         <HistoryBtn />
         <LogoutBtn />
       </Menu>
