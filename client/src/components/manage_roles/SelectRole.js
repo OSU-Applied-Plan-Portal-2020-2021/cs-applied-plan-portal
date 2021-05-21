@@ -26,7 +26,7 @@ function SelectRole(props) {
   // updates a user's role
   async function setNewRole() {
 
-    const select = document.getElementById(`change-user-role-${props.userId}`);
+    const select = document.getElementById(`change-user-role-${props.email}`);
     const newRole = parseInt(select.value, 10);
 
     const confirmMessage = `Are you sure you want to set ${props.userName}'s ` +
@@ -70,7 +70,7 @@ function SelectRole(props) {
       // the user declined to change the role
       // so we need to revert the users role to the previous setting
       if (updatedRole === -1) {
-        const select = document.getElementById(`change-user-role-${props.userId}`);
+        const select = document.getElementById(`change-user-role-${props.email}`);
         select.value = props.role;
       } else {
         select.value = updatedRole;
@@ -81,7 +81,7 @@ function SelectRole(props) {
   }
 
   return (
-    <select className="change-user-role" id={`change-user-role-${props.userId}`}
+    <select className="change-user-role" id={`change-user-role-${props.email}`}
       css={style} defaultValue={props.role} onChange={() => setNewRole()}>
 
       <option value="0">Student</option>
