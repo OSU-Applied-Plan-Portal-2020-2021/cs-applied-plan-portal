@@ -24,7 +24,7 @@ jobs:
           instance-ids: ${{ secrets.INSTANCE_ID }}
         
           working-directory: /home/ubuntu/dev/cs-applied-plan-portal
-          command: /bin/sh ./deploy.sh
+          command: /bin/bash ./deploy.sh
           comment: Deploying from master
 
       # Catch SSM outputs
