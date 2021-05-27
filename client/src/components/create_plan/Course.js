@@ -69,8 +69,6 @@ function Course(props) {
     }
 
     .add-button {
-      /* display: inline-block; */
-      /* margin-left: auto; */
       padding: 10px;
       background: var(--color-green-500);
       color: var(--color-green-50);
@@ -122,14 +120,10 @@ function Course(props) {
   `;
   let notEligible = false;
   if (props.restriction > 0) notEligible = true;
-  const [added, setAdded] = useState(false);
-  useEffect(() => {
-    async function checkAdded() {
-      const result = await checkCourseIsAddedAsync(props.courseId, planCourses);
-      setAdded(result);
-    }
-    checkAdded();
-  });
+  
+	const thisCourseInStore = useSelector(state => state.planCourses.find(course => course.courseId === props.courseId))
+	
+	const added = !!thisCourseInStore
 
   // add the course to the plan
   function handleAddCourse() {
@@ -144,7 +138,6 @@ function Course(props) {
     };
 
     props.onAddCourse(courseObject);
-    setAdded(true);
     dispatch(addCourseToPlan(courseObject));
   }
 

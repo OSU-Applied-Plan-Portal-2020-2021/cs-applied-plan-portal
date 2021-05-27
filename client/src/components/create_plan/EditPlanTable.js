@@ -1,39 +1,47 @@
 /** @jsx jsx */
 
-import PropTypes from "prop-types"
-import PlanCourse from "./PlanCourse"
-import { css, jsx } from "@emotion/core"
-import { Desktop, Mobile } from "../../utils/responsiveUI"
-import { SCREENWIDTH } from "../../utils/constants"
+import PropTypes from "prop-types";
+import PlanCourse from "./PlanCourse";
+import { css, jsx } from "@emotion/core";
+import { Desktop, Mobile } from "../../utils/responsiveUI";
+import { SCREENWIDTH } from "../../utils/constants";
+import { useEffect } from "react";
+import { useDispatch } from 'react-redux'
+import { populatePlan } from '../../redux/actions'
+import { useSelector } from 'react-redux'
+import { getCoursesFromPlan } from '../../redux/selectors'
 
 // table showing all of the currently selected courses
 function EditPlanTable(props) {
-
-	const width = SCREENWIDTH.MOBILE.MAX
-	const style = css`
-
+	const dispatch = useDispatch()
+  const width = SCREENWIDTH.MOBILE.MAX;
+  const style = css`
     & {
       display: flex;
       flex-direction: column;
       align-items: stretch;
       overflow-x: hidden;
       overflow-y: auto;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
       background: white;
       border-radius: 0.5rem;
       position: relative;
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
-
       }
     }
 
-    #courses-table, th, tr, td, th {
+    #courses-table,
+    th,
+    tr,
+    td,
+    th {
       border-collapse: collapse;
     }
 
-    #credit{
-      @media(max-width: ${width}px){
+    #credit {
+      @media (max-width: ${width}px) {
         padding: 10px;
       }
     }
@@ -44,10 +52,11 @@ function EditPlanTable(props) {
       position: sticky;
     }
 
-    td, th {
+    td,
+    th {
       padding: 5px;
     }
-    
+
     table {
       /*border-radius: 0.5rem;*/
       overflow: hidden;
@@ -56,12 +65,11 @@ function EditPlanTable(props) {
       background: white;
       position: relative;
 
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         overflow: auto;
       }
-
     }
-    
+
     table thead tr th {
       background: #f4f2f1;
       color: #706c6b;
@@ -74,69 +82,72 @@ function EditPlanTable(props) {
       font-weight: bold;
       white-space: nowrap;
     }
-    
+
     table tbody tr td {
       vertical-align: middle;
       padding: 1rem 2rem;
-      @media(max-width: ${width}px){
-          padding: 1rem 1.5rem;
+      @media (max-width: ${width}px) {
+        padding: 1rem 1.5rem;
       }
     }
-    
-    tbody tr td:nth-of-type(4), thead tr th:nth-of-type(4) { 
+
+    tbody tr td:nth-of-type(4),
+    thead tr th:nth-of-type(4) {
       width: 1%;
     }
-    
-    tbody tr td:nth-of-type(3), thead tr th:nth-of-type(3) { 
+
+    tbody tr td:nth-of-type(3),
+    thead tr th:nth-of-type(3) {
       width: 8%;
     }
-    
-    tbody tr td:nth-of-type(n+2), thead tr th:nth-of-type(2) {
+
+    tbody tr td:nth-of-type(n + 2),
+    thead tr th:nth-of-type(2) {
       text-align: right;
-      @media(max-width: ${width}px){
+      @media (max-width: ${width}px) {
         text-align: center;
       }
     }
-  `
+  `;
+  useEffect(() => {
+		dispatch(populatePlan(props.courses))
+	}, []);
 
-	return (
-		<div id="edit-plan-container" css={style}>
-			<table className="edit-plan-table">
-				<thead>
-					<tr>
-						<th>Course</th>
-						<th id="credit">Credits</th>
-						<Desktop>
-							<th></th>
-						</Desktop>
-						<th>
-							<Desktop>
-								Remove
-              </Desktop>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{props.courses.map(c =>
-						<PlanCourse
-							key={c.courseId}
-							courseId={c.courseId}
-							courseCode={c.courseCode}
-							courseName={c.courseName}
-							credits={c.credits}
-							onRemoveCourse={e => props.onRemoveCourse(e)}
-						/>
-					)}
-				</tbody>
-			</table>
-		</div>
-	)
-
+  return (
+    <div id="edit-plan-container" css={style}>
+      <table className="edit-plan-table">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th id="credit">Credits</th>
+            <Desktop>
+              <th></th>
+            </Desktop>
+            <th>
+              <Desktop>Remove</Desktop>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.courses.map((course) => (
+            <PlanCourse
+              key={course.courseId}
+              courseId={course.courseId}
+              courseCode={course.courseCode}
+              courseName={course.courseName}
+              credits={course.credits}
+              onRemoveCourse={(e) => props.onRemoveCourse(e)}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
-export default EditPlanTable
+export default EditPlanTable;
 
 EditPlanTable.propTypes = {
-	onRemoveCourse: PropTypes.func,
-	courseId: PropTypes.number,
-	courses: PropTypes.array
-}
+  onRemoveCourse: PropTypes.func,
+  courseId: PropTypes.number,
+  courses: PropTypes.array,
+};

@@ -11,8 +11,8 @@ import PageNotFound from "../general/PageNotFound";
 import { css, jsx } from "@emotion/core";
 import { SCREENWIDTH } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { populatePlan } from "../../redux/actions";
 import { getCoursesFromPlan } from "../../redux/selectors";
+import { removeCourseFromPlan } from '../../redux/actions'
 
 // create plan page
 export default function StudentCreatePlan() {
@@ -31,7 +31,7 @@ export default function StudentCreatePlan() {
   const planCoursesFromStore = useSelector(getCoursesFromPlan);
   const width = SCREENWIDTH.MOBILE.MAX;
 
-  console.log("all courses from store: ", planCoursesFromStore);
+  // console.log("all courses from store: ", planCoursesFromStore);
 
   const style = css`
     & {
@@ -95,8 +95,6 @@ export default function StudentCreatePlan() {
           setPlanName(obj.planName);
           setPlanLoading(false);
 
-          // dispatch populate plan to redux store
-          dispatch(populatePlan(obj.courses));
         } else {
           // we got a bad status code
           if (response.status === 500) {
@@ -259,6 +257,8 @@ export default function StudentCreatePlan() {
   function handleRemoveCourse(course) {
     setWarning("");
     setCourses(courses.filter((prev) => prev.courseId !== course.courseId));
+		dispatch(removeCourseFromPlan(course))
+		
   }
 
   if (!pageError) {
