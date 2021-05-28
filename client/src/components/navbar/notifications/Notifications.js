@@ -104,10 +104,19 @@ function Notifications() {
   }
 
   return (
-    <NotificationHeadAdv
-      notifications={notifications}
-      handleClick={handleClick}
-    />
+    <>
+      {role == 0 ? (
+        <NotificationCommon
+          notifications={notifications}
+          handleClick={handleClick}
+        />
+      ) : (
+        <NotificationHeadAdv
+          notifications={notifications}
+          handleClick={handleClick}
+        />
+      )}
+    </>
   );
 }
 export default withRouter(Notifications);
