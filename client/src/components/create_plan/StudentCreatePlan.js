@@ -10,10 +10,8 @@ import PageInternalError from "../general/PageInternalError";
 import PageNotFound from "../general/PageNotFound";
 import { css, jsx } from "@emotion/core";
 import { SCREENWIDTH } from "../../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
-import { getCoursesFromPlan } from "../../redux/selectors";
-import { removeCourseFromPlan } from '../../redux/actions'
-
+import { useDispatch } from "react-redux";
+import { removeCourseFromPlan, addCourseToPlan } from '../../redux/actions'
 // create plan page
 export default function StudentCreatePlan() {
   const [loading, setLoading] = useState(false);
@@ -28,10 +26,7 @@ export default function StudentCreatePlan() {
   const { planId } = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
-  const planCoursesFromStore = useSelector(getCoursesFromPlan);
   const width = SCREENWIDTH.MOBILE.MAX;
-
-  // console.log("all courses from store: ", planCoursesFromStore);
 
   const style = css`
     & {
@@ -91,7 +86,6 @@ export default function StudentCreatePlan() {
           obj = await response.json();
           // get the courses array from the plan object
           setCourses(obj.courses);
-          console.log("current courses: ", obj.courses);
           setPlanName(obj.planName);
           setPlanLoading(false);
 
@@ -238,15 +232,17 @@ export default function StudentCreatePlan() {
           credits <= creditArray[1] &&
           !isNaN(credits)
         ) {
-          course.credits = credits;
+					course.credits = credits;
           setCourses((prev) => [...prev, course]);
+					
           setWarning("");
         } else {
-          setWarning("Invalid credit hours selected for course.");
+					setWarning("Invalid credit hours selected for course.");
         }
       }
     } else {
-      // add the new course
+			// add the new course
+			dispatch(addCourseToPlan(course));
       setCourses((prev) => [...prev, course]);
 
       setWarning("");

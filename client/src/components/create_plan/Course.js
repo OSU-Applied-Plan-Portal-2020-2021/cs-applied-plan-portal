@@ -3,22 +3,13 @@ import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { Mobile, Desktop } from "../../utils/responsiveUI";
 import { SCREENWIDTH } from "../../utils/constants";
-import ErrorMessage from "../general/ErrorMessage";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addCourseToPlan, removeCourseFromPlan } from "../../redux/actions";
-import { getCoursesFromPlan } from "../../redux/selectors";
-import { useEffect } from "react";
-import { checkCourseIsAddedAsync } from "../../utils/plan";
-import { FaCheck, FaCheckCircle, FaPlus } from "react-icons/fa";
-import { AiOutlineCheck } from "react-icons/ai";
-import { GiCheckMark } from "react-icons/gi";
+import React from "react";
+import { useSelector } from "react-redux";
+import { FaCheck } from "react-icons/fa";
+
 
 // a single course description
 function Course(props) {
-  const dispatch = useDispatch();
-  const planCourses = useSelector(getCoursesFromPlan);
-
   const width = SCREENWIDTH.MOBILE.MAX;
   const style = css`
     & {
@@ -120,9 +111,7 @@ function Course(props) {
   `;
   let notEligible = false;
   if (props.restriction > 0) notEligible = true;
-  
 	const thisCourseInStore = useSelector(state => state.planCourses.find(course => course.courseId === props.courseId))
-	
 	const added = !!thisCourseInStore
 
   // add the course to the plan
@@ -138,7 +127,6 @@ function Course(props) {
     };
 
     props.onAddCourse(courseObject);
-    dispatch(addCourseToPlan(courseObject));
   }
 
   return (
