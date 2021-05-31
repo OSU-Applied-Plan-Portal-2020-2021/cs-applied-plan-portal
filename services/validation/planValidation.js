@@ -21,10 +21,9 @@ const {
 
 
 // checks to see if any constraints are violated when creating a plan
-async function createPlanValidation(userId, planName, courses) {
+async function createPlanValidation(userId, planName, planFocus, courses) {
 
   try {
-
     await nameConstraint(planName, userId);
     await userConstraint(userId);
     await studentConstraint(userId);
@@ -35,6 +34,10 @@ async function createPlanValidation(userId, planName, courses) {
     await courseCreditConstraint(courses);
     await planCreditConstraint(courses);
     await limitConstraint(userId);
+
+    if (isNaN(parseInt(planFocus)) || planFocus < 0 || planFocus > 9) {
+        return "invalid";
+    }
     return "valid";
 
   } catch (err) {

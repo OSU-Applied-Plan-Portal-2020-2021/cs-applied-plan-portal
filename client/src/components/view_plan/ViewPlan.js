@@ -32,6 +32,7 @@ function ViewPlan(props) {
   const [status, setStatus] = useState(-1);
   const [activity, setActivity] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [focusType, setFocusType] = useState(0);
   const { planId } = useParams();
   const [cursor, setCursor] = useState({
     primary: "null",
@@ -124,6 +125,7 @@ function ViewPlan(props) {
           if (response.ok) {
             // get data from the response
             obj = await response.json();
+            setFocusType(obj.focusType);
             setCreated(obj.created);
             setCourses(obj.courses);
             setPlanName(obj.planName);
@@ -338,6 +340,7 @@ function ViewPlan(props) {
           courses={courses}
           onPrint={() => handlePrint()}
           onDelete={() => handleDelete()}
+          focus={focusType}
         />
         <PlanTable courses={courses} />
         <ListSimilarPlans />

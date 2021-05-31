@@ -24,6 +24,16 @@ const postPlanSchema = {
       return "Invalid courses:\n" +
         `Courses must be an array of strings.`;
     }
+  },
+  planFocus: {
+      required: true,
+      type: Type.integer,
+      minValue: 0,
+      maxValue: 9,
+      getErrorMessage: function() {
+          return `Invalid focus ID:\n` +
+            `The focus ID must be between ${this.minValue} and ${this.maxValue}`;
+      }
   }
 };
 exports.postPlanSchema = postPlanSchema;

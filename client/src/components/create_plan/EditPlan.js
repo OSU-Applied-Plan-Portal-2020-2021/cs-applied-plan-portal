@@ -8,6 +8,7 @@ import {css, jsx} from "@emotion/core";
 import {getProfile, login} from "../../utils/authService";
 import { Desktop, Mobile } from "../../utils/responsiveUI";
 import {SCREENWIDTH} from "../../utils/constants";
+import { formatFocus } from "../../utils/formatFocus";
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root')
@@ -75,7 +76,10 @@ function EditPlan(props) {
         grid-template-columns: auto;
         grid-template-rows: auto 1fr auto;
         padding: 0px 5px 0px 5px;
-
+        grid-template-areas: 'title'
+                            'focus'
+                          'table'
+                          'submit';
       }
     }
     
@@ -131,6 +135,19 @@ function EditPlan(props) {
       }
     }
     
+    #focus-name-container {
+        grid-area: focus;
+        font-size: 14px;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #focus-name-container p {
+        margin: 0
+    }
+
     #submit {
       grid-area: submit;
       text-align: right;
@@ -186,7 +203,8 @@ function EditPlan(props) {
         const postObj = {
           planName: planName,
           courses: courses,
-          userId: profile.userId
+          userId: profile.userId,
+          planFocus: props.focus
         };
 
         try {
@@ -362,13 +380,23 @@ function EditPlan(props) {
         
         </Mobile>
         
-
+        <Desktop>
+            <div id="focus-name-container">
+                <p>Focus: {formatFocus(props.focus)}</p>
+            </div>
+        </Desktop>
 
         <div id="title-credits">
           <div id="credits-count">{loadCredits()}</div>
           <div id="credits-label">credits</div>
         </div>
       </div>
+      <Mobile>
+        <div id="focus-name-container">
+            <p>Focus: {formatFocus(props.focus)}</p>
+        </div>
+      </Mobile>
+      
       {props.courses.length > 0 ? (
         <EditPlanTable
           courses={props.courses}
@@ -401,5 +429,6 @@ EditPlan.propTypes = {
   edit: PropTypes.number,
   planName: PropTypes.string,
   onChangePlanName: PropTypes.func,
-  onLoading: PropTypes.func
+  onLoading: PropTypes.func,
+  focus: PropTypes.number
 };

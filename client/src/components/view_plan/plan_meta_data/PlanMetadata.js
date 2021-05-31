@@ -11,6 +11,7 @@ import { Desktop, Mobile } from "../../../utils/responsiveUI";
 import React from "react";
 import { MOBILE_WIDTH } from "../../../utils/constants";
 import { BOX_SHADOW_CARD } from "../../../utils/constants";
+import { formatFocus } from "../../../utils/formatFocus";
 // header bar that shows metadata about current plan
 function PlanMetadata(props) {
   const { planId } = useParams();
@@ -145,6 +146,10 @@ function PlanMetadata(props) {
 
     @media (${responSize}) {
       top: 75px;
+      .metadata-field {
+        padding-left: 2px;
+        padding-right: 2px;
+      }
     }
   `;
 
@@ -162,6 +167,10 @@ function PlanMetadata(props) {
         <div className="metadata-field" id="plan-field">
           <p className="field-type">Plan Name:</p>
           <p className="field-text">{props.planName}</p>
+        </div>
+        <div className="metadata-field" id="plan-field">
+          <p className="field-type">Focus:</p>
+          <p className="field-text">{formatFocus(props.focus)}</p>
         </div>
         {props.currentUser.role !== 0 ? (
           <div className="metadata-field" id="student-field">
@@ -198,6 +207,10 @@ function PlanMetadata(props) {
             <div className="metadata-mobile-item">
               <span className="mobile-item-title">Plan Name: </span>
               {props.planName}
+            </div>
+            <div className="metadata-mobile-item">
+              <span className="mobile-item-title">Focus: </span>
+              {formatFocus(props.focus)}
             </div>
             <div className="metadata-mobile-item">
               <span className="mobile-item-title">Student Name: </span>{" "}
@@ -251,4 +264,5 @@ PlanMetadata.propTypes = {
   onPrint: PropTypes.func,
   onDelete: PropTypes.func,
   courses: PropTypes.array,
+  focus: PropTypes.number
 };
