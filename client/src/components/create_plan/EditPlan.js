@@ -161,6 +161,29 @@ function EditPlan(props) {
       border: none;
     }
 
+    #edit-note {
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        background: var(--color-yellow-50);
+        border: 1px solid var(--color-yellow-300);
+        color: var(--color-yellow-800);
+        display: flex;
+        align-items: center;
+        @media(max-width: ${width}px) {
+            max-width: 72%;
+            font-size: 12px;
+        }
+    }
+
+    #edit-note p {
+        margin-bottom: 0;
+    }
+
+    #footer-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
     #submit-plan-error {
       margin: 0 auto;
       text-align: center;
@@ -408,15 +431,24 @@ function EditPlan(props) {
           <h4 className="empty-plan-description">Use the search bar to find courses and add them to your plan.</h4>
         </div>
       )}
-      {props.courses.length > 0 ? (
-        <div id="submit">
-          <button id="submit-button" onClick={submitPlan}>
-            {props.edit ? "Save Plan" : "Submit Plan"}
-          </button>
+        <div id="footer-container">
+            <div id="edit-note">
+                    <p id="note-text">
+                        <span>Note:</span> For more details about applied plan requirements please refer to 
+                        <a href="https://eecs.oregonstate.edu/undergraduate-programs/computer-science"> this page </a>
+                        before submitting your plan.
+                    </p>
+            </div>
+            {props.courses.length > 0 ? (
+                <div id="submit">
+                <button id="submit-button" onClick={submitPlan}>
+                    {props.edit ? "Save Plan" : "Submit Plan"}
+                </button>
+                </div>
+            ) : (
+                null
+            )}
         </div>
-      ) : (
-        null
-      )}
     </div>
   );
 
