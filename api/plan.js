@@ -39,7 +39,6 @@ const {
 app.post("/", requireAuth, async (req, res) => {
 
   try {
-
     // use schema validation to ensure valid request body
     const errorMessage = getSchemaViolations(req.body, postPlanSchema);
 
@@ -47,23 +46,25 @@ app.post("/", requireAuth, async (req, res) => {
 
       const planDataObj = {
         courses: req.body.courses,
-        planName: req.body.planName
+        planName: req.body.planName,
+        planFocus: req.body.planFocus
       };
 
       const sanitizedBody = sanitizeUsingSchema(planDataObj, postPlanSchema);
-
+      
       // get request body
       console.log("Submit a plan");
       const userId = req.body.userId + "@oregonstate.edu";
       const planName = sanitizedBody.planName;
       const courses = formatCourseArray(sanitizedBody.courses);
-
+      const planFocus = sanitizedBody.planFocus;
+      
       // only create a plan if it does not violate any constraints
-      const validation = await createPlanValidation(userId, planName, courses);
+      const validation = await createPlanValidation(userId, planName, planFocus, courses);
       if (validation === "valid") {
-
+        
         // create the plan
-        const results = await createPlan(userId, planName, courses);
+        const results = await createPlan(userId, planName, planFocus, courses);
         console.log("201: Submitted plan has been created\n");
         res.status(201).send(results);
 

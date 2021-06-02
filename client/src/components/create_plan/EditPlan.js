@@ -8,6 +8,7 @@ import {css, jsx} from "@emotion/core";
 import {getProfile, login} from "../../utils/authService";
 import { Desktop, Mobile } from "../../utils/responsiveUI";
 import {SCREENWIDTH} from "../../utils/constants";
+import { formatFocus } from "../../utils/formatFocus";
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root')
@@ -75,7 +76,10 @@ function EditPlan(props) {
         grid-template-columns: auto;
         grid-template-rows: auto 1fr auto;
         padding: 0px 5px 0px 5px;
-
+        grid-template-areas: 'title'
+                            'focus'
+                          'table'
+                          'submit';
       }
     }
     
@@ -131,6 +135,19 @@ function EditPlan(props) {
       }
     }
     
+    #focus-name-container {
+        grid-area: focus;
+        font-size: 14px;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #focus-name-container p {
+        margin: 0
+    }
+
     #submit {
       grid-area: submit;
       text-align: right;
@@ -142,6 +159,29 @@ function EditPlan(props) {
       padding: 1rem 1rem;
       border-radius: 0.5rem;
       border: none;
+    }
+
+    #edit-note {
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        background: var(--color-yellow-50);
+        border: 1px solid var(--color-yellow-300);
+        color: var(--color-yellow-800);
+        display: flex;
+        align-items: center;
+        @media(max-width: ${width}px) {
+            max-width: 72%;
+            font-size: 12px;
+        }
+    }
+
+    #edit-note p {
+        margin-bottom: 0;
+    }
+
+    #footer-container {
+        display: flex;
+        justify-content: space-between;
     }
 
     #submit-plan-error {
@@ -186,7 +226,8 @@ function EditPlan(props) {
         const postObj = {
           planName: planName,
           courses: courses,
-          userId: profile.userId
+          userId: profile.userId,
+          planFocus: props.focus
         };
 
         try {
@@ -362,13 +403,23 @@ function EditPlan(props) {
         
         </Mobile>
         
-
+        <Desktop>
+            <div id="focus-name-container">
+                <p>Focus: {formatFocus(props.focus)}</p>
+            </div>
+        </Desktop>
 
         <div id="title-credits">
           <div id="credits-count">{loadCredits()}</div>
           <div id="credits-label">credits</div>
         </div>
       </div>
+      <Mobile>
+        <div id="focus-name-container">
+            <p>Focus: {formatFocus(props.focus)}</p>
+        </div>
+      </Mobile>
+      
       {props.courses.length > 0 ? (
         <EditPlanTable
           courses={props.courses}
@@ -380,15 +431,24 @@ function EditPlan(props) {
           <h4 className="empty-plan-description">Use the search bar to find courses and add them to your plan.</h4>
         </div>
       )}
-      {props.courses.length > 0 ? (
-        <div id="submit">
-          <button id="submit-button" onClick={submitPlan}>
-            {props.edit ? "Save Plan" : "Submit Plan"}
-          </button>
+        <div id="footer-container">
+            <div id="edit-note">
+                    <p id="note-text">
+                        <span>Note:</span> For more details about applied plan requirements please refer to 
+                        <a href="https://eecs.oregonstate.edu/undergraduate-programs/computer-science"> this page </a>
+                        before submitting your plan.
+                    </p>
+            </div>
+            {props.courses.length > 0 ? (
+                <div id="submit">
+                <button id="submit-button" onClick={submitPlan}>
+                    {props.edit ? "Save Plan" : "Submit Plan"}
+                </button>
+                </div>
+            ) : (
+                null
+            )}
         </div>
-      ) : (
-        null
-      )}
     </div>
   );
 
@@ -401,5 +461,6 @@ EditPlan.propTypes = {
   edit: PropTypes.number,
   planName: PropTypes.string,
   onChangePlanName: PropTypes.func,
-  onLoading: PropTypes.func
+  onLoading: PropTypes.func,
+  focus: PropTypes.number
 };
