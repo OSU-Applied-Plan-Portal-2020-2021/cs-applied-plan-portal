@@ -207,6 +207,10 @@ async function searchPlans(text, status, sort, order, cursor) {
           sql += `WHERE (CONCAT(firstName , ' ' , lastName) ${orderChar}= ? AND ` +
             `(CONCAT(firstName , ' ' , lastName) ${orderChar} ? OR planId >= ? )) `;
           break;
+        case 1:
+          sql += `WHERE (email ${orderChar}= ? AND ` +
+            `(planName ${orderChar} ? OR planId >= ? )) `;
+          break;
         case 2:
           sql += `WHERE (planName ${orderChar}= ? AND ` +
             `(planName ${orderChar} ? OR planId >= ? )) `;
@@ -253,6 +257,9 @@ async function searchPlans(text, status, sort, order, cursor) {
     switch (sort) {
       case 0:
         sql += "ORDER BY CONCAT(firstName , ' ' , lastName) ";
+        break;
+      case 1:
+        sql += "ORDER BY email ";
         break;
       case 2:
         sql += "ORDER BY planName ";
@@ -304,6 +311,9 @@ async function searchPlans(text, status, sort, order, cursor) {
       switch (sort) {
         case 0:
           nextCursor.primary = String(nextPlan.firstName + " " + nextPlan.lastName);
+          break;
+        case 1:
+          nextCursor.primary = String(nextPlan.email);
           break;
         case 2:
           nextCursor.primary = String(nextPlan.planName);
