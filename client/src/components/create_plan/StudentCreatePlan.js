@@ -23,10 +23,27 @@ export default function StudentCreatePlan() {
   const [warning, setWarning] = useState("");
   const [reqCourseOption, setReqCourseOption] = useState([]);
   const [edit, setEdit] = useState(0);
+  const [focusType, setFocusType] = useState(0);
   const { planId } = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
   const width = SCREENWIDTH.MOBILE.MAX;
+  
+  // Some prefilled course requirements are options between two courses. This is a list of those options for each
+    // applied plan
+  const reqCourses = [
+        [],
+        ["CS 453", "CS 458"],
+        [],
+        [],
+        ["CS 453", "CS 458"],
+        [],
+        [],
+        [],
+        ["CS 458", "CS 468"],
+    ];
+
+  // console.log("all courses from store: ", planCoursesFromStore);
 
   const style = css`
     & {
@@ -84,6 +101,8 @@ export default function StudentCreatePlan() {
         if (response.ok) {
           // get data from the response
           obj = await response.json();
+          setFocusType(obj.focusType);
+          setReqCourseOption(reqCourses[focusType - 1]);
           // get the courses array from the plan object
           setCourses(obj.courses);
           setPlanName(obj.planName);
@@ -105,7 +124,8 @@ export default function StudentCreatePlan() {
 
     async function searchCourse(planId) {
       setPlanLoading(true);
-      // List of prefilled courses
+      setFocusType(planId);
+      // List of prefilled core courses
       let appCourses = [
         ["CS 331", "CS 434", "MTH 254", "MTH 341", "ST 421", "CS 475"], // Artificial Intelligence
         ["CS 434", "CS 440", "BI 212", "BI 213"], // ? Bioinformatics
@@ -126,19 +146,7 @@ export default function StudentCreatePlan() {
         ["CS 450"], // Simulation & Game Programming
         ["CS 370", "CS 492", "CS 493"],
       ]; // ? Web & Mobile Application Development
-      // Some prefilled course requirements are options between two courses. This is a list of those options for each
-      // applied plan
-      let reqCourses = [
-        [],
-        ["CS 453", "CS 458"],
-        [],
-        [],
-        ["CS 453", "CS 458"],
-        [],
-        [],
-        [],
-        ["CS 458", "CS 468"],
-      ];
+      
       // If this is a prefill plan, add prefilled courses
       if (planId >= 1 && planId <= 9) {
         // planId index at 1 to set null planId as custom plan
@@ -270,6 +278,7 @@ export default function StudentCreatePlan() {
           onLoading={(load) => setSubmitLoading(load)}
           onChangePlanName={(e) => setPlanName(e)}
           onRemoveCourse={(e) => handleRemoveCourse(e)}
+          focus={focusType}
         />
 
         <CourseSearch

@@ -4,7 +4,7 @@
 const {pool} = require("../services/db/mysqlPool");
 
 // save a plan with its selected courses. remove the plan if an error occurs
-async function createPlan(userId, planName, courses) {
+async function createPlan(userId, planName, focus, courses) {
 
   try {
 
@@ -31,11 +31,11 @@ async function createPlan(userId, planName, courses) {
 
     // construct the insertion SQL query
     let sql = "BEGIN; " +
-      "INSERT INTO Plan (studentId, planName, status) VALUES (?, ?, 2); " +
+      "INSERT INTO Plan (studentId, planName, focusType, status) VALUES (?, ?, ?, 2); " +
       "SELECT LAST_INSERT_ID();";
 
     // perform the first insert operation
-    let results = await conn.query(sql, [userId, planName]);
+    let results = await conn.query(sql, [userId, planName, focus]);
     const planId = results[0][1].insertId;
 
     // construct the second SQL query
@@ -341,7 +341,6 @@ exports.searchPlans = searchPlans;
 async function getPlan(planId, userId) {
 
   try {
-
     // remove all notifications for the plan
     deletePlanNotifications(planId, userId);
 
