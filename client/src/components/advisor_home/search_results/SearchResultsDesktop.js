@@ -131,6 +131,23 @@ function SearchResultsDesktop({
                   User Name <small>▼</small>
                 </th>
               )}
+
+              {searchFields.sortValue === 1 ? (
+                <th
+                  className="student-plans-data active-sort"
+                  onClick={() => changeSort(1, true)}
+                >
+                  Email <small>{searchFields.orderValue ? "▲" : "▼"}</small>
+                </th>
+              ) : (
+                <th
+                  className="student-plans-data"
+                  onClick={() => changeSort(1, false)}
+                >
+                  Email <small>▼</small>
+                </th>
+              )}
+
               {searchFields.sortValue === 2 ? (
                 <th
                   className="student-plans-data active-sort"
@@ -200,6 +217,9 @@ function SearchResultsDesktop({
               <tr key={plan.planId} onClick={() => goToPlan(plan)}>
                 <td className="student-plans-data" key={plan.planId + "sa"}>
                   {plan.firstName + " " + plan.lastName}
+                </td>
+                <td className="student-plans-data" key={plan.planId + "sb"}>
+                  {plan.email}
                 </td>
                 <td className="student-plans-data" key={plan.planId + "sc"}>
                   {plan.planName}
