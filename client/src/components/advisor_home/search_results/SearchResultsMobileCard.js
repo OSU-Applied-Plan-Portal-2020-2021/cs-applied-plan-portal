@@ -35,6 +35,10 @@ function SearchResultsMobileCard({ plan }) {
         <span className="text">{`${plan.firstName} ${plan.lastName}`}</span>
       </div>
       <div className="cardItem">
+        <span className="title">Email: </span>
+        <span className="text">{plan.email}</span>
+      </div>
+      <div className="cardItem">
         <span className="title">Plan Name: </span>
         <span className="text">{plan.planName}</span>
       </div>
