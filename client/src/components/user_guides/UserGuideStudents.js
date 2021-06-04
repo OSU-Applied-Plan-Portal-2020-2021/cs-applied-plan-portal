@@ -1,7 +1,5 @@
 /** @jsx jsx */
-import React from "react";
 import { css, jsx } from "@emotion/core";
-import PageSpinner from "../general/PageSpinner";
 import Navbar from "../navbar/Navbar";
 import ImgHomepage from "../../images/student-guide-homepage.png";
 import ImgSelectPlan from "../../images/student-guide-select-plan.png";

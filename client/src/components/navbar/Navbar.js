@@ -137,6 +137,8 @@ function Navbar(props) {
 
     .right-container {
       margin-left: auto;
+    }
+    .student-nav {
       display: flex;
     }
 
@@ -166,11 +168,11 @@ function Navbar(props) {
         {role === ROLE.ADVISOR || role === ROLE.HEAD_ADVISOR ? (
           <HeadAdvisorNav currentPlan={props.currentPlan} role={role} />
         ) : (
-          <React.Fragment>
+          <div className="student-nav">
             <UserGuides role={role} />
             <Notifications />
             <Logout />
-          </React.Fragment>
+          </div>
         )}
       </div>
     </div>
