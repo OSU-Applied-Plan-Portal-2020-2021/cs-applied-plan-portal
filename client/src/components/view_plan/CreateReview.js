@@ -1,4 +1,7 @@
 /** @jsx jsx */
+// File name: CreateReview.js
+//file Description: review plan status permissions for different roles
+
 
 import { useState } from "react";
 import { css, jsx } from "@emotion/core";
@@ -51,6 +54,7 @@ function CreateReview(props) {
     }
   `;
 
+  // change plan status
   async function submit(planId) {
     const selectStatus = document.getElementById("review-select");
     const statusValue = selectStatus.options[selectStatus.selectedIndex].value;
@@ -109,6 +113,7 @@ function CreateReview(props) {
     }
   }
 
+  // convert integer status into string    
   function statusText(status) {
     switch (status) {
       case "0":
@@ -125,6 +130,7 @@ function CreateReview(props) {
         return "";
     }
   }
+
 
   if (
     props.currentUser.role &&
@@ -166,7 +172,7 @@ function CreateReview(props) {
             ) : (
               <option value="3">Awaiting final review</option>
             )}
-            {props.status === 4 || props.currentUser.role === 1 ? (
+            {props.status === 4  ? (
               <option value="4" disabled={true}>
                 Accepted
               </option>

@@ -3,7 +3,7 @@ import {css, jsx} from "@emotion/core";
 import styled from "@emotion/styled";
 import {PropTypes} from "prop-types";
 import {useState} from "react";
-import HistoryMenuModal from "../head_advisor_nav/HistoryMenuModal";
+import HistoryMenuModal from "../admin_nav/HistoryMenuModal";
 
 const Container = styled.div``;
 const StyledBtn = styled.button`
@@ -11,7 +11,7 @@ const StyledBtn = styled.button`
     background: rgba(0, 0, 0, 0.15) !important;
   }
 `;
-function HistoryHeadAdvMobile({recentPlans}) {
+function HistoryAdminMobile({recentPlans}) {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,8 +31,8 @@ function HistoryHeadAdvMobile({recentPlans}) {
   );
 }
 
-export default HistoryHeadAdvMobile;
+export default HistoryAdminMobile;
 
-HistoryHeadAdvMobile.propTypes = {
+HistoryAdminMobile.propTypes = {
   recentPlans: PropTypes.array,
 };

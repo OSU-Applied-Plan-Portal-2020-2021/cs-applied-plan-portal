@@ -6,7 +6,7 @@ const {pool} = require("../services/db/mysqlPool");
 
 // Creates a new User in the database with the provided User object.
 //
-// On success, returns the result header from MySQL.
+// On success, returns the result er from MySQL.
 // On failure, logs the error and bubbles it up.
 async function createUser(newUser) {
   try {

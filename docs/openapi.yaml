@@ -730,7 +730,7 @@ components:
         role:
           description: >
             Encodes the role of the User in the application: `0` is Student, `1`
-            is Advisor, and `2` is Head Advisor
+            is Advisor, and `2` is admin
           type: integer
           format: int32
           minimum: 0

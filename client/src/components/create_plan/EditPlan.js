@@ -78,6 +78,7 @@ function EditPlan(props) {
         padding: 0px 5px 0px 5px;
         grid-template-areas: 'title'
                             'focus'
+                            'text'
                           'table'
                           'submit';
       }
@@ -146,6 +147,16 @@ function EditPlan(props) {
 
     #focus-name-container p {
         margin: 0
+    }
+
+    #restriction-text-container p{
+        font-style: italic;
+        margin: 8px;
+      @media(max-width: ${width}px){
+        text-align:center;
+        // font-weight: normal;
+      }
+      
     }
 
     #submit {
@@ -419,6 +430,10 @@ function EditPlan(props) {
             <p>Focus: {formatFocus(props.focus)}</p>
         </div>
       </Mobile>
+
+      <div id="restriction-text-container">
+        <p >*Applied program courses cannot double dip or double count with other areas in the Computer Science major</p>
+      </div>
       
       {props.courses.length > 0 ? (
         <EditPlanTable

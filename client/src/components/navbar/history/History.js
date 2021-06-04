@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
 import HistoryCommon from "./HistoryCommon";
-import HistoryHeadAdv from "../head_advisor_nav/history/HistoryHeadAdv";
+import HistoryAdmin from "../admin_nav/history/HistoryAdmin";
 
 // dropdown menu that shows plan view history
 function History(props) {
@@ -71,7 +71,7 @@ function History(props) {
   }, [props.currentPlan]);
 
   return (
-       <HistoryHeadAdv recentPlans={recentPlans} />
+       <HistoryAdmin recentPlans={recentPlans} />
   );
 }
 export default withRouter(History);

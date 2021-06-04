@@ -148,7 +148,7 @@ async function getLiveCourses(userId) {
     }
 
     // the courses have been updated successfully,
-    // send a notification to the head advisor
+    // send a notification to the admin
     courseUpdateNotification(userId, 2);
 
     return {
