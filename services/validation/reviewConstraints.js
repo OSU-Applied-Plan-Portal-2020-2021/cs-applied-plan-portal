@@ -76,7 +76,7 @@ async function roleConstraint(role, status, planStatus) {
         throw ConstraintViolation(violationSet, 400);
       }
     } else if (role === "1") {
-      if (status !== "0" && status !== "1" && status !== "2" && status !== "3") {
+      if (status !== "0" && status !== "1" && status !== "2" && status !== "3" && status !== "4") {
         throw ConstraintViolation(violationSet, 400);
       } else if (planStatus === "0" || planStatus === "4") {
         throw ConstraintViolation(violationChange, 400);
