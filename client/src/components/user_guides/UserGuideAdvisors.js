@@ -50,7 +50,7 @@ function UserGuideAdvisors() {
           <li>
             <p>
               4. ...and change plan status or comment on the plan. This is where
-              advisors approve or reject the plan
+              advisors approve or reject the plan.
             </p>
             <img src={ImgDetail2} />
           </li>
