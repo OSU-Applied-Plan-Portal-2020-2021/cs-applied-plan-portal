@@ -8,7 +8,7 @@ info:
 
 
     [GitHub repository](https://github.com/osu-capstone-cs72/cs-applied-plan-portal)
-  version: 1.0.0
+  version: 2.0.0
   title: OSU CS Applied Plan Portal
   contact:
     name: API support
@@ -481,7 +481,7 @@ components:
         planId:
           $ref: '#/components/schemas/Plan/properties/planId'
         userId:
-          $ref: '#/components/schemas/User/properties/userId'
+          $ref: '#/components/schemas/User/properties/email'
         time:
           allOf:
             - description: The UTC time at which the Comment was created
@@ -568,7 +568,7 @@ components:
         planId:
           $ref: '#/components/schemas/Plan/properties/planId'
         userId:
-          $ref: '#/components/schemas/User/properties/userId'
+          $ref: '#/components/schemas/User/properties/email'
         text:
           description: The text content of the Notification
           type: string
@@ -596,6 +596,7 @@ components:
         - studentId
         - created
         - lastUpdated
+        - planFocus
       properties:
         planId:
           allOf:
@@ -618,7 +619,7 @@ components:
           maxLength: 50
           example: My AI plan
         studentId:
-          $ref: '#/components/schemas/User/properties/userId'
+          $ref: '#/components/schemas/User/properties/email'
         created:
           allOf:
             - description: The UTC time at which the Plan was created
@@ -627,6 +628,12 @@ components:
           allOf:
             - description: The UTC time at which the Plan was last changed
             - $ref: '#/components/schemas/UtcTime'
+        planFocus:
+          description: The focus type of the Plan
+          type: integer
+          minimum: 0
+          maximum: 9
+          example: 2
 
     PlanReview:
       description: An object representing information about a Plan Review
@@ -645,7 +652,7 @@ components:
         planId:
           $ref: '#/components/schemas/Plan/properties/planId'
         userId:
-          $ref: '#/components/schemas/User/properties/userId'
+          $ref: '#/components/schemas/User/properties/email'
         status:
           description: >
             Encodes different statuses of a Plan: `0` is Rejected, `1` is
@@ -674,7 +681,7 @@ components:
         planId:
           $ref: '#/components/schemas/Plan/properties/planId'
         userId:
-          $ref: '#/components/schemas/User/properties/userId'
+          $ref: '#/components/schemas/User/properties/email'
         time:
           $ref: '#/components/schemas/Plan/properties/lastUpdated'
 
@@ -699,16 +706,11 @@ components:
       description: An object representing information about an application User
       type: object
       required:
-        - userId
         - firstName
         - lastName
         - email
         - role
       properties:
-        userId:
-          allOf:
-            - description: The 11-digit unique identifier of a User
-            - $ref: '#/components/schemas/BigId'
         firstName:
           description: The first name of the User
           type: string
@@ -767,7 +769,7 @@ components:
         lastUpdated:
           $ref: '#/components/schemas/Plan/properties/lastUpdated'
         userId:
-          $ref: '#/components/schemas/User/properties/userId'
+          $ref: '#/components/schemas/User/properties/email'
 
     PlanAdvisor:
       description: >
@@ -947,9 +949,17 @@ components:
             required:
               - planName
               - courses
+              - userId
+              - planFocus
             properties:
               planName:
                 $ref: '#/components/schemas/Plan/properties/planName'
+              userId:
+                description: ONID Id of the student
+                type: string
+                example: "smithj"
+              planFocus:
+                $ref: '#/components/schemas/Plan/properties/planFocus'
               courses:
                 description: A list of selected Courses for the Plan
                 type: array
@@ -1124,10 +1134,12 @@ components:
     User_UserId:
       name: userId
       in: path
-      description: The unique identifier of the User
+      description: The ONID ID  of the User
       required: true
       schema:
-        $ref: '#/components/schemas/User/properties/userId'
+        type: string
+        minLength: 1
+        example: 'smithj'
 
   responses:
     Comment_POST_201:
@@ -1287,6 +1299,7 @@ components:
               - lastName
               - email
               - courses
+              - focusType
             properties:
               planId:
                 $ref: '#/components/schemas/Plan/properties/planId'
@@ -1306,6 +1319,8 @@ components:
                 $ref: '#/components/schemas/User/properties/lastName'
               email:
                 $ref: '#/components/schemas/User/properties/email'
+              focusType:
+                $ref: '#/components/schemas/Plan/properties/planFocus'
               courses:
                 description: The list of selected Courses for the Plan
                 type: array
