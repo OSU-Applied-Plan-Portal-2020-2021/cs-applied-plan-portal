@@ -11,6 +11,8 @@ import ManageRoles from "./manage_roles/ManageRoles";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import RestrictedRoute from "../utils/RestrictedRoute";
+import UserGuideStudents from "./user_guides/UserGuideStudents";
+import UserGuideAdvisors from "./user_guides/UserGuideAdvisors";
 
 const globalStyles = css`
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400;0,700&display=swap');
@@ -138,6 +140,12 @@ function App() {
           </Route>
           <Route path="/editPlan/:planId">
             <StudentCreatePlan />
+          </Route>
+          <Route path="/guides/students">
+            <UserGuideStudents />
+          </Route>
+          <Route path="/guides/advisors">
+            <UserGuideAdvisors />
           </Route>
           <RestrictedRoute exact path="/manageRoles">
             <ManageRoles />
