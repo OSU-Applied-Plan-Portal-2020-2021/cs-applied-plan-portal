@@ -23,7 +23,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           instance-ids: ${{ secrets.INSTANCE_ID }}
         
-          working-directory: /home/ubuntu/dev/cs-applied-plan-portal
+          working-directory: /home/ubuntu/cs-applied-plan-portal
           command: /bin/bash ./deploy.sh
           comment: Deploying from master
 
