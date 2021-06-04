@@ -11,7 +11,9 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import HeadAdvisorNav from "./head_advisor_nav/HeadAdvisorNav";
 import logo from "./../../images/logo.png";
-import { ROLE } from '../../utils/constants'
+import { ROLE } from "../../utils/constants";
+import UserGuides from "./UserGuides";
+import React from "react";
 
 // application navigation bar
 function Navbar(props) {
@@ -70,17 +72,14 @@ function Navbar(props) {
       display: flex;
       align-items: center;
       @media (${responSize}) {
-
       }
     }
 
     .logo-img {
-
       margin-left: 16px;
       height: 90%;
 
       @media (${responSize}) {
-
       }
       object-fit: contain;
     }
@@ -92,7 +91,6 @@ function Navbar(props) {
       text-align: center;
       top: 12px;
       left: 80px;
-
 
       @media (${responSize}) {
         display: block;
@@ -166,13 +164,13 @@ function Navbar(props) {
       </Link>
       <div className="right-container">
         {role === ROLE.ADVISOR || role === ROLE.HEAD_ADVISOR ? (
-          <HeadAdvisorNav currentPlan={props.currentPlan} role={role}/>
+          <HeadAdvisorNav currentPlan={props.currentPlan} role={role} />
         ) : (
-          <div>
-            {/* {role ? <History currentPlan={props.currentPlan} /> : null} */}
+          <React.Fragment>
+            <UserGuides role={role} />
             <Notifications />
             <Logout />
-          </div>
+          </React.Fragment>
         )}
       </div>
     </div>
