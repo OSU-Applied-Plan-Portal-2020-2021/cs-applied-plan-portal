@@ -12,16 +12,16 @@ function UserGuideStudents() {
     #container {
       width: 80%;
       margin: auto;
-    }
-    img {
-      width: 100%;
-      border: 1px solid #444;
-    }
-    li {
-      margin-top: 28px;
-    }
-    p {
-      font-size: 16px;
+      img {
+        width: 100%;
+        border: 1px solid #444;
+      }
+      li {
+        margin-top: 28px;
+      }
+      p {
+        font-size: 16px;
+      }
     }
   `;
 
