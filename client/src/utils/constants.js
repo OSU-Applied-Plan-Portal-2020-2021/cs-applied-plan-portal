@@ -10,7 +10,7 @@ export const SCREENWIDTH = {
 export const ROLE = {
 	STUDENT: 0,
 	ADVISOR: 1,
-	HEAD_ADVISOR: 2
+	ADMIN: 2
 }
 
 export const FOCUS = {

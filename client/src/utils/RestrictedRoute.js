@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { isHeadAdvisor, loggedIn } from "./authService";
+import { isAdmin, loggedIn } from "./authService";
 
 const RestrictedRoute = ({ children, ...rest }) => {
-  // only show this route is user is head advisor and is logged in
+  // only show this route is user is admin and is logged in
   return (
     <Route
       {...rest}
-      render={() => (isHeadAdvisor() ? children : <Redirect to="/login" />)}
+      render={() => (isAdmin() ? children : <Redirect to="/login" />)}
     />
   );
 };

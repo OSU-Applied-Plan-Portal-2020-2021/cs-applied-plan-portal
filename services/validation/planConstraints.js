@@ -505,7 +505,7 @@ async function deleteConstraint(planId, userId) {
 
     } else {
 
-      // only the head advisor can delete a students plan
+      // only the admin can delete a students plan
       if (results[0][0].role === 2) {
         return;
       } else {

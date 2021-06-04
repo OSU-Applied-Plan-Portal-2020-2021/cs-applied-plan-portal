@@ -48,9 +48,9 @@ app.get("/search/:text/:role/:cursorPrimary/:cursorSecondary", requireAuth, asyn
       // fetch the authenticated user's info
       const authenticatedUser = await userModel.getUserById(req.auth.userId);
 
-      // only allow an Advisor or a Head Advisor to fetch Users
+      // only allow an Advisor or an admin to fetch Users
       if (authenticatedUser.role === Role.advisor ||
-        authenticatedUser.role === Role.headAdvisor) {
+        authenticatedUser.role === Role.admin) {
         const matchingUsers = await userModel.searchUsers(text, parseInt(role, 10), cursor);
 
         if (matchingUsers.users.length) {
@@ -63,7 +63,7 @@ app.get("/search/:text/:role/:cursorPrimary/:cursorSecondary", requireAuth, asyn
       } else {
         console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
         res.status(403).send({
-          error: "Only advisors and head advisors can fetch users"
+          error: "Only advisors and admins can fetch users"
         });
       }
 
@@ -89,8 +89,8 @@ app.post("/", requireAuth, async (req, res) => {
     // fetch the authenticated user's info
     const authenticatedUser = await userModel.getUserById(req.auth.userId);
 
-    // only allow a Head Advisor to create new Users
-    if (authenticatedUser && authenticatedUser.role === Role.headAdvisor) {
+    // only allow an admin to create new Users
+    if (authenticatedUser && authenticatedUser.role === Role.admin) {
       // validate the request body against the schema and get error message,
       // if any
       const schemaViolations = getSchemaViolations(req.body, userSchema);
@@ -108,7 +108,7 @@ app.post("/", requireAuth, async (req, res) => {
     } else {
       console.error(`403: User ${authenticatedUser.userId} not authorized to perform this action\n`);
       res.status(403).send({
-        error: "Only head advisors can create new users"
+        error: "Only admins can create new users"
       });
     }
   } catch (err) {
@@ -238,11 +238,11 @@ app.get("/:userId/plans", requireAuth, async (req, res) => {
       const authenticatedUser = await userModel.getUserById(osuemail);
 
       // only allow the authenticated user with the same ID as the target user,
-      // an Advisor, and a Head Advisor to perform this action
+      // an Advisor, and admin to perform this action
       if (authenticatedUser &&
         (authenticatedUser.email === osuemail ||
           authenticatedUser.role === Role.advisor ||
-          authenticatedUser.role === Role.headAdvisor)) {
+          authenticatedUser.role === Role.admin)) {
         // fetch the target user's plans
         const results = await userModel.getUserPlans(req.params.userId + "@oregonstate.edu");
 
@@ -256,7 +256,7 @@ app.get("/:userId/plans", requireAuth, async (req, res) => {
       } else {
         console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
         res.status(403).send({
-          error: "Only the target user, advisors, and head advisors can fetch the target user's plans"
+          error: "Only the target user, advisors, and admins can fetch the target user's plans"
         });
       }
     } else {
@@ -285,11 +285,11 @@ app.get("/:userId", requireAuth, async (req, res) => {
       const authenticatedUser = await userModel.getUserById(req.auth.userId);
       
       // only allow the authenticated user with the same ID as the target user,
-      // an Advisor, and a Head Advisor to perform this action
+      // an Advisor, and an admin to perform this action
       if (authenticatedUser &&
         (authenticatedUser.email === userId ||
           authenticatedUser.role === Role.advisor ||
-          authenticatedUser.role === Role.headAdvisor)) {
+          authenticatedUser.role === Role.admin)) {
 
         // fetch the target user's info
 
@@ -306,7 +306,7 @@ app.get("/:userId", requireAuth, async (req, res) => {
 
         console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
         res.status(403).send({
-          error: "Only the target user, advisors, and head advisors can fetch the target user's info"
+          error: "Only the target user, advisors, and admins can fetch the target user's info"
         });
       }
     } else {
@@ -334,8 +334,8 @@ app.patch("/:userId", requireAuth, async (req, res) => {
       // fetch the authenticated user's info
       const authenticatedUser = await userModel.getUserById(req.auth.userId);
 
-      // only allow a Head Advisor to update a User's info
-      if (authenticatedUser && authenticatedUser.role === Role.headAdvisor) {
+      // only allow an admin to update a User's info
+      if (authenticatedUser && authenticatedUser.role === Role.admin) {
         // validate the request body against the schema and get error message,
         // if any
         const schemaViolations = getSchemaViolations(req.body, userSchema, true);
@@ -353,7 +353,7 @@ app.patch("/:userId", requireAuth, async (req, res) => {
       } else {
         console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
         res.status(403).send({
-          error: "Only head advisors can update a user's information"
+          error: "Only admins can update a user's information"
         });
       }
     } else {

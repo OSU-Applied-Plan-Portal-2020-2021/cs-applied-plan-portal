@@ -9,7 +9,7 @@ import Logout from "./Logout";
 import { getProfile } from "../../utils/authService";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import HeadAdvisorNav from "./head_advisor_nav/HeadAdvisorNav";
+import AdminNav from "./admin_nav/AdminNav";
 import logo from "./../../images/logo.png";
 import { ROLE } from '../../utils/constants'
 
@@ -165,8 +165,8 @@ function Navbar(props) {
         </div>
       </Link>
       <div className="right-container">
-        {role === ROLE.ADVISOR || role === ROLE.HEAD_ADVISOR ? (
-          <HeadAdvisorNav currentPlan={props.currentPlan} role={role}/>
+        {role === ROLE.ADVISOR || role === ROLE.ADMIN ? (
+          <AdminNav currentPlan={props.currentPlan} role={role}/>
         ) : (
           <div>
             {/* {role ? <History currentPlan={props.currentPlan} /> : null} */}

@@ -171,7 +171,7 @@ const userSchema = {
     maxValue: 2,
     getErrorMessage: function() {
       return "Invalid user's role:\n" +
-        "User's role must be 0 (Student), 1 (Advisor), or 2 (Head Advisor).";
+        "User's role must be 0 (Student), 1 (Advisor), or 2 (admin).";
     }
   }
 };
@@ -194,7 +194,7 @@ const searchUserSchema = {
     maxValue: 3,
     getErrorMessage: function() {
       return "Invalid user's role:\n" +
-        "User's role must be 0 (Student), 1 (Advisor), 2 (Head Advisor), " +
+        "User's role must be 0 (Student), 1 (Advisor), 2 Admin), " +
         "or 3 (Any).";
     }
   },

@@ -86,7 +86,7 @@ function SelectRole(props) {
 
       <option value="0">Student</option>
       <option value="1">Advisor</option>
-      <option value="2">Head Advisor</option>
+      <option value="2">Admin</option>
 
     </select>
   );

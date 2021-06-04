@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { jsx } from "@emotion/core";
 import { withRouter } from "react-router-dom";
 import Cookies from "js-cookie";
-import NotificationHeadAdv from "../head_advisor_nav/notifications/NotificationHeadAdv";
+import NotificationAdmin from "../admin_nav/notifications/NotificationAdmin";
 import NotificationCommon from "./NotificationCommon";
 
 // dropdown menu that shows notifications
@@ -111,7 +111,7 @@ function Notifications() {
           handleClick={handleClick}
         />
       ) : (
-        <NotificationHeadAdv
+        <NotificationAdmin
           notifications={notifications}
           handleClick={handleClick}
         />

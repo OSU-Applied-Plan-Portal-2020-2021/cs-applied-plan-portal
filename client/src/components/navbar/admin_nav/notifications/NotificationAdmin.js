@@ -4,7 +4,7 @@ import NotificationDesktop from "./NotificationDesktop";
 import NotificationMobile from "./NotificationMobile";
 import {PropTypes} from "prop-types";
 
-function NotificationHeadAdv({notifications, handleClick}) {
+function NotificationAdmin({notifications, handleClick}) {
   return (
     <React.Fragment>
       <Desktop>
@@ -23,9 +23,9 @@ function NotificationHeadAdv({notifications, handleClick}) {
   );
 }
 
-export default NotificationHeadAdv;
+export default NotificationAdmin;
 
-NotificationHeadAdv.propTypes = {
+NotificationAdmin.propTypes = {
   notifications: PropTypes.array,
   handleClick: PropTypes.func,
 };

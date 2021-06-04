@@ -7,12 +7,12 @@ import Logout from "../Logout";
 import { PropTypes } from "prop-types";
 import { ROLE } from "../../../utils/constants";
 
-function HeadAdvisorNavDesktop({ currentPlan, role }) {
+function AdminNavDesktop({ currentPlan, role }) {
   return (
     <div>
       <History currentPlan={currentPlan} />
       <Notifications />
-      {role === ROLE.HEAD_ADVISOR && (
+      {role === ROLE.ADMIN && (
         <>
           <Link to={"/manageRoles"}>
             <button id="manage-roles-button">Manage Roles</button>
@@ -25,8 +25,8 @@ function HeadAdvisorNavDesktop({ currentPlan, role }) {
   );
 }
 
-export default HeadAdvisorNavDesktop;
+export default AdminNavDesktop;
 
-HeadAdvisorNavDesktop.propTypes = {
+AdminNavDesktop.propTypes = {
   currentPlan: PropTypes.number,
 };

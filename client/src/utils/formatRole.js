@@ -6,7 +6,7 @@ export function formatRole(role) {
     case 1:
       return "Advisor";
     case 2:
-      return "Head Advisor";
+      return "Admin";
     default:
       return "";
   }

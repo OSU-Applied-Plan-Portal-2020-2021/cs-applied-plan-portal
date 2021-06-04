@@ -131,7 +131,7 @@ async function planNotification(planId, userId, type) {
 exports.planNotification = planNotification;
 
 
-// add a notification for the current head advisor for when the
+// add a notification for the current admin for when the
 // database of courses starts and finishes being updated
 async function courseUpdateNotification(userId, state) {
 
