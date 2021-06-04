@@ -24,8 +24,8 @@ app.get("/updateDatabase", requireAuth, async (req, res) => {
     const authenticatedUser = await getUserById(req.auth.userId);
 
     // due to the computational cost of this action,
-    // only the head advisor can perform this action
-    if (authenticatedUser.role === Role.headAdvisor) {
+    // only the admin can perform this action
+    if (authenticatedUser.role === Role.admin) {
 
       // start course update
       getLiveCourses(req.auth.userId);
@@ -34,7 +34,7 @@ app.get("/updateDatabase", requireAuth, async (req, res) => {
     } else {
       console.error(`403: User ${authenticatedUser.email} not authorized to perform this action\n`);
       res.status(403).send({
-        error: "Only head advisors can update the courses in the database."
+        error: "Only admins can update the courses in the database."
       });
     }
 

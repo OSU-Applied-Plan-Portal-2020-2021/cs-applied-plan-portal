@@ -61,9 +61,9 @@ export function loggedIn() {
 
 }
 
-export function isHeadAdvisor() {
+export function isAdmin() {
 	const {role} = getProfile()
-	return (role === ROLE.HEAD_ADVISOR)
+	return (role === ROLE.ADMIN)
 }
 
 // clear user cookies then redirect the user to the OSU logout page

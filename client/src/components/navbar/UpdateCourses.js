@@ -3,7 +3,7 @@
 import {css, jsx} from "@emotion/core";
 import {login} from "../../utils/authService";
 
-// button that allows the head advisor to update the courses in the database
+// button that allows the admin to update the courses in the database
 function UpdateCourses() {
 
   const style = css`

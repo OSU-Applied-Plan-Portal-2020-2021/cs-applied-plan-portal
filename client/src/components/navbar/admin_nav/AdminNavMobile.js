@@ -9,7 +9,7 @@ import ManageRoles from "../../manage_roles/ManageRoles";
 import History from "../history/History";
 import Notifications from "../notifications/Notifications";
 
-function HeadAdvisorNavMobile({ currentPlan, role }) {
+function AdminNavMobile({ currentPlan, role }) {
   const styleMain = css`
     /* Position and sizing of burger button */
     .bm-burger-button {
@@ -104,7 +104,7 @@ function HeadAdvisorNavMobile({ currentPlan, role }) {
     <div css={styleMain}>
       <Menu right>
         <HomeBtn />
-        {role === ROLE.HEAD_ADVISOR && <ManageRoleBtn />}
+        {role === ROLE.ADMIN && <ManageRoleBtn />}
         <Notifications className="menu-item" />
         <HistoryBtn />
         <LogoutBtn />
@@ -113,8 +113,8 @@ function HeadAdvisorNavMobile({ currentPlan, role }) {
   );
 }
 
-export default HeadAdvisorNavMobile;
+export default AdminNavMobile;
 
-HeadAdvisorNavMobile.propTypes = {
+AdminNavMobile.propTypes = {
   currentPlan: PropTypes.number,
 };
