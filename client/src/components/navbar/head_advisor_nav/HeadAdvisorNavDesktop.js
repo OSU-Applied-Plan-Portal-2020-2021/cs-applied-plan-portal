@@ -13,7 +13,9 @@ import { ROLE } from "../../../utils/constants";
 import UserGuides from "../UserGuides";
 
 function HeadAdvisorNavDesktop({ currentPlan, role }) {
-  const style = css``;
+  const style = css`
+    display: flex;
+  `;
   return (
     <div className="advisor-nav" css={style}>
       <UserGuides role={role} />

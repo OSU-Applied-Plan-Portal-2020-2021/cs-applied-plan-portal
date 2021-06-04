@@ -144,7 +144,7 @@ function App() {
           <Route path="/guides/students">
             <UserGuideStudents />
           </Route>
-          <Route path="/guides/students">
+          <Route path="/guides/advisors">
             <UserGuideAdvisors />
           </Route>
           <RestrictedRoute exact path="/manageRoles">

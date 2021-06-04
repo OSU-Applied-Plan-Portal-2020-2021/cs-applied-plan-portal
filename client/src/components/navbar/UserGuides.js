@@ -14,7 +14,7 @@ function UserGuides({ role }) {
           </Link>
         ) : (
           <>
-            <Link to="/guides/advisors">
+            <Link to="/guides/students">
               <button>Student Guide</button>
             </Link>
             <Link to="/guides/advisors">
