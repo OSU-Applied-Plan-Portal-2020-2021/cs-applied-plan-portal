@@ -48,13 +48,13 @@ function PlanCourse(props) {
   `
 
 	// remove the current course from the plan
-	function removeButton() {
+	function handleRemoveBtnClicked() {
 		props.onRemoveCourse({
 			courseId: props.courseId
 		})
 
 		// remove course from redux store
-		dispatch(removeCourseFromPlan({ courseId: props.courseId }))
+		// dispatch(removeCourseFromPlan({ courseId: props.courseId }))
 	}
 
 	return (
@@ -69,7 +69,7 @@ function PlanCourse(props) {
 			</Desktop>
 
 			<td className="button">
-				<button className="remove-button" onClick={removeButton}>
+				<button className="remove-button" onClick={handleRemoveBtnClicked}>
 					<Desktop>
 						Remove
           </Desktop>

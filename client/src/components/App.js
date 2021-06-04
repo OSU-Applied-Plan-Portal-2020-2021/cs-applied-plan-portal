@@ -15,9 +15,9 @@ import UserGuideStudents from "./user_guides/UserGuideStudents";
 import UserGuideAdvisors from "./user_guides/UserGuideAdvisors";
 
 const globalStyles = css`
-  @import url("https://fonts.googleapis.com/css?family=Muli");
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400;0,700&display=swap');
   body {
-    font-family: "Muli", sans-serif;
+    font-family: "Open Sans", sans-serif;
     margin: 0;
     background: #fbfaf9;
   }
