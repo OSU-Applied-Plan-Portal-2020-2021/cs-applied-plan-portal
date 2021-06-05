@@ -65,9 +65,10 @@ function EditPlan(props) {
       grid-area: plan;
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: 50px 1fr auto;
+      grid-template-rows: 50px 54px 1fr auto;
       grid-row-gap: 1rem;
       grid-template-areas: 'title'
+                           'text'
                           'table'
                           'submit';
       @media(max-width: ${width}px){
